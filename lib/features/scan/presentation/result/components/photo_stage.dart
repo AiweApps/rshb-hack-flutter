@@ -6,18 +6,19 @@ import '../../../../../core/constants/app_constants.dart';
 import '../../../../../core/constants/app_style_constants.dart';
 import '../../../../../core/extensions/context_extensions.dart';
 import '../../../../../core/helpers/app_haptics.dart';
-import '../../../../../core/services/language_service.dart';
+import '../../../../../core/presentation/app_icons.dart';
 import '../../../domain/models/bottle_box.dart';
 import '../../../domain/models/recognition_view.dart';
 import 'bottle_overlay_painter.dart';
 import 'photo_geometry.dart';
 
-/// The photo with the bottle frames over it and the manual frame gestures.
+/// The photo to draw a frame on, with the answer's boxes for orientation.
 ///
 /// Boxes are in frame pixels; the widget maps them to the letterboxed image
-/// with [PhotoGeometry]. Which bottle is selected and what frame was drawn
-/// are the bloc's — the widget only reports gestures through callbacks and
-/// keeps the frame *while it is being dragged*.
+/// with [PhotoGeometry]. The frame drawn is the caller's — the widget only
+/// reports gestures through [onDraftChanged] and keeps the frame *while it
+/// is being dragged*. A drag outside the [draft] draws a new frame, inside
+/// it moves the frame, and the corners resize it.
 class PhotoStage extends StatefulWidget {
   final String photoPath;
 
@@ -25,32 +26,16 @@ class PhotoStage extends StatefulWidget {
   /// there is one.
   final List<int>? frame;
   final RecognitionView? view;
-  final String? selectedInstanceId;
-  final BottleBox? requestRoi;
-  final bool isDrawing;
   final BottleBox? draft;
-  final bool isEditingDraft;
-  final ValueChanged<String?> onBottleTap;
   final ValueChanged<BottleBox> onDraftChanged;
-  final VoidCallback onDraftCleared;
-  final VoidCallback onDraftEditToggled;
-  final VoidCallback onDraftRecognize;
 
   const PhotoStage({
     super.key,
     required this.photoPath,
     required this.frame,
     required this.view,
-    required this.selectedInstanceId,
-    required this.requestRoi,
-    required this.isDrawing,
     required this.draft,
-    required this.isEditingDraft,
-    required this.onBottleTap,
     required this.onDraftChanged,
-    required this.onDraftCleared,
-    required this.onDraftEditToggled,
-    required this.onDraftRecognize,
   });
 
   @override
@@ -80,7 +65,7 @@ class _PhotoStageState extends State<PhotoStage> {
       _naturalSize = null;
       _resolveSize();
     }
-    if (oldWidget.draft != widget.draft || !widget.isDrawing) {
+    if (oldWidget.draft != widget.draft) {
       _liveDraft = null;
       _editDrag = null;
     }
@@ -107,7 +92,7 @@ class _PhotoStageState extends State<PhotoStage> {
               gaplessPlayback: true,
               errorBuilder: (_, _, _) => Center(
                 child: Icon(
-                  Icons.broken_image_outlined,
+                  AppIcon.brokenImage.data,
                   color: context.colors.muted,
                   size: AppSize.s48,
                 ),
@@ -116,23 +101,18 @@ class _PhotoStageState extends State<PhotoStage> {
             if (geometry != null)
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                onTapUp: widget.isDrawing
-                    ? null
-                    : (details) => _onTap(details.localPosition, geometry),
-                onPanStart: _canDraw ? (d) => _onDrawStart(d, geometry) : null,
-                onPanUpdate: _canDraw
-                    ? (d) => _onDrawUpdate(d, geometry)
-                    : null,
-                onPanEnd: _canDraw ? (_) => _onDrawEnd(geometry) : null,
-                onPanCancel: _canDraw ? _onDrawCancel : null,
+                onPanStart: (d) => _onDrawStart(d, geometry),
+                onPanUpdate: (d) => _onDrawUpdate(d, geometry),
+                onPanEnd: (_) => _onDrawEnd(geometry),
+                onPanCancel: _onDrawCancel,
                 child: CustomPaint(
                   painter: BottleOverlayPainter(
                     geometry: geometry,
                     view: widget.view,
-                    selectedInstanceId: widget.selectedInstanceId,
-                    requestRoi: widget.isDrawing ? null : widget.requestRoi,
+                    selectedInstanceId: null,
+                    requestRoi: null,
                     draft: draft,
-                    isEditingDraft: widget.isEditingDraft,
+                    isEditingDraft: draft != null,
                     showBadges: _showBadges,
                     boxColor: context.colors.card,
                     activeColor: context.colors.gold,
@@ -144,21 +124,10 @@ class _PhotoStageState extends State<PhotoStage> {
                   ),
                 ),
               ),
-            if (geometry != null && widget.isEditingDraft && draft != null)
+            // A drawn frame is adjustable at once: drag inside moves it, the
+            // corners resize it.
+            if (geometry != null && draft != null && _drawStart == null)
               ..._editHandles(geometry, draft),
-            if (geometry != null &&
-                widget.isDrawing &&
-                draft != null &&
-                _drawStart == null &&
-                _editDrag == null)
-              _RoiCorners(
-                rect: geometry.toScreenRect(draft),
-                box: box,
-                isEditing: widget.isEditingDraft,
-                onEdit: widget.onDraftEditToggled,
-                onClear: widget.onDraftCleared,
-                onRecognize: widget.onDraftRecognize,
-              ),
           ],
         );
       },
@@ -170,8 +139,6 @@ class _PhotoStageState extends State<PhotoStage> {
     _detach();
     super.dispose();
   }
-
-  bool get _canDraw => widget.isDrawing && !widget.isEditingDraft;
 
   bool get _showBadges {
     final RecognitionView? view = widget.view;
@@ -214,39 +181,6 @@ class _PhotoStageState extends State<PhotoStage> {
     _listener = null;
   }
 
-  void _onTap(Offset position, PhotoGeometry geometry) {
-    final RecognitionView? view = widget.view;
-    if (view == null) return;
-    RecognizedBottle? hit;
-    double hitArea = double.infinity;
-    for (final bottle in view.bottles) {
-      final BottleBox? box = bottle.geometry;
-      if (box == null) continue;
-      // A thin bottle still gets a finger-sized target (adaptive.md §6).
-      final Rect rect = _atLeastTapTarget(geometry.toScreenRect(box));
-      final double area = rect.width * rect.height;
-      // The smallest box wins when bottles overlap.
-      if (rect.contains(position) && area < hitArea) {
-        hit = bottle;
-        hitArea = area;
-      }
-    }
-    if (hit == null) return;
-    AppHaptics.select();
-    widget.onBottleTap(hit.instanceId);
-  }
-
-  Rect _atLeastTapTarget(Rect rect) {
-    final double dx = (AppSize.minTapTarget - rect.width) / 2;
-    final double dy = (AppSize.minTapTarget - rect.height) / 2;
-    return Rect.fromLTRB(
-      rect.left - (dx > 0 ? dx : 0),
-      rect.top - (dy > 0 ? dy : 0),
-      rect.right + (dx > 0 ? dx : 0),
-      rect.bottom + (dy > 0 ? dy : 0),
-    );
-  }
-
   void _onDrawStart(DragStartDetails d, PhotoGeometry geometry) {
     setState(() {
       _drawStart = geometry.toFrame(d.localPosition);
@@ -272,11 +206,9 @@ class _PhotoStageState extends State<PhotoStage> {
       _liveDraft = null;
     });
     if (draft == null) return;
+    // A stray touch is not a frame: too small a box changes nothing.
     final double minSide = LimitConstants.minRoiSideOnScreen / geometry.scale;
-    if (draft.width < minSide || draft.height < minSide) {
-      widget.onDraftCleared();
-      return;
-    }
+    if (draft.width < minSide || draft.height < minSide) return;
     AppHaptics.confirm();
     widget.onDraftChanged(draft);
   }
@@ -295,7 +227,9 @@ class _PhotoStageState extends State<PhotoStage> {
       Positioned.fromRect(
         rect: rect,
         child: GestureDetector(
-          behavior: HitTestBehavior.translucent,
+          // Opaque: a drag inside the frame moves it and never starts a new
+          // one underneath.
+          behavior: HitTestBehavior.opaque,
           onPanStart: (d) => _onEditStart(_EditKind.move, d, geometry, draft),
           onPanUpdate: (d) => _onEditUpdate(d, geometry),
           onPanEnd: (_) => _onEditEnd(),
@@ -424,125 +358,4 @@ class _EditDrag {
   final BottleBox box;
 
   const _EditDrag({required this.kind, required this.from, required this.box});
-}
-
-/// The three round buttons on the corners of a drawn frame: adjust (top
-/// left), clear (top right), recognise (bottom right). They stay inside the
-/// stage even when the frame touches its edge.
-class _RoiCorners extends StatelessWidget {
-  static const double _button = AppSize.s44;
-
-  final Rect rect;
-  final Size box;
-  final bool isEditing;
-  final VoidCallback onEdit;
-  final VoidCallback onClear;
-  final VoidCallback onRecognize;
-
-  const _RoiCorners({
-    required this.rect,
-    required this.box,
-    required this.isEditing,
-    required this.onEdit,
-    required this.onClear,
-    required this.onRecognize,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.localization;
-    if (isEditing) {
-      return _place(
-        rect.center,
-        _CornerButton(
-          icon: Icons.check,
-          tooltip: l10n.frameDone,
-          filled: true,
-          onTap: onEdit,
-        ),
-      );
-    }
-    return Stack(
-      children: [
-        _place(
-          rect.topLeft,
-          _CornerButton(
-            icon: Icons.edit_outlined,
-            tooltip: l10n.frameEdit,
-            filled: false,
-            onTap: onEdit,
-          ),
-        ),
-        _place(
-          rect.topRight,
-          _CornerButton(
-            icon: Icons.close,
-            tooltip: l10n.frameClear,
-            filled: false,
-            onTap: onClear,
-          ),
-        ),
-        _place(
-          rect.bottomRight,
-          _CornerButton(
-            icon: Icons.arrow_forward,
-            tooltip: l10n.frameRecognize,
-            filled: true,
-            onTap: onRecognize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _place(Offset at, Widget child) {
-    final double x = (at.dx - _button / 2).clamp(0, box.width - _button);
-    final double y = (at.dy - _button / 2).clamp(0, box.height - _button);
-    return Positioned(
-      left: x,
-      top: y,
-      width: _button,
-      height: _button,
-      child: child,
-    );
-  }
-}
-
-class _CornerButton extends StatelessWidget {
-  final IconData icon;
-  final String tooltip;
-  final bool filled;
-  final VoidCallback onTap;
-
-  const _CornerButton({
-    required this.icon,
-    required this.tooltip,
-    required this.filled,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    return Material(
-      color: filled ? colors.wine : colors.card,
-      shape: CircleBorder(side: BorderSide(color: colors.wine)),
-      elevation: AppSize.s2,
-      child: InkWell(
-        customBorder: const CircleBorder(),
-        onTap: () {
-          AppHaptics.tap();
-          onTap();
-        },
-        child: Tooltip(
-          message: tooltip,
-          child: Icon(
-            icon,
-            size: AppSize.s22,
-            color: filled ? colors.onWine : colors.wine,
-          ),
-        ),
-      ),
-    );
-  }
 }

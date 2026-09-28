@@ -17,6 +17,7 @@ import '../../features/splash/application/bloc/splash_bloc.dart';
 import '../../features/splash/presentation/splash_page.dart';
 import '../../shared/helpers/service_locator.dart';
 import '../../shared/presentation/pages/routing_error_page.dart';
+import '../services/camera_service.dart';
 import '../widgets/navigation/app_shell_scaffold.dart';
 import 'pages.dart';
 
@@ -41,6 +42,16 @@ class AppRouter {
   late GoRouter _mainRouter;
 
   GoRouter get mainRouter => _mainRouter;
+
+  /// Path of the route on screen, e.g. `/scan/result`.
+  String get currentLocation => _mainRouter.state.uri.path;
+
+  /// Called on every navigation; read [currentLocation] inside.
+  void addLocationListener(VoidCallback listener) =>
+      _mainRouter.routerDelegate.addListener(listener);
+
+  void removeLocationListener(VoidCallback listener) =>
+      _mainRouter.routerDelegate.removeListener(listener);
 
   void _initRouter() {
     _mainRouter = GoRouter(
@@ -134,7 +145,7 @@ class AppRouter {
   ) {
     return BlocProvider(
       create: (context) => sl<ScanHomeBloc>()..add(const StartScanHome()),
-      child: const ScanHomePage(),
+      child: ScanHomePage(preview: sl<CameraService>().preview),
     );
   }
 
@@ -193,6 +204,13 @@ extension AppRouterExtension on AppRouter {
 
   void navigateToScanResult(ScanResultArgs args) =>
       _push(Pages.scanResult.navigationPath, extra: args);
+
+  /// «Новый скан» from a result: drop the result and land on the scanner,
+  /// whichever tab the result was opened from.
+  void navigateToNewScan() {
+    if (_canPop) _pop();
+    navigateToScan();
+  }
 
   /// Closes the topmost screen; falls back to the scan tab when there is
   /// nothing to pop (a restored stack).

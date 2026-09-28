@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/constants/app_style_constants.dart';
 import '../../../../../core/extensions/context_extensions.dart';
 import '../../../../../core/helpers/app_haptics.dart';
+import '../../../../../core/presentation/app_icons.dart';
 import '../../../../../core/services/language_service.dart';
 import '../../../domain/models/recognition_view.dart';
 import '../../../domain/models/reference_access.dart';
@@ -81,7 +82,7 @@ class BottleAnswer extends StatelessWidget {
                     ),
                     textStyle: context.ts.buttonSmall,
                   ),
-                  child: Text(l10n.resultRescan.toUpperCase()),
+                  child: Text(l10n.resultRescan),
                 ),
             ],
           ),
@@ -122,9 +123,7 @@ class BottleAnswer extends StatelessWidget {
                   referenceHeaders: headers,
                   header: ComparePanes(
                     photoPath: photoPath,
-                    crop:
-                        bottle.geometry ??
-                        (view.isExplicitRoi ? view.roi : null),
+                    crop: view.cropOf(bottle),
                     frame: view.frame,
                     referenceUrl: referenceAccess?.resolve(best.reference),
                     referenceHeaders: headers,
@@ -222,7 +221,7 @@ class _HintBubble extends StatelessWidget {
             tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
             iconSize: AppSize.s18,
             color: context.colors.paper,
-            icon: const Icon(Icons.close),
+            icon: Icon(AppIcon.close.data),
           ),
         ],
       ),

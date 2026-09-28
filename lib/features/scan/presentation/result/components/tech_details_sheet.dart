@@ -15,6 +15,7 @@ class TechDetailsSheet extends StatelessWidget {
 
   static Future<void> show(BuildContext context, List<TechRow> rows) {
     return showModalBottomSheet<void>(
+      useRootNavigator: true,
       context: context,
       isScrollControlled: true,
       useSafeArea: true,

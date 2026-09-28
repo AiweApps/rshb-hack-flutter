@@ -16,8 +16,4 @@ extension DateTimeFormat on DateTime {
     if (daysAgo == 1) return l10n.historyYesterday;
     return DateFormat.yMMMMd(l10n.localeName).format(this);
   }
-
-  /// Hours and minutes, e.g. "14:05".
-  String shortTime(AppLocalizations l10n) =>
-      DateFormat.Hm(l10n.localeName).format(this);
 }

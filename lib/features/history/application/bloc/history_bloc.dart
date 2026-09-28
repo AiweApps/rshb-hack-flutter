@@ -9,6 +9,7 @@ import '../../../../core/application/bloc/screen_status.dart';
 import '../../../../core/services/language_service.dart';
 import '../../../../shared/helpers/service_locator.dart';
 import '../../../../shared/presentation/errors/error_type.dart';
+import '../../domain/models/history_day_section.dart';
 import '../../domain/models/scan_record.dart';
 import '../../domain/scan_history_repository.dart';
 import 'history_state.dart';
@@ -70,11 +71,15 @@ class HistoryBloc extends BaseBloc<HistoryEvent, HistoryState> {
     // hidden until their delete lands.
     final ids = event.items.map((item) => item.id).toSet();
     final pending = state.pendingDeleteIds.intersection(ids);
+    final visible = event.items
+        .where((item) => !pending.contains(item.id))
+        .toList();
     emit(
       state.copyWith(
         screenStatus: ScreenStatus.content,
         errorType: null,
-        items: event.items.where((item) => !pending.contains(item.id)).toList(),
+        items: visible,
+        sections: HistoryDaySection.group(visible),
         pendingDeleteIds: pending,
       ),
     );
@@ -99,9 +104,11 @@ class HistoryBloc extends BaseBloc<HistoryEvent, HistoryState> {
   ) async {
     // Hide the row at once: the Dismissible has already animated it away and
     // would throw if it were still in the tree on the next build.
+    final remaining = state.items.where((item) => item.id != event.id).toList();
     emit(
       state.copyWith(
-        items: state.items.where((item) => item.id != event.id).toList(),
+        items: remaining,
+        sections: HistoryDaySection.group(remaining),
         pendingDeleteIds: {...state.pendingDeleteIds, event.id},
       ),
     );

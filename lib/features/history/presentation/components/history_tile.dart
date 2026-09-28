@@ -2,28 +2,24 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_style_constants.dart';
 import '../../../../core/extensions/context_extensions.dart';
-import '../../../../core/extensions/date_extensions.dart';
 import '../../../../core/helpers/app_haptics.dart';
+import '../../../../core/presentation/app_icons.dart';
 import '../../../../core/services/language_service.dart';
 import '../../../../core/widgets/local_photo.dart';
 import '../../domain/models/scan_record.dart';
 
-/// One stored scan: the photo, the best match and when it was taken.
+/// One stored scan: the photo, the best match and how many bottles.
 /// Swiping it to the left deletes it.
 class HistoryTile extends StatelessWidget {
   static const double _thumbSize = AppSize.s72;
 
   final ScanHistoryItem item;
-
-  /// What "today" means for the date line.
-  final DateTime now;
   final VoidCallback onTap;
   final VoidCallback onDismissed;
 
   const HistoryTile({
     super.key,
     required this.item,
-    required this.now,
     required this.onTap,
     required this.onDismissed,
   });
@@ -90,12 +86,9 @@ class HistoryTile extends StatelessWidget {
                         ),
                       ],
                       const SizedBox(height: AppSpaces.s6),
-                      _MetaLine(
-                        parts: [
-                          item.createdAt.relativeDay(l10n, now: now),
-                          item.createdAt.shortTime(l10n),
-                          l10n.historyBottlesCount(item.bottleCount),
-                        ],
+                      Text(
+                        l10n.historyBottlesCount(item.bottleCount),
+                        style: context.ts.paragraphTiny,
                       ),
                     ],
                   ),
@@ -104,48 +97,6 @@ class HistoryTile extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-/// Short facts separated by dots, wrapping when the row is narrow.
-class _MetaLine extends StatelessWidget {
-  final List<String> parts;
-
-  const _MetaLine({required this.parts});
-
-  @override
-  Widget build(BuildContext context) {
-    final style = context.ts.paragraphTiny.copyWith(
-      color: context.colors.muted,
-    );
-
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: AppSpaces.s6,
-      runSpacing: AppSpaces.s2,
-      children: [
-        for (int i = 0; i < parts.length; i++) ...[
-          if (i > 0) const _MetaDot(),
-          Text(parts[i], style: style),
-        ],
-      ],
-    );
-  }
-}
-
-class _MetaDot extends StatelessWidget {
-  const _MetaDot();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: AppSize.s3,
-      height: AppSize.s3,
-      decoration: BoxDecoration(
-        color: context.colors.muted,
-        shape: BoxShape.circle,
       ),
     );
   }
@@ -165,7 +116,7 @@ class _DeleteBackground extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppRadius.r16),
       ),
       child: Icon(
-        Icons.delete_outline,
+        AppIcon.delete.data,
         color: context.colors.onWine,
         size: AppSize.s28,
         semanticLabel: context.localization.historyDelete,

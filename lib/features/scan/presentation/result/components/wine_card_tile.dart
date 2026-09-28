@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/constants/app_style_constants.dart';
 import '../../../../../core/extensions/context_extensions.dart';
 import '../../../../../core/helpers/app_haptics.dart';
+import '../../../../../core/presentation/app_icons.dart';
 import '../../../../../core/services/language_service.dart';
 import '../../../../../core/widgets/remote_image.dart';
 import '../../../domain/models/wine_card.dart';
@@ -79,7 +80,7 @@ class WineCardTile extends StatelessWidget {
                       children: [
                         if (tag != null && tag!.isNotEmpty) ...[
                           Text(
-                            tag!.toUpperCase(),
+                            tag!,
                             style: context.ts.kicker.copyWith(
                               color: isBest ? colors.wine : colors.muted,
                             ),
@@ -188,8 +189,8 @@ class _LinkButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
         ),
         iconAlignment: IconAlignment.end,
-        icon: const Icon(Icons.north_east, size: AppSize.s14),
-        label: Text(label.toUpperCase()),
+        icon: Icon(AppIcon.openExternal.data, size: AppSize.s14),
+        label: Text(label),
       ),
     );
   }

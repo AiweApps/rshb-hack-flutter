@@ -28,21 +28,28 @@ class OnboardingContent extends StatelessWidget {
 
     return Column(
       children: [
-        Align(
-          alignment: Alignment.centerRight,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppPadding.p8,
-              vertical: AppPadding.p4,
-            ),
-            child: TextButton(
-              onPressed: () {
-                AppHaptics.tap();
-                bloc.add(const OnboardingSkipPressed());
-              },
-              child: Text(l10n.onboardingSkip.toUpperCase()),
-            ),
-          ),
+        // The last page has nothing left to skip; the row keeps its height
+        // so the pager does not jump.
+        SizedBox(
+          height: AppSize.minTapTarget + AppPadding.p8,
+          child: state.isLastPage
+              ? null
+              : Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppPadding.p8,
+                      vertical: AppPadding.p4,
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        AppHaptics.tap();
+                        bloc.add(const OnboardingSkipPressed());
+                      },
+                      child: Text(l10n.onboardingSkip),
+                    ),
+                  ),
+                ),
         ),
         Expanded(
           child: PageView(
@@ -76,10 +83,7 @@ class OnboardingContent extends StatelessWidget {
                   bloc.add(const OnboardingNextPressed());
                 },
                 child: Text(
-                  (state.isLastPage
-                          ? l10n.onboardingStart
-                          : l10n.onboardingNext)
-                      .toUpperCase(),
+                  state.isLastPage ? l10n.onboardingStart : l10n.onboardingNext,
                 ),
               ),
             ],

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/constants/app_style_constants.dart';
 import '../../../../../core/extensions/context_extensions.dart';
 import '../../../../../core/helpers/app_haptics.dart';
+import '../../../../../core/presentation/app_icons.dart';
 import '../../../../../core/services/language_service.dart';
 import '../../../../../core/widgets/dialog/base_bottom_sheet.dart';
 import '../../../application/result/bloc/scan_result_uieffect.dart';
@@ -18,6 +19,7 @@ class MoreSheet extends StatelessWidget {
     MoreSheetArgs args,
   ) {
     return showModalBottomSheet<ResultMoreOption>(
+      useRootNavigator: true,
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
@@ -37,33 +39,26 @@ class MoreSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (args.hasAnswer) ...[
+          _Option(
+            icon: AppIcon.share.data,
+            label: l10n.resultShareJson,
+            onTap: () => Navigator.of(context).pop(ResultMoreOption.shareFull),
+          ),
+          if (number != null)
             _Option(
-              icon: Icons.ios_share,
-              label: l10n.resultShareJson,
+              icon: AppIcon.share.data,
+              label: args.isRoi
+                  ? l10n.resultShareFrameJson
+                  : l10n.resultShareBottleJson(number),
               onTap: () =>
-                  Navigator.of(context).pop(ResultMoreOption.shareFull),
+                  Navigator.of(context).pop(ResultMoreOption.shareBottle),
             ),
-            if (number != null)
-              _Option(
-                icon: Icons.ios_share,
-                label: args.isRoi
-                    ? l10n.resultShareFrameJson
-                    : l10n.resultShareBottleJson(number),
-                onTap: () =>
-                    Navigator.of(context).pop(ResultMoreOption.shareBottle),
-              ),
-            _Option(
-              icon: Icons.code,
-              label: l10n.resultTechDetails,
-              onTap: () =>
-                  Navigator.of(context).pop(ResultMoreOption.techDetails),
-            ),
-          ] else
-            Padding(
-              padding: const EdgeInsets.all(AppPadding.p16),
-              child: Text(l10n.loadingNote, style: context.ts.paragraphSmall),
-            ),
+          _Option(
+            icon: AppIcon.code.data,
+            label: l10n.resultTechDetails,
+            onTap: () =>
+                Navigator.of(context).pop(ResultMoreOption.techDetails),
+          ),
         ],
       ),
     );

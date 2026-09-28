@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_style_constants.dart';
 import '../../../../core/extensions/context_extensions.dart';
 import '../../../../core/helpers/app_haptics.dart';
+import '../../../../core/presentation/app_icons.dart';
 
 /// One line of a settings card: an icon, a title, an optional second line,
 /// and on the right either a value with a chevron or a custom [trailing].
@@ -10,6 +11,16 @@ import '../../../../core/helpers/app_haptics.dart';
 /// Knows nothing about the bloc: the tap comes back through [onTap]. With
 /// [onTap] null the row is static and shows no chevron.
 class SettingsRow extends StatelessWidget {
+  // The title and the value share the row; the value ends at the chevron.
+  // Titles are short, so the value gets the larger share («Как в системе»
+  // must not truncate).
+  static const int _titleFlex = 2;
+  static const int _valueFlex = 3;
+
+  // A trailing widget (the status pill) ellipsizes past this instead of
+  // squeezing the title into single letters.
+  static const double _trailingMaxWidth = AppSize.s160;
+
   final IconData icon;
   final String title;
 
@@ -64,6 +75,7 @@ class SettingsRow extends StatelessWidget {
               Icon(icon, size: AppSize.s24, color: iconColor),
               const SizedBox(width: AppSpaces.s12),
               Expanded(
+                flex: _titleFlex,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -80,10 +92,16 @@ class SettingsRow extends StatelessWidget {
               ),
               const SizedBox(width: AppSpaces.s12),
               if (trailing != null)
-                trailing!
+                ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: _trailingMaxWidth,
+                  ),
+                  child: trailing,
+                )
               else ...[
                 if (value != null)
-                  Flexible(
+                  Expanded(
+                    flex: _valueFlex,
                     child: Text(
                       value!,
                       style: context.ts.paragraphSmall.copyWith(
@@ -97,7 +115,7 @@ class SettingsRow extends StatelessWidget {
                 if (onTap != null) ...[
                   const SizedBox(width: AppSpaces.s4),
                   Icon(
-                    Icons.chevron_right,
+                    AppIcon.chevronRight.data,
                     size: AppSize.s20,
                     color: colors.muted,
                   ),

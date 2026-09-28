@@ -17,7 +17,8 @@ mixin _$HistoryState {
  ScreenStatus get screenStatus;/// Set only while [screenStatus] is [ScreenStatus.error].
  ErrorType? get errorType;/// Rows the list renders: what the database holds minus the rows the
 /// user has already swiped away and whose deletion is still in flight.
- List<ScanHistoryItem> get items;/// Ids swiped away but not yet gone from the database.
+ List<ScanHistoryItem> get items;/// [items] grouped by calendar day, newest first — what the list draws.
+ List<HistoryDaySection> get sections;/// Ids swiped away but not yet gone from the database.
  Set<int> get pendingDeleteIds;
 /// Create a copy of HistoryState
 /// with the given fields replaced by the non-null parameter values.
@@ -29,16 +30,16 @@ $HistoryStateCopyWith<HistoryState> get copyWith => _$HistoryStateCopyWithImpl<H
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HistoryState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&const DeepCollectionEquality().equals(other.items, items)&&const DeepCollectionEquality().equals(other.pendingDeleteIds, pendingDeleteIds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HistoryState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&const DeepCollectionEquality().equals(other.items, items)&&const DeepCollectionEquality().equals(other.sections, sections)&&const DeepCollectionEquality().equals(other.pendingDeleteIds, pendingDeleteIds));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,screenStatus,errorType,const DeepCollectionEquality().hash(items),const DeepCollectionEquality().hash(pendingDeleteIds));
+int get hashCode => Object.hash(runtimeType,screenStatus,errorType,const DeepCollectionEquality().hash(items),const DeepCollectionEquality().hash(sections),const DeepCollectionEquality().hash(pendingDeleteIds));
 
 @override
 String toString() {
-  return 'HistoryState(screenStatus: $screenStatus, errorType: $errorType, items: $items, pendingDeleteIds: $pendingDeleteIds)';
+  return 'HistoryState(screenStatus: $screenStatus, errorType: $errorType, items: $items, sections: $sections, pendingDeleteIds: $pendingDeleteIds)';
 }
 
 
@@ -49,7 +50,7 @@ abstract mixin class $HistoryStateCopyWith<$Res>  {
   factory $HistoryStateCopyWith(HistoryState value, $Res Function(HistoryState) _then) = _$HistoryStateCopyWithImpl;
 @useResult
 $Res call({
- ScreenStatus screenStatus, ErrorType? errorType, List<ScanHistoryItem> items, Set<int> pendingDeleteIds
+ ScreenStatus screenStatus, ErrorType? errorType, List<ScanHistoryItem> items, List<HistoryDaySection> sections, Set<int> pendingDeleteIds
 });
 
 
@@ -66,12 +67,13 @@ class _$HistoryStateCopyWithImpl<$Res>
 
 /// Create a copy of HistoryState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? items = null,Object? pendingDeleteIds = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? items = null,Object? sections = null,Object? pendingDeleteIds = null,}) {
   return _then(_self.copyWith(
 screenStatus: null == screenStatus ? _self.screenStatus : screenStatus // ignore: cast_nullable_to_non_nullable
 as ScreenStatus,errorType: freezed == errorType ? _self.errorType : errorType // ignore: cast_nullable_to_non_nullable
 as ErrorType?,items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
-as List<ScanHistoryItem>,pendingDeleteIds: null == pendingDeleteIds ? _self.pendingDeleteIds : pendingDeleteIds // ignore: cast_nullable_to_non_nullable
+as List<ScanHistoryItem>,sections: null == sections ? _self.sections : sections // ignore: cast_nullable_to_non_nullable
+as List<HistoryDaySection>,pendingDeleteIds: null == pendingDeleteIds ? _self.pendingDeleteIds : pendingDeleteIds // ignore: cast_nullable_to_non_nullable
 as Set<int>,
   ));
 }
@@ -157,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  List<ScanHistoryItem> items,  Set<int> pendingDeleteIds)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  List<ScanHistoryItem> items,  List<HistoryDaySection> sections,  Set<int> pendingDeleteIds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HistoryState() when $default != null:
-return $default(_that.screenStatus,_that.errorType,_that.items,_that.pendingDeleteIds);case _:
+return $default(_that.screenStatus,_that.errorType,_that.items,_that.sections,_that.pendingDeleteIds);case _:
   return orElse();
 
 }
@@ -178,10 +180,10 @@ return $default(_that.screenStatus,_that.errorType,_that.items,_that.pendingDele
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  List<ScanHistoryItem> items,  Set<int> pendingDeleteIds)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  List<ScanHistoryItem> items,  List<HistoryDaySection> sections,  Set<int> pendingDeleteIds)  $default,) {final _that = this;
 switch (_that) {
 case _HistoryState():
-return $default(_that.screenStatus,_that.errorType,_that.items,_that.pendingDeleteIds);case _:
+return $default(_that.screenStatus,_that.errorType,_that.items,_that.sections,_that.pendingDeleteIds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +200,10 @@ return $default(_that.screenStatus,_that.errorType,_that.items,_that.pendingDele
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ScreenStatus screenStatus,  ErrorType? errorType,  List<ScanHistoryItem> items,  Set<int> pendingDeleteIds)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ScreenStatus screenStatus,  ErrorType? errorType,  List<ScanHistoryItem> items,  List<HistoryDaySection> sections,  Set<int> pendingDeleteIds)?  $default,) {final _that = this;
 switch (_that) {
 case _HistoryState() when $default != null:
-return $default(_that.screenStatus,_that.errorType,_that.items,_that.pendingDeleteIds);case _:
+return $default(_that.screenStatus,_that.errorType,_that.items,_that.sections,_that.pendingDeleteIds);case _:
   return null;
 
 }
@@ -213,7 +215,7 @@ return $default(_that.screenStatus,_that.errorType,_that.items,_that.pendingDele
 
 
 class _HistoryState extends HistoryState {
-  const _HistoryState({required this.screenStatus, required this.errorType, required final  List<ScanHistoryItem> items, required final  Set<int> pendingDeleteIds}): _items = items,_pendingDeleteIds = pendingDeleteIds,super._();
+  const _HistoryState({required this.screenStatus, required this.errorType, required final  List<ScanHistoryItem> items, required final  List<HistoryDaySection> sections, required final  Set<int> pendingDeleteIds}): _items = items,_sections = sections,_pendingDeleteIds = pendingDeleteIds,super._();
   
 
 @override final  ScreenStatus screenStatus;
@@ -228,6 +230,15 @@ class _HistoryState extends HistoryState {
   if (_items is EqualUnmodifiableListView) return _items;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_items);
+}
+
+/// [items] grouped by calendar day, newest first — what the list draws.
+ final  List<HistoryDaySection> _sections;
+/// [items] grouped by calendar day, newest first — what the list draws.
+@override List<HistoryDaySection> get sections {
+  if (_sections is EqualUnmodifiableListView) return _sections;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_sections);
 }
 
 /// Ids swiped away but not yet gone from the database.
@@ -250,16 +261,16 @@ _$HistoryStateCopyWith<_HistoryState> get copyWith => __$HistoryStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HistoryState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&const DeepCollectionEquality().equals(other._items, _items)&&const DeepCollectionEquality().equals(other._pendingDeleteIds, _pendingDeleteIds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HistoryState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&const DeepCollectionEquality().equals(other._items, _items)&&const DeepCollectionEquality().equals(other._sections, _sections)&&const DeepCollectionEquality().equals(other._pendingDeleteIds, _pendingDeleteIds));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,screenStatus,errorType,const DeepCollectionEquality().hash(_items),const DeepCollectionEquality().hash(_pendingDeleteIds));
+int get hashCode => Object.hash(runtimeType,screenStatus,errorType,const DeepCollectionEquality().hash(_items),const DeepCollectionEquality().hash(_sections),const DeepCollectionEquality().hash(_pendingDeleteIds));
 
 @override
 String toString() {
-  return 'HistoryState(screenStatus: $screenStatus, errorType: $errorType, items: $items, pendingDeleteIds: $pendingDeleteIds)';
+  return 'HistoryState(screenStatus: $screenStatus, errorType: $errorType, items: $items, sections: $sections, pendingDeleteIds: $pendingDeleteIds)';
 }
 
 
@@ -270,7 +281,7 @@ abstract mixin class _$HistoryStateCopyWith<$Res> implements $HistoryStateCopyWi
   factory _$HistoryStateCopyWith(_HistoryState value, $Res Function(_HistoryState) _then) = __$HistoryStateCopyWithImpl;
 @override @useResult
 $Res call({
- ScreenStatus screenStatus, ErrorType? errorType, List<ScanHistoryItem> items, Set<int> pendingDeleteIds
+ ScreenStatus screenStatus, ErrorType? errorType, List<ScanHistoryItem> items, List<HistoryDaySection> sections, Set<int> pendingDeleteIds
 });
 
 
@@ -287,12 +298,13 @@ class __$HistoryStateCopyWithImpl<$Res>
 
 /// Create a copy of HistoryState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? items = null,Object? pendingDeleteIds = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? items = null,Object? sections = null,Object? pendingDeleteIds = null,}) {
   return _then(_HistoryState(
 screenStatus: null == screenStatus ? _self.screenStatus : screenStatus // ignore: cast_nullable_to_non_nullable
 as ScreenStatus,errorType: freezed == errorType ? _self.errorType : errorType // ignore: cast_nullable_to_non_nullable
 as ErrorType?,items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
-as List<ScanHistoryItem>,pendingDeleteIds: null == pendingDeleteIds ? _self._pendingDeleteIds : pendingDeleteIds // ignore: cast_nullable_to_non_nullable
+as List<ScanHistoryItem>,sections: null == sections ? _self._sections : sections // ignore: cast_nullable_to_non_nullable
+as List<HistoryDaySection>,pendingDeleteIds: null == pendingDeleteIds ? _self._pendingDeleteIds : pendingDeleteIds // ignore: cast_nullable_to_non_nullable
 as Set<int>,
   ));
 }

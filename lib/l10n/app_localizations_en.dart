@@ -12,6 +12,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Wine Scanner';
 
   @override
+  String get splashTitle => 'Винный сканер';
+
+  @override
   String get tabScan => 'Scanner';
 
   @override
@@ -37,9 +40,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commonCancel => 'Cancel';
-
-  @override
-  String get commonClose => 'Close';
 
   @override
   String get commonGotIt => 'Got it';
@@ -121,27 +121,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingSkip => 'Skip';
 
   @override
-  String get scanKicker => 'label recogniser';
-
-  @override
-  String get scanTitle => 'Wine scanner';
-
-  @override
-  String get scanHeroTitle => 'Find a wine by a photo of its label';
-
-  @override
-  String get scanLede =>
-      'The scanner looks the wine up in the «Svoe Vino» catalogue by a photo of the label and shows the best match and similar options.';
-
-  @override
-  String get scanTakePhoto => 'Take a photo';
-
-  @override
   String get scanPickPhoto => 'Choose a photo';
-
-  @override
-  String get scanNote =>
-      'JPEG, PNG or WebP · up to 20 MB and 24 MP · the photo stays on this phone';
 
   @override
   String get scanRecentTitle => 'Recent scans';
@@ -150,10 +130,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get scanRecentAll => 'All';
 
   @override
-  String get scanSourceTitle => 'New photo';
-
-  @override
-  String get statusChecking => 'checking the service…';
+  String get statusChecking => 'checking…';
 
   @override
   String get statusReady => 'ready';
@@ -167,22 +144,22 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get statusDown => 'recognition service is down';
+  String get statusDown => 'not responding';
 
   @override
-  String get statusUnavailable => 'service temporarily unavailable';
+  String get statusUnavailable => 'unavailable';
 
   @override
   String get statusNoAccess => 'no access';
 
   @override
-  String get statusRateLimited => 'too many requests · wait';
+  String get statusRateLimited => 'wait a bit';
 
   @override
   String get statusOffline => 'no connection';
 
   @override
-  String get statusDev => 'development · recognition off';
+  String get statusDev => 'dev mode';
 
   @override
   String get statusReadyDetail =>
@@ -314,16 +291,19 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get resultAllBottles => 'All bottles';
-
-  @override
   String get resultDrawFrame => 'Draw a frame';
 
   @override
-  String get resultNewPhoto => 'New photo';
+  String get resultMore => 'More';
 
   @override
-  String get resultMore => 'More';
+  String get resultNewScan => 'New scan';
+
+  @override
+  String get resultCompare => 'Compare';
+
+  @override
+  String get resultFrame => 'Frame';
 
   @override
   String get resultShareJson => 'Share the full JSON answer';
@@ -375,25 +355,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get frameHint => 'Draw around the bottle with your finger';
 
   @override
-  String get frameEdit => 'Adjust the frame';
-
-  @override
-  String get frameDone => 'Done';
-
-  @override
-  String get frameClear => 'Clear the frame';
-
-  @override
-  String get frameRecognize => 'Recognise the bottle in the frame';
+  String get frameScan => 'Scan';
 
   @override
   String get scanErrorTitleDefault => 'It did not work';
 
   @override
   String get scanErrorRetry => 'Retry';
-
-  @override
-  String get scanErrorOtherPhoto => 'Another photo';
 
   @override
   String get scanErrorNoAccess => 'No access';
@@ -679,4 +647,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get historyClearFailed => 'Could not clear the history';
+
+  @override
+  String get scanNoCameraTitle => 'No access to the camera';
+
+  @override
+  String get scanNoCameraBody => 'Allow the camera in Settings to scan labels.';
+
+  @override
+  String get scanAllowCamera => 'Allow the camera';
+
+  @override
+  String get scanOpenSettings => 'Open Settings';
+
+  @override
+  String get scanCameraUnavailableTitle => 'Camera unavailable';
+
+  @override
+  String get scanCameraUnavailableBody =>
+      'This device has no camera. Choose a photo from the gallery.';
+
+  @override
+  String get scanHint => 'Point at the label';
+
+  @override
+  String get scanShutter => 'Take a photo';
+
+  @override
+  String get scanFlash => 'Flash';
+
+  @override
+  String settingsVersion(String version, String build) {
+    return 'Version $version ($build)';
+  }
 }

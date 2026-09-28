@@ -1,65 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors_constants.dart';
 import 'app_style_constants.dart';
 
 /// Design-system typography exposed as a [ThemeExtension].
 ///
-/// The scale follows the web UI: PT Serif Caption for display headings,
-/// PT Serif for reading text, PT Sans Narrow (upper case) for controls, and
-/// PT Mono for technical values. Access it as `context.ts.paragraph`.
-///
-/// Upper-casing is not part of a style; the control widgets apply it to their
-/// label, so the ARB strings stay readable.
+/// The typeface is the platform's own (SF on iOS, Roboto on Android): no
+/// `fontFamily` is set, so Flutter picks the system default. The scale
+/// follows the iOS text styles, which read naturally on both platforms.
+/// Access it as `context.ts.paragraph`.
 ///
 /// Adding a style: field → constructor → value in [AppTextStyles.from] →
 /// entry in [copyWith].
 @immutable
 class AppTextStyles extends ThemeExtension<AppTextStyles> {
-  /// Screen title on the landing and onboarding — 34sp display bold.
+  /// Large title: onboarding, empty states — 34 bold.
   final TextStyle h1;
 
-  /// Section title — 28sp display bold.
+  /// Screen title in a large navigation bar — 28 bold.
   final TextStyle h2;
 
-  /// Card title of the best match — 22sp display bold.
+  /// Title of the best card, sheet titles — 22 bold.
   final TextStyle h3;
 
-  /// Card title of an alternative, list titles — 18sp serif bold.
+  /// Headline: card titles, list titles — 17 semibold.
   final TextStyle h4;
 
-  /// App bar title — 20sp display bold.
+  /// Inline navigation bar title — 17 semibold.
   final TextStyle appBarTitle;
 
-  /// Reading text — 17sp serif.
+  /// Body — 17 regular.
   final TextStyle paragraph;
 
-  /// Reading text, bold — 17sp serif bold.
+  /// Body, emphasised — 17 semibold.
   final TextStyle paragraphBold;
 
-  /// Secondary text: producer, meta line — 15sp serif.
+  /// Subheadline: producer, meta lines — 15 regular.
   final TextStyle paragraphSmall;
 
-  /// Captions under photos, notes — 13sp serif.
+  /// Footnote: captions, notes — 13 regular.
   final TextStyle paragraphTiny;
 
-  /// Small upper-case label above a title — 11sp narrow bold, wide tracking.
+  /// Section header above a grouped list — 13 regular, muted.
   final TextStyle kicker;
 
-  /// Primary and ghost button label — 15sp narrow semibold.
+  /// Button label — 17 semibold.
   final TextStyle button;
 
-  /// Small button label — 13sp narrow semibold.
+  /// Small button label — 15 semibold.
   final TextStyle buttonSmall;
 
-  /// Tab / chip label, status pill — 14sp narrow semibold.
+  /// Chip, tab bar and status pill label — 13 medium.
   final TextStyle tab;
 
-  /// Number badge on a bottle frame — 14sp narrow bold.
+  /// Number badge on a bottle frame — 13 bold.
   final TextStyle badge;
 
-  /// Technical values — 12sp mono.
+  /// Technical values — 12 monospace.
   final TextStyle mono;
 
   const AppTextStyles({
@@ -86,45 +83,22 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     final Color ink = colors.ink;
 
     return AppTextStyles(
-      h1: _display(FontSize.s34, FontWeight.w700, 1.1, ink),
-      h2: _display(FontSize.s28, FontWeight.w700, 1.15, ink),
-      h3: _display(FontSize.s22, FontWeight.w700, 1.2, ink),
-      h4: _text(FontSize.s18, FontWeight.w700, 1.25, ink),
-      appBarTitle: _display(FontSize.s20, FontWeight.w700, 1.2, ink),
-      paragraph: _text(FontSize.s17, FontWeight.w400, 1.5, ink),
-      paragraphBold: _text(FontSize.s17, FontWeight.w700, 1.5, ink),
-      paragraphSmall: _text(FontSize.s15, FontWeight.w400, 1.45, colors.ink2),
-      paragraphTiny: _text(FontSize.s13, FontWeight.w400, 1.4, colors.muted),
-      kicker: _ui(
-        FontSize.s11,
-        FontWeight.w700,
-        1.2,
-        colors.muted,
-        letterSpacing: _kickerLetterSpacing,
-      ),
-      button: _ui(
-        FontSize.s15,
-        FontWeight.w600,
-        1.0,
-        ink,
-        letterSpacing: _buttonLetterSpacing,
-      ),
-      buttonSmall: _ui(
-        FontSize.s13,
-        FontWeight.w600,
-        1.0,
-        ink,
-        letterSpacing: _buttonLetterSpacing,
-      ),
-      tab: _ui(
-        FontSize.s14,
-        FontWeight.w600,
-        1.0,
-        ink,
-        letterSpacing: _tabLetterSpacing,
-      ),
-      badge: _ui(FontSize.s14, FontWeight.w700, 1.0, colors.onPhoto),
-      mono: GoogleFonts.ptMono(
+      h1: _style(FontSize.s34, FontWeight.w700, 1.2, ink, letterSpacing: 0.4),
+      h2: _style(FontSize.s28, FontWeight.w700, 1.2, ink, letterSpacing: 0.36),
+      h3: _style(FontSize.s22, FontWeight.w700, 1.25, ink, letterSpacing: 0.35),
+      h4: _style(FontSize.s17, FontWeight.w600, 1.3, ink),
+      appBarTitle: _style(FontSize.s17, FontWeight.w600, 1.3, ink),
+      paragraph: _style(FontSize.s17, FontWeight.w400, 1.35, ink),
+      paragraphBold: _style(FontSize.s17, FontWeight.w600, 1.35, ink),
+      paragraphSmall: _style(FontSize.s15, FontWeight.w400, 1.35, colors.ink2),
+      paragraphTiny: _style(FontSize.s13, FontWeight.w400, 1.35, colors.muted),
+      kicker: _style(FontSize.s13, FontWeight.w400, 1.3, colors.muted),
+      button: _style(FontSize.s17, FontWeight.w600, 1.3, ink),
+      buttonSmall: _style(FontSize.s15, FontWeight.w600, 1.3, ink),
+      tab: _style(FontSize.s13, FontWeight.w500, 1.2, ink),
+      badge: _style(FontSize.s13, FontWeight.w700, 1.0, colors.onPhoto),
+      mono: TextStyle(
+        fontFamily: _monoFamily,
         fontSize: FontSize.s12,
         fontWeight: FontWeight.w400,
         height: 1.4,
@@ -133,49 +107,17 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     );
   }
 
-  static const double _kickerLetterSpacing = 1.76;
-  static const double _buttonLetterSpacing = 0.6;
-  static const double _tabLetterSpacing = 0.28;
+  /// The platform monospace face for technical values.
+  static const String _monoFamily = 'monospace';
 
-  /// Display face for headings.
-  static TextStyle _display(
-    double fontSize,
-    FontWeight fontWeight,
-    double height,
-    Color color,
-  ) {
-    return GoogleFonts.ptSerifCaption(
-      fontSize: fontSize,
-      fontWeight: fontWeight,
-      height: height,
-      color: color,
-    );
-  }
-
-  /// Reading face.
-  static TextStyle _text(
-    double fontSize,
-    FontWeight fontWeight,
-    double height,
-    Color color,
-  ) {
-    return GoogleFonts.ptSerif(
-      fontSize: fontSize,
-      fontWeight: fontWeight,
-      height: height,
-      color: color,
-    );
-  }
-
-  /// Control face: buttons, tabs, kickers.
-  static TextStyle _ui(
+  static TextStyle _style(
     double fontSize,
     FontWeight fontWeight,
     double height,
     Color color, {
     double letterSpacing = 0,
   }) {
-    return GoogleFonts.ptSansNarrow(
+    return TextStyle(
       fontSize: fontSize,
       fontWeight: fontWeight,
       height: height,

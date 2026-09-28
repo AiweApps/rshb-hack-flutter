@@ -81,7 +81,7 @@ class _ClearAction extends StatelessWidget {
         return TextButton(
           onPressed: () =>
               context.read<HistoryBloc>().add(const ClearHistoryPressed()),
-          child: Text(context.localization.historyClear.toUpperCase()),
+          child: Text(context.localization.historyClear),
         );
       },
     );

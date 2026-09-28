@@ -17,7 +17,8 @@ mixin _$SettingsState {
  ScreenStatus get screenStatus; ErrorType? get errorType; AppThemeMode get themeMode; String get languageCode; ServiceState get serviceState;/// Size of the wine catalogue on the server, when the status told it.
  int? get catalogCards;/// Pull-to-refresh of the service status is in flight.
  bool get isRefreshing;/// The history is being wiped; a second confirm is ignored meanwhile.
- bool get isClearingHistory;
+ bool get isClearingHistory;/// "1.0.0" and "12" from the package info, once read.
+ String? get version; String? get buildNumber;
 /// Create a copy of SettingsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +29,16 @@ $SettingsStateCopyWith<SettingsState> get copyWith => _$SettingsStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.serviceState, serviceState) || other.serviceState == serviceState)&&(identical(other.catalogCards, catalogCards) || other.catalogCards == catalogCards)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.isClearingHistory, isClearingHistory) || other.isClearingHistory == isClearingHistory));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.serviceState, serviceState) || other.serviceState == serviceState)&&(identical(other.catalogCards, catalogCards) || other.catalogCards == catalogCards)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.isClearingHistory, isClearingHistory) || other.isClearingHistory == isClearingHistory)&&(identical(other.version, version) || other.version == version)&&(identical(other.buildNumber, buildNumber) || other.buildNumber == buildNumber));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,screenStatus,errorType,themeMode,languageCode,serviceState,catalogCards,isRefreshing,isClearingHistory);
+int get hashCode => Object.hash(runtimeType,screenStatus,errorType,themeMode,languageCode,serviceState,catalogCards,isRefreshing,isClearingHistory,version,buildNumber);
 
 @override
 String toString() {
-  return 'SettingsState(screenStatus: $screenStatus, errorType: $errorType, themeMode: $themeMode, languageCode: $languageCode, serviceState: $serviceState, catalogCards: $catalogCards, isRefreshing: $isRefreshing, isClearingHistory: $isClearingHistory)';
+  return 'SettingsState(screenStatus: $screenStatus, errorType: $errorType, themeMode: $themeMode, languageCode: $languageCode, serviceState: $serviceState, catalogCards: $catalogCards, isRefreshing: $isRefreshing, isClearingHistory: $isClearingHistory, version: $version, buildNumber: $buildNumber)';
 }
 
 
@@ -48,7 +49,7 @@ abstract mixin class $SettingsStateCopyWith<$Res>  {
   factory $SettingsStateCopyWith(SettingsState value, $Res Function(SettingsState) _then) = _$SettingsStateCopyWithImpl;
 @useResult
 $Res call({
- ScreenStatus screenStatus, ErrorType? errorType, AppThemeMode themeMode, String languageCode, ServiceState serviceState, int? catalogCards, bool isRefreshing, bool isClearingHistory
+ ScreenStatus screenStatus, ErrorType? errorType, AppThemeMode themeMode, String languageCode, ServiceState serviceState, int? catalogCards, bool isRefreshing, bool isClearingHistory, String? version, String? buildNumber
 });
 
 
@@ -65,7 +66,7 @@ class _$SettingsStateCopyWithImpl<$Res>
 
 /// Create a copy of SettingsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? themeMode = null,Object? languageCode = null,Object? serviceState = null,Object? catalogCards = freezed,Object? isRefreshing = null,Object? isClearingHistory = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? themeMode = null,Object? languageCode = null,Object? serviceState = null,Object? catalogCards = freezed,Object? isRefreshing = null,Object? isClearingHistory = null,Object? version = freezed,Object? buildNumber = freezed,}) {
   return _then(_self.copyWith(
 screenStatus: null == screenStatus ? _self.screenStatus : screenStatus // ignore: cast_nullable_to_non_nullable
 as ScreenStatus,errorType: freezed == errorType ? _self.errorType : errorType // ignore: cast_nullable_to_non_nullable
@@ -75,7 +76,9 @@ as String,serviceState: null == serviceState ? _self.serviceState : serviceState
 as ServiceState,catalogCards: freezed == catalogCards ? _self.catalogCards : catalogCards // ignore: cast_nullable_to_non_nullable
 as int?,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
 as bool,isClearingHistory: null == isClearingHistory ? _self.isClearingHistory : isClearingHistory // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,version: freezed == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
+as String?,buildNumber: freezed == buildNumber ? _self.buildNumber : buildNumber // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -160,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  AppThemeMode themeMode,  String languageCode,  ServiceState serviceState,  int? catalogCards,  bool isRefreshing,  bool isClearingHistory)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  AppThemeMode themeMode,  String languageCode,  ServiceState serviceState,  int? catalogCards,  bool isRefreshing,  bool isClearingHistory,  String? version,  String? buildNumber)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SettingsState() when $default != null:
-return $default(_that.screenStatus,_that.errorType,_that.themeMode,_that.languageCode,_that.serviceState,_that.catalogCards,_that.isRefreshing,_that.isClearingHistory);case _:
+return $default(_that.screenStatus,_that.errorType,_that.themeMode,_that.languageCode,_that.serviceState,_that.catalogCards,_that.isRefreshing,_that.isClearingHistory,_that.version,_that.buildNumber);case _:
   return orElse();
 
 }
@@ -181,10 +184,10 @@ return $default(_that.screenStatus,_that.errorType,_that.themeMode,_that.languag
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  AppThemeMode themeMode,  String languageCode,  ServiceState serviceState,  int? catalogCards,  bool isRefreshing,  bool isClearingHistory)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  AppThemeMode themeMode,  String languageCode,  ServiceState serviceState,  int? catalogCards,  bool isRefreshing,  bool isClearingHistory,  String? version,  String? buildNumber)  $default,) {final _that = this;
 switch (_that) {
 case _SettingsState():
-return $default(_that.screenStatus,_that.errorType,_that.themeMode,_that.languageCode,_that.serviceState,_that.catalogCards,_that.isRefreshing,_that.isClearingHistory);case _:
+return $default(_that.screenStatus,_that.errorType,_that.themeMode,_that.languageCode,_that.serviceState,_that.catalogCards,_that.isRefreshing,_that.isClearingHistory,_that.version,_that.buildNumber);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +204,10 @@ return $default(_that.screenStatus,_that.errorType,_that.themeMode,_that.languag
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ScreenStatus screenStatus,  ErrorType? errorType,  AppThemeMode themeMode,  String languageCode,  ServiceState serviceState,  int? catalogCards,  bool isRefreshing,  bool isClearingHistory)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ScreenStatus screenStatus,  ErrorType? errorType,  AppThemeMode themeMode,  String languageCode,  ServiceState serviceState,  int? catalogCards,  bool isRefreshing,  bool isClearingHistory,  String? version,  String? buildNumber)?  $default,) {final _that = this;
 switch (_that) {
 case _SettingsState() when $default != null:
-return $default(_that.screenStatus,_that.errorType,_that.themeMode,_that.languageCode,_that.serviceState,_that.catalogCards,_that.isRefreshing,_that.isClearingHistory);case _:
+return $default(_that.screenStatus,_that.errorType,_that.themeMode,_that.languageCode,_that.serviceState,_that.catalogCards,_that.isRefreshing,_that.isClearingHistory,_that.version,_that.buildNumber);case _:
   return null;
 
 }
@@ -216,7 +219,7 @@ return $default(_that.screenStatus,_that.errorType,_that.themeMode,_that.languag
 
 
 class _SettingsState implements SettingsState {
-  const _SettingsState({required this.screenStatus, required this.errorType, required this.themeMode, required this.languageCode, required this.serviceState, required this.catalogCards, required this.isRefreshing, required this.isClearingHistory});
+  const _SettingsState({required this.screenStatus, required this.errorType, required this.themeMode, required this.languageCode, required this.serviceState, required this.catalogCards, required this.isRefreshing, required this.isClearingHistory, required this.version, required this.buildNumber});
   
 
 @override final  ScreenStatus screenStatus;
@@ -230,6 +233,9 @@ class _SettingsState implements SettingsState {
 @override final  bool isRefreshing;
 /// The history is being wiped; a second confirm is ignored meanwhile.
 @override final  bool isClearingHistory;
+/// "1.0.0" and "12" from the package info, once read.
+@override final  String? version;
+@override final  String? buildNumber;
 
 /// Create a copy of SettingsState
 /// with the given fields replaced by the non-null parameter values.
@@ -241,16 +247,16 @@ _$SettingsStateCopyWith<_SettingsState> get copyWith => __$SettingsStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SettingsState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.serviceState, serviceState) || other.serviceState == serviceState)&&(identical(other.catalogCards, catalogCards) || other.catalogCards == catalogCards)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.isClearingHistory, isClearingHistory) || other.isClearingHistory == isClearingHistory));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SettingsState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.serviceState, serviceState) || other.serviceState == serviceState)&&(identical(other.catalogCards, catalogCards) || other.catalogCards == catalogCards)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.isClearingHistory, isClearingHistory) || other.isClearingHistory == isClearingHistory)&&(identical(other.version, version) || other.version == version)&&(identical(other.buildNumber, buildNumber) || other.buildNumber == buildNumber));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,screenStatus,errorType,themeMode,languageCode,serviceState,catalogCards,isRefreshing,isClearingHistory);
+int get hashCode => Object.hash(runtimeType,screenStatus,errorType,themeMode,languageCode,serviceState,catalogCards,isRefreshing,isClearingHistory,version,buildNumber);
 
 @override
 String toString() {
-  return 'SettingsState(screenStatus: $screenStatus, errorType: $errorType, themeMode: $themeMode, languageCode: $languageCode, serviceState: $serviceState, catalogCards: $catalogCards, isRefreshing: $isRefreshing, isClearingHistory: $isClearingHistory)';
+  return 'SettingsState(screenStatus: $screenStatus, errorType: $errorType, themeMode: $themeMode, languageCode: $languageCode, serviceState: $serviceState, catalogCards: $catalogCards, isRefreshing: $isRefreshing, isClearingHistory: $isClearingHistory, version: $version, buildNumber: $buildNumber)';
 }
 
 
@@ -261,7 +267,7 @@ abstract mixin class _$SettingsStateCopyWith<$Res> implements $SettingsStateCopy
   factory _$SettingsStateCopyWith(_SettingsState value, $Res Function(_SettingsState) _then) = __$SettingsStateCopyWithImpl;
 @override @useResult
 $Res call({
- ScreenStatus screenStatus, ErrorType? errorType, AppThemeMode themeMode, String languageCode, ServiceState serviceState, int? catalogCards, bool isRefreshing, bool isClearingHistory
+ ScreenStatus screenStatus, ErrorType? errorType, AppThemeMode themeMode, String languageCode, ServiceState serviceState, int? catalogCards, bool isRefreshing, bool isClearingHistory, String? version, String? buildNumber
 });
 
 
@@ -278,7 +284,7 @@ class __$SettingsStateCopyWithImpl<$Res>
 
 /// Create a copy of SettingsState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? themeMode = null,Object? languageCode = null,Object? serviceState = null,Object? catalogCards = freezed,Object? isRefreshing = null,Object? isClearingHistory = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? themeMode = null,Object? languageCode = null,Object? serviceState = null,Object? catalogCards = freezed,Object? isRefreshing = null,Object? isClearingHistory = null,Object? version = freezed,Object? buildNumber = freezed,}) {
   return _then(_SettingsState(
 screenStatus: null == screenStatus ? _self.screenStatus : screenStatus // ignore: cast_nullable_to_non_nullable
 as ScreenStatus,errorType: freezed == errorType ? _self.errorType : errorType // ignore: cast_nullable_to_non_nullable
@@ -288,7 +294,9 @@ as String,serviceState: null == serviceState ? _self.serviceState : serviceState
 as ServiceState,catalogCards: freezed == catalogCards ? _self.catalogCards : catalogCards // ignore: cast_nullable_to_non_nullable
 as int?,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
 as bool,isClearingHistory: null == isClearingHistory ? _self.isClearingHistory : isClearingHistory // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,version: freezed == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
+as String?,buildNumber: freezed == buildNumber ? _self.buildNumber : buildNumber // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

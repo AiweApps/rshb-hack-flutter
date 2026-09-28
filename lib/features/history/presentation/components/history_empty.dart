@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_style_constants.dart';
 import '../../../../core/extensions/context_extensions.dart';
 import '../../../../core/helpers/app_haptics.dart';
+import '../../../../core/presentation/app_icons.dart';
 import '../../../../core/services/language_service.dart';
 
 /// Shown when nothing has been scanned yet.
@@ -21,7 +22,11 @@ class HistoryEmpty extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.history, size: AppSize.s64, color: context.colors.muted),
+            Icon(
+              AppIcon.history.data,
+              size: AppSize.s64,
+              color: context.colors.muted,
+            ),
             const SizedBox(height: AppSpaces.s16),
             Text(
               l10n.historyEmptyTitle,
@@ -42,7 +47,7 @@ class HistoryEmpty extends StatelessWidget {
                 AppHaptics.tap();
                 onScan();
               },
-              child: Text(l10n.historyEmptyAction.toUpperCase()),
+              child: Text(l10n.historyEmptyAction),
             ),
           ],
         ),

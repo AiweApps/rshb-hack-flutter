@@ -104,6 +104,12 @@ abstract class AppLocalizations {
   /// **'Wine Scanner'**
   String get appTitle;
 
+  /// Brand name under the launch logo; matches the native launch screen, so it is not translated
+  ///
+  /// In en, this message translates to:
+  /// **'Винный сканер'**
+  String get splashTitle;
+
   /// Bottom tab: scan
   ///
   /// In en, this message translates to:
@@ -151,12 +157,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get commonCancel;
-
-  /// Generic close button
-  ///
-  /// In en, this message translates to:
-  /// **'Close'**
-  String get commonClose;
 
   /// Generic acknowledge button
   ///
@@ -308,47 +308,11 @@ abstract class AppLocalizations {
   /// **'Skip'**
   String get onboardingSkip;
 
-  /// Small label above the scan screen title
-  ///
-  /// In en, this message translates to:
-  /// **'label recogniser'**
-  String get scanKicker;
-
-  /// Scan screen title
-  ///
-  /// In en, this message translates to:
-  /// **'Wine scanner'**
-  String get scanTitle;
-
-  /// Scan screen hero title
-  ///
-  /// In en, this message translates to:
-  /// **'Find a wine by a photo of its label'**
-  String get scanHeroTitle;
-
-  /// Scan screen hero text
-  ///
-  /// In en, this message translates to:
-  /// **'The scanner looks the wine up in the «Svoe Vino» catalogue by a photo of the label and shows the best match and similar options.'**
-  String get scanLede;
-
-  /// Open the camera
-  ///
-  /// In en, this message translates to:
-  /// **'Take a photo'**
-  String get scanTakePhoto;
-
   /// Open the gallery
   ///
   /// In en, this message translates to:
   /// **'Choose a photo'**
   String get scanPickPhoto;
-
-  /// Note under the scan buttons
-  ///
-  /// In en, this message translates to:
-  /// **'JPEG, PNG or WebP · up to 20 MB and 24 MP · the photo stays on this phone'**
-  String get scanNote;
 
   /// Recent scans section title on the scan screen
   ///
@@ -362,16 +326,10 @@ abstract class AppLocalizations {
   /// **'All'**
   String get scanRecentAll;
 
-  /// Photo source sheet title
-  ///
-  /// In en, this message translates to:
-  /// **'New photo'**
-  String get scanSourceTitle;
-
   /// Service status pill: initial
   ///
   /// In en, this message translates to:
-  /// **'checking the service…'**
+  /// **'checking…'**
   String get statusChecking;
 
   /// Service status pill: ready
@@ -395,13 +353,13 @@ abstract class AppLocalizations {
   /// Service status pill: backend unreachable
   ///
   /// In en, this message translates to:
-  /// **'recognition service is down'**
+  /// **'not responding'**
   String get statusDown;
 
   /// Service status pill: unavailable
   ///
   /// In en, this message translates to:
-  /// **'service temporarily unavailable'**
+  /// **'unavailable'**
   String get statusUnavailable;
 
   /// Service status pill: 401
@@ -413,7 +371,7 @@ abstract class AppLocalizations {
   /// Service status pill: 429
   ///
   /// In en, this message translates to:
-  /// **'too many requests · wait'**
+  /// **'wait a bit'**
   String get statusRateLimited;
 
   /// Service status pill: network error
@@ -425,7 +383,7 @@ abstract class AppLocalizations {
   /// Service status pill: dev mode
   ///
   /// In en, this message translates to:
-  /// **'development · recognition off'**
+  /// **'dev mode'**
   String get statusDev;
 
   /// Status detail: ready
@@ -644,29 +602,35 @@ abstract class AppLocalizations {
   /// **'Reference: {title}'**
   String resultReferenceOf(String title);
 
-  /// Back from a frame answer
-  ///
-  /// In en, this message translates to:
-  /// **'All bottles'**
-  String get resultAllBottles;
-
-  /// Enter frame mode
+  /// Frame sheet title
   ///
   /// In en, this message translates to:
   /// **'Draw a frame'**
   String get resultDrawFrame;
-
-  /// Pick another photo
-  ///
-  /// In en, this message translates to:
-  /// **'New photo'**
-  String get resultNewPhoto;
 
   /// More actions sheet
   ///
   /// In en, this message translates to:
   /// **'More'**
   String get resultMore;
+
+  /// Result toolbar: back to the scanner tab
+  ///
+  /// In en, this message translates to:
+  /// **'New scan'**
+  String get resultNewScan;
+
+  /// Result toolbar: compare the bottle with the reference
+  ///
+  /// In en, this message translates to:
+  /// **'Compare'**
+  String get resultCompare;
+
+  /// Result toolbar: draw a frame around a bottle
+  ///
+  /// In en, this message translates to:
+  /// **'Frame'**
+  String get resultFrame;
 
   /// Share action
   ///
@@ -734,35 +698,17 @@ abstract class AppLocalizations {
   /// **'No bottle with a label was found'**
   String get decisionNoTarget;
 
-  /// Frame mode hint
+  /// Frame sheet hint before a frame is drawn
   ///
   /// In en, this message translates to:
   /// **'Draw around the bottle with your finger'**
   String get frameHint;
 
-  /// Frame mode button
+  /// Frame sheet: recognise what is inside the drawn frame
   ///
   /// In en, this message translates to:
-  /// **'Adjust the frame'**
-  String get frameEdit;
-
-  /// Frame mode button
-  ///
-  /// In en, this message translates to:
-  /// **'Done'**
-  String get frameDone;
-
-  /// Frame mode button
-  ///
-  /// In en, this message translates to:
-  /// **'Clear the frame'**
-  String get frameClear;
-
-  /// Frame mode button
-  ///
-  /// In en, this message translates to:
-  /// **'Recognise the bottle in the frame'**
-  String get frameRecognize;
+  /// **'Scan'**
+  String get frameScan;
 
   /// Scan error title
   ///
@@ -775,12 +721,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Retry'**
   String get scanErrorRetry;
-
-  /// Scan error button
-  ///
-  /// In en, this message translates to:
-  /// **'Another photo'**
-  String get scanErrorOtherPhoto;
 
   /// Scan error title 401
   ///
@@ -1279,6 +1219,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not clear the history'**
   String get historyClearFailed;
+
+  /// Scan tab when the camera permission is denied
+  ///
+  /// In en, this message translates to:
+  /// **'No access to the camera'**
+  String get scanNoCameraTitle;
+
+  /// Scan tab body when the camera permission is denied
+  ///
+  /// In en, this message translates to:
+  /// **'Allow the camera in Settings to scan labels.'**
+  String get scanNoCameraBody;
+
+  /// Button that asks for the camera permission
+  ///
+  /// In en, this message translates to:
+  /// **'Allow the camera'**
+  String get scanAllowCamera;
+
+  /// Button that opens the system settings of the app
+  ///
+  /// In en, this message translates to:
+  /// **'Open Settings'**
+  String get scanOpenSettings;
+
+  /// Scan tab when the device has no camera
+  ///
+  /// In en, this message translates to:
+  /// **'Camera unavailable'**
+  String get scanCameraUnavailableTitle;
+
+  /// Scan tab body when the device has no camera
+  ///
+  /// In en, this message translates to:
+  /// **'This device has no camera. Choose a photo from the gallery.'**
+  String get scanCameraUnavailableBody;
+
+  /// Hint over the viewfinder
+  ///
+  /// In en, this message translates to:
+  /// **'Point at the label'**
+  String get scanHint;
+
+  /// Accessibility label of the shutter button
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo'**
+  String get scanShutter;
+
+  /// Accessibility label of the flash toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Flash'**
+  String get scanFlash;
+
+  /// Settings footer
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version} ({build})'**
+  String settingsVersion(String version, String build);
 }
 
 class _AppLocalizationsDelegate

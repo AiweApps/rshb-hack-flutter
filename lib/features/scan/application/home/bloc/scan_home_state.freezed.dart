@@ -14,7 +14,10 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ScanHomeState {
 
- ScreenStatus get screenStatus; ErrorType? get errorType; ServiceState get serviceState; List<ScanHistoryItem> get recent;/// The system picker is open; the buttons are disabled meanwhile.
+ ScreenStatus get screenStatus; ErrorType? get errorType;/// The live preview itself is not here: `CameraService.preview` feeds
+/// the widget, this only says which view the tab shows.
+ CameraStatus get cameraStatus; bool get isFlashOn; bool get isCapturing; ServiceState get serviceState;/// Shown while the camera is not available, so the tab is not empty.
+ List<ScanHistoryItem> get recent;/// The system picker is open; the buttons are disabled meanwhile.
  bool get isPicking;
 /// Create a copy of ScanHomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -26,16 +29,16 @@ $ScanHomeStateCopyWith<ScanHomeState> get copyWith => _$ScanHomeStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScanHomeState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&(identical(other.serviceState, serviceState) || other.serviceState == serviceState)&&const DeepCollectionEquality().equals(other.recent, recent)&&(identical(other.isPicking, isPicking) || other.isPicking == isPicking));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScanHomeState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&(identical(other.cameraStatus, cameraStatus) || other.cameraStatus == cameraStatus)&&(identical(other.isFlashOn, isFlashOn) || other.isFlashOn == isFlashOn)&&(identical(other.isCapturing, isCapturing) || other.isCapturing == isCapturing)&&(identical(other.serviceState, serviceState) || other.serviceState == serviceState)&&const DeepCollectionEquality().equals(other.recent, recent)&&(identical(other.isPicking, isPicking) || other.isPicking == isPicking));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,screenStatus,errorType,serviceState,const DeepCollectionEquality().hash(recent),isPicking);
+int get hashCode => Object.hash(runtimeType,screenStatus,errorType,cameraStatus,isFlashOn,isCapturing,serviceState,const DeepCollectionEquality().hash(recent),isPicking);
 
 @override
 String toString() {
-  return 'ScanHomeState(screenStatus: $screenStatus, errorType: $errorType, serviceState: $serviceState, recent: $recent, isPicking: $isPicking)';
+  return 'ScanHomeState(screenStatus: $screenStatus, errorType: $errorType, cameraStatus: $cameraStatus, isFlashOn: $isFlashOn, isCapturing: $isCapturing, serviceState: $serviceState, recent: $recent, isPicking: $isPicking)';
 }
 
 
@@ -46,7 +49,7 @@ abstract mixin class $ScanHomeStateCopyWith<$Res>  {
   factory $ScanHomeStateCopyWith(ScanHomeState value, $Res Function(ScanHomeState) _then) = _$ScanHomeStateCopyWithImpl;
 @useResult
 $Res call({
- ScreenStatus screenStatus, ErrorType? errorType, ServiceState serviceState, List<ScanHistoryItem> recent, bool isPicking
+ ScreenStatus screenStatus, ErrorType? errorType, CameraStatus cameraStatus, bool isFlashOn, bool isCapturing, ServiceState serviceState, List<ScanHistoryItem> recent, bool isPicking
 });
 
 
@@ -63,11 +66,14 @@ class _$ScanHomeStateCopyWithImpl<$Res>
 
 /// Create a copy of ScanHomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? serviceState = null,Object? recent = null,Object? isPicking = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? cameraStatus = null,Object? isFlashOn = null,Object? isCapturing = null,Object? serviceState = null,Object? recent = null,Object? isPicking = null,}) {
   return _then(_self.copyWith(
 screenStatus: null == screenStatus ? _self.screenStatus : screenStatus // ignore: cast_nullable_to_non_nullable
 as ScreenStatus,errorType: freezed == errorType ? _self.errorType : errorType // ignore: cast_nullable_to_non_nullable
-as ErrorType?,serviceState: null == serviceState ? _self.serviceState : serviceState // ignore: cast_nullable_to_non_nullable
+as ErrorType?,cameraStatus: null == cameraStatus ? _self.cameraStatus : cameraStatus // ignore: cast_nullable_to_non_nullable
+as CameraStatus,isFlashOn: null == isFlashOn ? _self.isFlashOn : isFlashOn // ignore: cast_nullable_to_non_nullable
+as bool,isCapturing: null == isCapturing ? _self.isCapturing : isCapturing // ignore: cast_nullable_to_non_nullable
+as bool,serviceState: null == serviceState ? _self.serviceState : serviceState // ignore: cast_nullable_to_non_nullable
 as ServiceState,recent: null == recent ? _self.recent : recent // ignore: cast_nullable_to_non_nullable
 as List<ScanHistoryItem>,isPicking: null == isPicking ? _self.isPicking : isPicking // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -155,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  ServiceState serviceState,  List<ScanHistoryItem> recent,  bool isPicking)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  CameraStatus cameraStatus,  bool isFlashOn,  bool isCapturing,  ServiceState serviceState,  List<ScanHistoryItem> recent,  bool isPicking)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ScanHomeState() when $default != null:
-return $default(_that.screenStatus,_that.errorType,_that.serviceState,_that.recent,_that.isPicking);case _:
+return $default(_that.screenStatus,_that.errorType,_that.cameraStatus,_that.isFlashOn,_that.isCapturing,_that.serviceState,_that.recent,_that.isPicking);case _:
   return orElse();
 
 }
@@ -176,10 +182,10 @@ return $default(_that.screenStatus,_that.errorType,_that.serviceState,_that.rece
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  ServiceState serviceState,  List<ScanHistoryItem> recent,  bool isPicking)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  CameraStatus cameraStatus,  bool isFlashOn,  bool isCapturing,  ServiceState serviceState,  List<ScanHistoryItem> recent,  bool isPicking)  $default,) {final _that = this;
 switch (_that) {
 case _ScanHomeState():
-return $default(_that.screenStatus,_that.errorType,_that.serviceState,_that.recent,_that.isPicking);case _:
+return $default(_that.screenStatus,_that.errorType,_that.cameraStatus,_that.isFlashOn,_that.isCapturing,_that.serviceState,_that.recent,_that.isPicking);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +202,10 @@ return $default(_that.screenStatus,_that.errorType,_that.serviceState,_that.rece
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ScreenStatus screenStatus,  ErrorType? errorType,  ServiceState serviceState,  List<ScanHistoryItem> recent,  bool isPicking)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ScreenStatus screenStatus,  ErrorType? errorType,  CameraStatus cameraStatus,  bool isFlashOn,  bool isCapturing,  ServiceState serviceState,  List<ScanHistoryItem> recent,  bool isPicking)?  $default,) {final _that = this;
 switch (_that) {
 case _ScanHomeState() when $default != null:
-return $default(_that.screenStatus,_that.errorType,_that.serviceState,_that.recent,_that.isPicking);case _:
+return $default(_that.screenStatus,_that.errorType,_that.cameraStatus,_that.isFlashOn,_that.isCapturing,_that.serviceState,_that.recent,_that.isPicking);case _:
   return null;
 
 }
@@ -211,13 +217,20 @@ return $default(_that.screenStatus,_that.errorType,_that.serviceState,_that.rece
 
 
 class _ScanHomeState implements ScanHomeState {
-  const _ScanHomeState({required this.screenStatus, required this.errorType, required this.serviceState, required final  List<ScanHistoryItem> recent, required this.isPicking}): _recent = recent;
+  const _ScanHomeState({required this.screenStatus, required this.errorType, required this.cameraStatus, required this.isFlashOn, required this.isCapturing, required this.serviceState, required final  List<ScanHistoryItem> recent, required this.isPicking}): _recent = recent;
   
 
 @override final  ScreenStatus screenStatus;
 @override final  ErrorType? errorType;
+/// The live preview itself is not here: `CameraService.preview` feeds
+/// the widget, this only says which view the tab shows.
+@override final  CameraStatus cameraStatus;
+@override final  bool isFlashOn;
+@override final  bool isCapturing;
 @override final  ServiceState serviceState;
+/// Shown while the camera is not available, so the tab is not empty.
  final  List<ScanHistoryItem> _recent;
+/// Shown while the camera is not available, so the tab is not empty.
 @override List<ScanHistoryItem> get recent {
   if (_recent is EqualUnmodifiableListView) return _recent;
   // ignore: implicit_dynamic_type
@@ -237,16 +250,16 @@ _$ScanHomeStateCopyWith<_ScanHomeState> get copyWith => __$ScanHomeStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ScanHomeState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&(identical(other.serviceState, serviceState) || other.serviceState == serviceState)&&const DeepCollectionEquality().equals(other._recent, _recent)&&(identical(other.isPicking, isPicking) || other.isPicking == isPicking));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ScanHomeState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&(identical(other.cameraStatus, cameraStatus) || other.cameraStatus == cameraStatus)&&(identical(other.isFlashOn, isFlashOn) || other.isFlashOn == isFlashOn)&&(identical(other.isCapturing, isCapturing) || other.isCapturing == isCapturing)&&(identical(other.serviceState, serviceState) || other.serviceState == serviceState)&&const DeepCollectionEquality().equals(other._recent, _recent)&&(identical(other.isPicking, isPicking) || other.isPicking == isPicking));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,screenStatus,errorType,serviceState,const DeepCollectionEquality().hash(_recent),isPicking);
+int get hashCode => Object.hash(runtimeType,screenStatus,errorType,cameraStatus,isFlashOn,isCapturing,serviceState,const DeepCollectionEquality().hash(_recent),isPicking);
 
 @override
 String toString() {
-  return 'ScanHomeState(screenStatus: $screenStatus, errorType: $errorType, serviceState: $serviceState, recent: $recent, isPicking: $isPicking)';
+  return 'ScanHomeState(screenStatus: $screenStatus, errorType: $errorType, cameraStatus: $cameraStatus, isFlashOn: $isFlashOn, isCapturing: $isCapturing, serviceState: $serviceState, recent: $recent, isPicking: $isPicking)';
 }
 
 
@@ -257,7 +270,7 @@ abstract mixin class _$ScanHomeStateCopyWith<$Res> implements $ScanHomeStateCopy
   factory _$ScanHomeStateCopyWith(_ScanHomeState value, $Res Function(_ScanHomeState) _then) = __$ScanHomeStateCopyWithImpl;
 @override @useResult
 $Res call({
- ScreenStatus screenStatus, ErrorType? errorType, ServiceState serviceState, List<ScanHistoryItem> recent, bool isPicking
+ ScreenStatus screenStatus, ErrorType? errorType, CameraStatus cameraStatus, bool isFlashOn, bool isCapturing, ServiceState serviceState, List<ScanHistoryItem> recent, bool isPicking
 });
 
 
@@ -274,11 +287,14 @@ class __$ScanHomeStateCopyWithImpl<$Res>
 
 /// Create a copy of ScanHomeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? serviceState = null,Object? recent = null,Object? isPicking = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? cameraStatus = null,Object? isFlashOn = null,Object? isCapturing = null,Object? serviceState = null,Object? recent = null,Object? isPicking = null,}) {
   return _then(_ScanHomeState(
 screenStatus: null == screenStatus ? _self.screenStatus : screenStatus // ignore: cast_nullable_to_non_nullable
 as ScreenStatus,errorType: freezed == errorType ? _self.errorType : errorType // ignore: cast_nullable_to_non_nullable
-as ErrorType?,serviceState: null == serviceState ? _self.serviceState : serviceState // ignore: cast_nullable_to_non_nullable
+as ErrorType?,cameraStatus: null == cameraStatus ? _self.cameraStatus : cameraStatus // ignore: cast_nullable_to_non_nullable
+as CameraStatus,isFlashOn: null == isFlashOn ? _self.isFlashOn : isFlashOn // ignore: cast_nullable_to_non_nullable
+as bool,isCapturing: null == isCapturing ? _self.isCapturing : isCapturing // ignore: cast_nullable_to_non_nullable
+as bool,serviceState: null == serviceState ? _self.serviceState : serviceState // ignore: cast_nullable_to_non_nullable
 as ServiceState,recent: null == recent ? _self._recent : recent // ignore: cast_nullable_to_non_nullable
 as List<ScanHistoryItem>,isPicking: null == isPicking ? _self.isPicking : isPicking // ignore: cast_nullable_to_non_nullable
 as bool,

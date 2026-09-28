@@ -11,14 +11,17 @@ import '../constants/app_text_styles_constants.dart';
 /// *derived* from them here, so the two can never drift apart. Application code
 /// reads the tokens (`context.colors`, `context.ts`) and never `ColorScheme` or
 /// `TextTheme`.
+///
+/// The look is a native mobile one — system type, filled rounded controls,
+/// grouped lists — with the web palette.
 ThemeData getBaseTheme({Brightness brightness = Brightness.light}) {
   final AppColors colors = brightness == Brightness.light
       ? AppColors.light
       : AppColors.dark;
   final AppTextStyles textStyles = AppTextStyles.from(colors);
   final ColorScheme colorScheme = _colorSchemeFrom(colors, brightness);
-  const RoundedRectangleBorder pill = RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(AppRadius.rPill)),
+  const RoundedRectangleBorder rounded = RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(AppRadius.r12)),
   );
 
   return ThemeData(
@@ -28,16 +31,15 @@ ThemeData getBaseTheme({Brightness brightness = Brightness.light}) {
     canvasColor: colors.paper,
     splashColor: colors.wine.withAlpha(AppAlpha.a12),
     highlightColor: colors.wine.withAlpha(AppAlpha.a8),
-    splashFactory: InkSparkle.splashFactory,
     appBarTheme: AppBarTheme(
-      centerTitle: false,
+      centerTitle: true,
       elevation: 0,
       scrolledUnderElevation: 0,
       surfaceTintColor: Colors.transparent,
       backgroundColor: colors.paper,
       foregroundColor: colors.ink,
       titleTextStyle: textStyles.appBarTitle,
-      iconTheme: IconThemeData(color: colors.ink, size: AppSize.s24),
+      iconTheme: IconThemeData(color: colors.wine, size: AppSize.s24),
     ),
     dividerTheme: DividerThemeData(
       thickness: AppSize.dividerThickness,
@@ -48,7 +50,7 @@ ThemeData getBaseTheme({Brightness brightness = Brightness.light}) {
       textColor: colors.ink,
       titleTextStyle: textStyles.paragraph,
       subtitleTextStyle: textStyles.paragraphTiny,
-      iconColor: colors.ink2,
+      iconColor: colors.wine,
       tileColor: Colors.transparent,
     ),
     bottomSheetTheme: BottomSheetThemeData(
@@ -75,7 +77,7 @@ ThemeData getBaseTheme({Brightness brightness = Brightness.light}) {
       color: colors.wine,
       strokeWidth: AppSize.s2,
     ),
-    // Primary pill: wine fill.
+    // Primary: wine fill, rounded.
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         foregroundColor: WidgetStatePropertyAll<Color>(colors.onWine),
@@ -94,18 +96,18 @@ ThemeData getBaseTheme({Brightness brightness = Brightness.light}) {
         ),
         padding: const WidgetStatePropertyAll<EdgeInsets>(
           EdgeInsets.symmetric(
-            horizontal: AppPadding.p24,
+            horizontal: AppPadding.p20,
             vertical: AppPadding.p12,
           ),
         ),
-        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(pill),
+        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(rounded),
       ),
     ),
-    // Ghost pill: wine outline.
+    // Secondary: tonal fill, no outline — the iOS "gray" button.
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
         foregroundColor: WidgetStatePropertyAll(colors.wine),
-        backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
+        backgroundColor: WidgetStatePropertyAll(colors.paper2),
         overlayColor: WidgetStatePropertyAll<Color>(
           colors.wine.withAlpha(AppAlpha.a12),
         ),
@@ -119,13 +121,11 @@ ThemeData getBaseTheme({Brightness brightness = Brightness.light}) {
             vertical: AppPadding.p12,
           ),
         ),
-        side: WidgetStatePropertyAll<BorderSide>(
-          BorderSide(color: colors.wine, width: AppSize.s1_5),
-        ),
-        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(pill),
+        side: const WidgetStatePropertyAll<BorderSide>(BorderSide.none),
+        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(rounded),
       ),
     ),
-    // Text-only action, e.g. a link in a card.
+    // Plain text action.
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         minimumSize: const WidgetStatePropertyAll<Size>(
@@ -136,12 +136,12 @@ ThemeData getBaseTheme({Brightness brightness = Brightness.light}) {
           colors.wine.withAlpha(AppAlpha.a12),
         ),
         textStyle: WidgetStatePropertyAll<TextStyle?>(textStyles.buttonSmall),
-        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(pill),
+        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(rounded),
       ),
     ),
     iconButtonTheme: IconButtonThemeData(
       style: ButtonStyle(
-        foregroundColor: WidgetStatePropertyAll<Color>(colors.ink),
+        foregroundColor: WidgetStatePropertyAll<Color>(colors.wine),
         minimumSize: const WidgetStatePropertyAll<Size>(
           Size(AppSize.minTapTarget, AppSize.minTapTarget),
         ),
@@ -163,8 +163,8 @@ ThemeData getBaseTheme({Brightness brightness = Brightness.light}) {
       backgroundColor: colors.paper2,
       selectedColor: colors.wine,
       labelStyle: textStyles.tab,
-      side: BorderSide(color: colors.rule),
-      shape: pill,
+      side: BorderSide.none,
+      shape: const StadiumBorder(),
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: colors.ink,

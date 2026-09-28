@@ -126,10 +126,7 @@ class AppSize {
   static const double defaultCircularProgressSize = 36.0;
   static const double dividerThickness = 1;
 
-  /// Draggable result sheet: how much of the screen it takes when collapsed,
-  /// half open, and fully expanded.
-  static const double resultSheetMin = 0.22;
-  static const double resultSheetInitial = 0.45;
+  /// The frame and compare sheets, as a share of the screen height.
   static const double resultSheetMax = 0.92;
 }
 
@@ -147,6 +144,9 @@ class AppRadius {
 
   /// Fully rounded ("pill") corners.
   static const double rPill = 999.0;
+
+  /// The iOS icon mask, at the 120pt launch logo (22% of the side).
+  static const double rLaunchLogo = 26.4;
 }
 
 class AppAlpha {

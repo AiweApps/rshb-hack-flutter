@@ -67,7 +67,7 @@ class ConfirmationDialog extends StatelessWidget {
               const SizedBox(height: AppSpaces.s8),
               OutlinedButton(
                 onPressed: isLoading ? null : onCancel,
-                child: Text(cancelButtonText.toUpperCase()),
+                child: Text(cancelButtonText),
               ),
             ],
           ),
@@ -108,7 +108,7 @@ class _ConfirmButton extends StatelessWidget {
               height: AppSize.s20,
               child: CircularProgressIndicator(color: context.colors.onWine),
             )
-          : Text(text.toUpperCase()),
+          : Text(text),
     );
   }
 }

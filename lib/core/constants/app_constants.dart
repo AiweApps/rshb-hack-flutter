@@ -61,12 +61,15 @@ class LimitConstants {
   static const int uploadMaxSide = 4000;
   static const int uploadJpegQuality = 92;
 
-  /// Recent scans shown on the scan tab.
-  static const int maxRecentScansOnHome = 3;
+  /// Recent scans shown on the scan tab while the camera is not available.
+  static const int maxRecentScansOnHome = 6;
 
   /// A drawn frame narrower than this (in screen pixels) is a tap, not a box.
   static const double minRoiSideOnScreen = 16;
   static const double minRoiSideWhileResizing = 24;
+
+  /// How far the comparison panes zoom in.
+  static const double compareMaxZoom = 5;
 
   /// Padding around the bottle crop shown next to the reference, as a share
   /// of the longer box side.

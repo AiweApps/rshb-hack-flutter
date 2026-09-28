@@ -15,6 +15,11 @@ enum ScanMode {
   unknown,
 }
 
+/// An answer without bottles: for the whole photo or a drawn frame, and
+/// whether the verdict itself already says «no bottle» (then only the
+/// advice follows).
+enum EmptyAnswer { auto, autoNoTarget, roi, roiNoTarget }
+
 /// The service's verdict for the photo or for one bottle. `uncertain` is the
 /// normal "here are candidates" outcome; there is no accepted state, because
 /// confidence is not calibrated.
@@ -79,6 +84,20 @@ abstract class RecognitionView with _$RecognitionView {
   List<int>? get frame => frameSize ?? image?.size;
 
   bool get isExplicitRoi => mode == ScanMode.explicitRoi;
+
+  /// Which «nothing found» text an answer without bottles gets.
+  EmptyAnswer get emptyAnswer =>
+      switch ((isExplicitRoi, decision == ScanDecision.noTarget)) {
+        (true, true) => EmptyAnswer.roiNoTarget,
+        (true, false) => EmptyAnswer.roi,
+        (false, true) => EmptyAnswer.autoNoTarget,
+        (false, false) => EmptyAnswer.auto,
+      };
+
+  /// The part of the photo [bottle] is about: its own box, or the frame the
+  /// user drew when the answer is for a frame and the box is missing.
+  BottleBox? cropOf(RecognizedBottle bottle) =>
+      bottle.geometry ?? (isExplicitRoi ? roi : null);
 
   /// The bottle the service suggests as the central one, when it says so.
   bool isNearCenter(RecognizedBottle bottle) =>

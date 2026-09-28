@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../core/application/bloc/base_bloc_state.dart';
 import '../../../../core/application/bloc/screen_status.dart';
 import '../../../../shared/presentation/errors/error_type.dart';
+import '../../domain/models/history_day_section.dart';
 import '../../domain/models/scan_record.dart';
 
 part 'history_state.freezed.dart';
@@ -19,6 +20,9 @@ abstract class HistoryState with _$HistoryState implements BaseBlocState {
     /// user has already swiped away and whose deletion is still in flight.
     required List<ScanHistoryItem> items,
 
+    /// [items] grouped by calendar day, newest first — what the list draws.
+    required List<HistoryDaySection> sections,
+
     /// Ids swiped away but not yet gone from the database.
     required Set<int> pendingDeleteIds,
   }) = _HistoryState;
@@ -29,6 +33,7 @@ abstract class HistoryState with _$HistoryState implements BaseBlocState {
     screenStatus: ScreenStatus.loading,
     errorType: null,
     items: [],
+    sections: [],
     pendingDeleteIds: {},
   );
 

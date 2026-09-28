@@ -22,3 +22,6 @@ final class OpenStoredScan extends ScanHomeUiEffect {
 }
 
 final class OpenHistory extends ScanHomeUiEffect {}
+
+/// The system settings page of the app, where a refused permission lives.
+final class OpenAppSettings extends ScanHomeUiEffect {}

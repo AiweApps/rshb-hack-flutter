@@ -26,15 +26,9 @@ final class RetryPressed extends ScanResultEvent {
   const RetryPressed();
 }
 
-final class NewPhotoPressed extends ScanResultEvent {
-  const NewPhotoPressed();
-}
-
-/// The source sheet was answered (null: dismissed).
-final class NewPhotoSourceChosen extends ScanResultEvent {
-  final PhotoSource? source;
-
-  const NewPhotoSourceChosen({required this.source});
+/// «Новый скан»: back to the scanner tab.
+final class NewScanPressed extends ScanResultEvent {
+  const NewScanPressed();
 }
 
 /// A bottle frame or chip was tapped; null means "all bottles".
@@ -54,27 +48,16 @@ final class RescanHintDismissed extends ScanResultEvent {
   const RescanHintDismissed();
 }
 
-final class DrawModeToggled extends ScanResultEvent {
-  const DrawModeToggled();
+/// «Рамка» in the toolbar: open the sheet to draw one.
+final class DrawFramePressed extends ScanResultEvent {
+  const DrawFramePressed();
 }
 
-/// A frame was drawn or moved; in EXIF-oriented frame pixels.
-final class DraftChanged extends ScanResultEvent {
-  final BottleBox draft;
+/// The frame sheet handed back a frame; in EXIF-oriented frame pixels.
+final class FrameDrawn extends ScanResultEvent {
+  final BottleBox roi;
 
-  const DraftChanged({required this.draft});
-}
-
-final class DraftCleared extends ScanResultEvent {
-  const DraftCleared();
-}
-
-final class DraftEditToggled extends ScanResultEvent {
-  const DraftEditToggled();
-}
-
-final class DraftRecognizePressed extends ScanResultEvent {
-  const DraftRecognizePressed();
+  const FrameDrawn({required this.roi});
 }
 
 final class BackToAllPressed extends ScanResultEvent {
@@ -87,6 +70,12 @@ final class CardLinkPressed extends ScanResultEvent {
   const CardLinkPressed({required this.url});
 }
 
+/// «Сравнить» in the toolbar: the selected bottle against its best match.
+final class ComparePressed extends ScanResultEvent {
+  const ComparePressed();
+}
+
+/// A card's preview was tapped: that bottle against [card].
 final class CompareTapped extends ScanResultEvent {
   final String instanceId;
   final WineCard card;

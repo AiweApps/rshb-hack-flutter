@@ -12,6 +12,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get appTitle => 'Винный сканер';
 
   @override
+  String get splashTitle => 'Винный сканер';
+
+  @override
   String get tabScan => 'Сканер';
 
   @override
@@ -37,9 +40,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get commonCancel => 'Отмена';
-
-  @override
-  String get commonClose => 'Закрыть';
 
   @override
   String get commonGotIt => 'Понятно';
@@ -120,27 +120,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get onboardingSkip => 'Пропустить';
 
   @override
-  String get scanKicker => 'распознаватель этикеток';
-
-  @override
-  String get scanTitle => 'Винный сканер';
-
-  @override
-  String get scanHeroTitle => 'Узнайте вино по фото этикетки';
-
-  @override
-  String get scanLede =>
-      'Сканер ищет вино в каталоге «Своё вино» по фотографии этикетки и показывает лучшее совпадение и похожие варианты.';
-
-  @override
-  String get scanTakePhoto => 'Сфотографировать';
-
-  @override
   String get scanPickPhoto => 'Выбрать фото';
-
-  @override
-  String get scanNote =>
-      'JPEG, PNG или WebP · до 20 МБ и 24 Мп · фото хранится только на этом телефоне';
 
   @override
   String get scanRecentTitle => 'Последние сканы';
@@ -149,10 +129,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get scanRecentAll => 'Все';
 
   @override
-  String get scanSourceTitle => 'Новое фото';
-
-  @override
-  String get statusChecking => 'проверяем сервис…';
+  String get statusChecking => 'проверяем…';
 
   @override
   String get statusReady => 'готов';
@@ -166,22 +143,22 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get statusDown => 'сервис распознавания недоступен';
+  String get statusDown => 'не отвечает';
 
   @override
-  String get statusUnavailable => 'сервис временно недоступен';
+  String get statusUnavailable => 'недоступен';
 
   @override
   String get statusNoAccess => 'нет доступа';
 
   @override
-  String get statusRateLimited => 'слишком много запросов · подождите';
+  String get statusRateLimited => 'подождите';
 
   @override
   String get statusOffline => 'нет связи';
 
   @override
-  String get statusDev => 'разработка · распознавание отключено';
+  String get statusDev => 'разработка';
 
   @override
   String get statusReadyDetail =>
@@ -314,16 +291,19 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get resultAllBottles => 'Все бутылки';
-
-  @override
   String get resultDrawFrame => 'Выделить рамку';
 
   @override
-  String get resultNewPhoto => 'Новое фото';
+  String get resultMore => 'Ещё';
 
   @override
-  String get resultMore => 'Ещё';
+  String get resultNewScan => 'Новый скан';
+
+  @override
+  String get resultCompare => 'Сравнить';
+
+  @override
+  String get resultFrame => 'Рамка';
 
   @override
   String get resultShareJson => 'Поделиться полным ответом JSON';
@@ -375,25 +355,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get frameHint => 'Обведите нужную бутылку пальцем';
 
   @override
-  String get frameEdit => 'Изменить рамку';
-
-  @override
-  String get frameDone => 'Готово';
-
-  @override
-  String get frameClear => 'Стереть рамку';
-
-  @override
-  String get frameRecognize => 'Распознать бутылку в рамке';
+  String get frameScan => 'Сканировать';
 
   @override
   String get scanErrorTitleDefault => 'Не получилось';
 
   @override
   String get scanErrorRetry => 'Повторить';
-
-  @override
-  String get scanErrorOtherPhoto => 'Другое фото';
 
   @override
   String get scanErrorNoAccess => 'Нет доступа';
@@ -682,4 +650,38 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get historyClearFailed => 'Не удалось очистить историю';
+
+  @override
+  String get scanNoCameraTitle => 'Нет доступа к камере';
+
+  @override
+  String get scanNoCameraBody =>
+      'Разрешите камеру в настройках, чтобы сканировать этикетки.';
+
+  @override
+  String get scanAllowCamera => 'Разрешить камеру';
+
+  @override
+  String get scanOpenSettings => 'Открыть настройки';
+
+  @override
+  String get scanCameraUnavailableTitle => 'Камера недоступна';
+
+  @override
+  String get scanCameraUnavailableBody =>
+      'На этом устройстве нет камеры. Выберите фото из галереи.';
+
+  @override
+  String get scanHint => 'Наведите на этикетку';
+
+  @override
+  String get scanShutter => 'Снять';
+
+  @override
+  String get scanFlash => 'Вспышка';
+
+  @override
+  String settingsVersion(String version, String build) {
+    return 'Версия $version ($build)';
+  }
 }

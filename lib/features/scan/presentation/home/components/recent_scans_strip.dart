@@ -29,24 +29,19 @@ class RecentScansStrip extends StatelessWidget {
       children: [
         Row(
           children: [
-            Expanded(
-              child: Text(
-                l10n.scanRecentTitle.toUpperCase(),
-                style: context.ts.kicker,
-              ),
-            ),
+            Expanded(child: Text(l10n.scanRecentTitle, style: context.ts.h4)),
             TextButton(
               onPressed: () {
                 AppHaptics.tap();
                 onAllTap();
               },
-              child: Text(l10n.scanRecentAll.toUpperCase()),
+              child: Text(l10n.scanRecentAll),
             ),
           ],
         ),
         const SizedBox(height: AppSpaces.s8),
         SizedBox(
-          height: AppSize.s200,
+          height: AppSize.s160,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: items.length,
@@ -88,14 +83,14 @@ class _RecentScanCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: SizedBox(
-          width: AppSize.s140,
+          width: AppSize.s100,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               LocalPhoto(
                 path: item.photoPath,
-                width: AppSize.s140,
-                height: AppSize.s140,
+                width: AppSize.s100,
+                height: AppSize.s100,
                 borderRadius: AppRadius.r0,
               ),
               Padding(

@@ -8,6 +8,7 @@ import '../core/router/app_router.dart';
 import '../core/services/api/service/api_service.dart';
 import '../core/services/auth/auth_interceptor.dart';
 import '../core/services/auth/guest_session_service.dart';
+import '../core/services/camera_service.dart';
 import '../core/services/flavors.dart';
 import '../core/services/photo_picker_service.dart';
 import '../features/history/application/bloc/history_bloc.dart';
@@ -64,6 +65,9 @@ void _registerServices(GetIt sl) {
       );
       return service;
     });
+  }
+  if (!sl.isRegistered<CameraService>()) {
+    sl.registerLazySingleton<CameraService>(() => CameraService());
   }
   if (!sl.isRegistered<PhotoPickerService>()) {
     sl.registerLazySingleton<PhotoPickerService>(() => PhotoPickerService());

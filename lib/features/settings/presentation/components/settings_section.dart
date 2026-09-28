@@ -26,7 +26,7 @@ class SettingsSection extends StatelessWidget {
             left: AppPadding.p16,
             bottom: AppPadding.p8,
           ),
-          child: Text(title.toUpperCase(), style: context.ts.kicker),
+          child: Text(title, style: context.ts.kicker),
         ),
         Material(
           color: colors.card,

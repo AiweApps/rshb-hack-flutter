@@ -43,7 +43,7 @@ class ErrorFullScreen extends StatelessWidget {
                         color: context.colors.onWine,
                       ),
                     )
-                  : Text(context.localization.errorReloadButton.toUpperCase()),
+                  : Text(context.localization.errorReloadButton),
             ),
           ],
         ),

@@ -18,6 +18,8 @@ class ServiceDetailSheet extends StatelessWidget {
     ServiceAvailability availability,
   ) {
     return showModalBottomSheet<void>(
+      // Above the tab shell, so the floating bar does not overlap it.
+      useRootNavigator: true,
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
@@ -66,7 +68,7 @@ class ServiceDetailSheet extends StatelessWidget {
           const SizedBox(height: AppSpaces.s24),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.commonGotIt.toUpperCase()),
+            child: Text(l10n.commonGotIt),
           ),
         ],
       ),

@@ -8,6 +8,7 @@ import '../../../domain/models/recognition_view.dart';
 import '../../../domain/models/reference_access.dart';
 import '../../../domain/models/scan_failure.dart';
 import '../../../domain/models/tech_row.dart';
+import '../../../domain/models/wine_card.dart';
 
 part 'scan_result_state.freezed.dart';
 
@@ -43,9 +44,6 @@ abstract class ScanResultState with _$ScanResultState implements BaseBlocState {
 
     /// Frame of the request in flight or the one that failed.
     required BottleBox? pendingRoi,
-    required bool isDrawing,
-    required BottleBox? draft,
-    required bool isEditingDraft,
     required int retryAttempt,
     required int retrySecondsLeft,
     required RetryReason retryReason,
@@ -71,9 +69,6 @@ abstract class ScanResultState with _$ScanResultState implements BaseBlocState {
     overview: null,
     selectedInstanceId: null,
     pendingRoi: null,
-    isDrawing: false,
-    draft: null,
-    isEditingDraft: false,
     retryAttempt: 0,
     retrySecondsLeft: 0,
     retryReason: RetryReason.busy,
@@ -85,6 +80,21 @@ abstract class ScanResultState with _$ScanResultState implements BaseBlocState {
   );
 
   RecognizedBottle? get selectedBottle => view?.bottleById(selectedInstanceId);
+
+  /// The card the toolbar compares the selected bottle with.
+  WineCard? get selectedCard => selectedBottle?.best;
+
+  bool get hasAnswer => phase == ResultPhase.answer && view != null;
+
+  /// Comparing needs a bottle with a match on screen.
+  bool get canCompare => hasAnswer && selectedCard != null;
+
+  /// A frame needs the photo's frame size, which the first answer brings,
+  /// and no request in flight.
+  bool get canDrawFrame =>
+      frame != null &&
+      phase != ResultPhase.recognizing &&
+      phase != ResultPhase.waitingRetry;
 
   /// A frame answer is on screen and the all-bottles answer can be restored
   /// without a request.

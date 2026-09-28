@@ -22,7 +22,7 @@ mixin _$ScanResultState {
  bool get isRoiRequest;/// The answer on screen.
  RecognitionView? get view;/// The all-bottles answer kept while a frame answer is shown.
  RecognitionView? get overview; String? get selectedInstanceId;/// Frame of the request in flight or the one that failed.
- BottleBox? get pendingRoi; bool get isDrawing; BottleBox? get draft; bool get isEditingDraft; int get retryAttempt; int get retrySecondsLeft; RetryReason get retryReason; ScanFailure? get failure; ReferenceAccess? get referenceAccess; int? get historyId;/// The "what does «Распознать» do" bubble opens by itself once.
+ BottleBox? get pendingRoi; int get retryAttempt; int get retrySecondsLeft; RetryReason get retryReason; ScanFailure? get failure; ReferenceAccess? get referenceAccess; int? get historyId;/// The "what does «Распознать» do" bubble opens by itself once.
  bool get showRescanHint; List<TechRow> get techRows;
 /// Create a copy of ScanResultState
 /// with the given fields replaced by the non-null parameter values.
@@ -34,16 +34,16 @@ $ScanResultStateCopyWith<ScanResultState> get copyWith => _$ScanResultStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScanResultState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&(identical(other.photoPath, photoPath) || other.photoPath == photoPath)&&(identical(other.isStored, isStored) || other.isStored == isStored)&&(identical(other.phase, phase) || other.phase == phase)&&(identical(other.isRoiRequest, isRoiRequest) || other.isRoiRequest == isRoiRequest)&&(identical(other.view, view) || other.view == view)&&(identical(other.overview, overview) || other.overview == overview)&&(identical(other.selectedInstanceId, selectedInstanceId) || other.selectedInstanceId == selectedInstanceId)&&(identical(other.pendingRoi, pendingRoi) || other.pendingRoi == pendingRoi)&&(identical(other.isDrawing, isDrawing) || other.isDrawing == isDrawing)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.isEditingDraft, isEditingDraft) || other.isEditingDraft == isEditingDraft)&&(identical(other.retryAttempt, retryAttempt) || other.retryAttempt == retryAttempt)&&(identical(other.retrySecondsLeft, retrySecondsLeft) || other.retrySecondsLeft == retrySecondsLeft)&&(identical(other.retryReason, retryReason) || other.retryReason == retryReason)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.referenceAccess, referenceAccess) || other.referenceAccess == referenceAccess)&&(identical(other.historyId, historyId) || other.historyId == historyId)&&(identical(other.showRescanHint, showRescanHint) || other.showRescanHint == showRescanHint)&&const DeepCollectionEquality().equals(other.techRows, techRows));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScanResultState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&(identical(other.photoPath, photoPath) || other.photoPath == photoPath)&&(identical(other.isStored, isStored) || other.isStored == isStored)&&(identical(other.phase, phase) || other.phase == phase)&&(identical(other.isRoiRequest, isRoiRequest) || other.isRoiRequest == isRoiRequest)&&(identical(other.view, view) || other.view == view)&&(identical(other.overview, overview) || other.overview == overview)&&(identical(other.selectedInstanceId, selectedInstanceId) || other.selectedInstanceId == selectedInstanceId)&&(identical(other.pendingRoi, pendingRoi) || other.pendingRoi == pendingRoi)&&(identical(other.retryAttempt, retryAttempt) || other.retryAttempt == retryAttempt)&&(identical(other.retrySecondsLeft, retrySecondsLeft) || other.retrySecondsLeft == retrySecondsLeft)&&(identical(other.retryReason, retryReason) || other.retryReason == retryReason)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.referenceAccess, referenceAccess) || other.referenceAccess == referenceAccess)&&(identical(other.historyId, historyId) || other.historyId == historyId)&&(identical(other.showRescanHint, showRescanHint) || other.showRescanHint == showRescanHint)&&const DeepCollectionEquality().equals(other.techRows, techRows));
 }
 
 
 @override
-int get hashCode => Object.hashAll([runtimeType,screenStatus,errorType,photoPath,isStored,phase,isRoiRequest,view,overview,selectedInstanceId,pendingRoi,isDrawing,draft,isEditingDraft,retryAttempt,retrySecondsLeft,retryReason,failure,referenceAccess,historyId,showRescanHint,const DeepCollectionEquality().hash(techRows)]);
+int get hashCode => Object.hash(runtimeType,screenStatus,errorType,photoPath,isStored,phase,isRoiRequest,view,overview,selectedInstanceId,pendingRoi,retryAttempt,retrySecondsLeft,retryReason,failure,referenceAccess,historyId,showRescanHint,const DeepCollectionEquality().hash(techRows));
 
 @override
 String toString() {
-  return 'ScanResultState(screenStatus: $screenStatus, errorType: $errorType, photoPath: $photoPath, isStored: $isStored, phase: $phase, isRoiRequest: $isRoiRequest, view: $view, overview: $overview, selectedInstanceId: $selectedInstanceId, pendingRoi: $pendingRoi, isDrawing: $isDrawing, draft: $draft, isEditingDraft: $isEditingDraft, retryAttempt: $retryAttempt, retrySecondsLeft: $retrySecondsLeft, retryReason: $retryReason, failure: $failure, referenceAccess: $referenceAccess, historyId: $historyId, showRescanHint: $showRescanHint, techRows: $techRows)';
+  return 'ScanResultState(screenStatus: $screenStatus, errorType: $errorType, photoPath: $photoPath, isStored: $isStored, phase: $phase, isRoiRequest: $isRoiRequest, view: $view, overview: $overview, selectedInstanceId: $selectedInstanceId, pendingRoi: $pendingRoi, retryAttempt: $retryAttempt, retrySecondsLeft: $retrySecondsLeft, retryReason: $retryReason, failure: $failure, referenceAccess: $referenceAccess, historyId: $historyId, showRescanHint: $showRescanHint, techRows: $techRows)';
 }
 
 
@@ -54,11 +54,11 @@ abstract mixin class $ScanResultStateCopyWith<$Res>  {
   factory $ScanResultStateCopyWith(ScanResultState value, $Res Function(ScanResultState) _then) = _$ScanResultStateCopyWithImpl;
 @useResult
 $Res call({
- ScreenStatus screenStatus, ErrorType? errorType, String photoPath, bool isStored, ResultPhase phase, bool isRoiRequest, RecognitionView? view, RecognitionView? overview, String? selectedInstanceId, BottleBox? pendingRoi, bool isDrawing, BottleBox? draft, bool isEditingDraft, int retryAttempt, int retrySecondsLeft, RetryReason retryReason, ScanFailure? failure, ReferenceAccess? referenceAccess, int? historyId, bool showRescanHint, List<TechRow> techRows
+ ScreenStatus screenStatus, ErrorType? errorType, String photoPath, bool isStored, ResultPhase phase, bool isRoiRequest, RecognitionView? view, RecognitionView? overview, String? selectedInstanceId, BottleBox? pendingRoi, int retryAttempt, int retrySecondsLeft, RetryReason retryReason, ScanFailure? failure, ReferenceAccess? referenceAccess, int? historyId, bool showRescanHint, List<TechRow> techRows
 });
 
 
-$RecognitionViewCopyWith<$Res>? get view;$RecognitionViewCopyWith<$Res>? get overview;$BottleBoxCopyWith<$Res>? get pendingRoi;$BottleBoxCopyWith<$Res>? get draft;$ScanFailureCopyWith<$Res>? get failure;
+$RecognitionViewCopyWith<$Res>? get view;$RecognitionViewCopyWith<$Res>? get overview;$BottleBoxCopyWith<$Res>? get pendingRoi;$ScanFailureCopyWith<$Res>? get failure;
 
 }
 /// @nodoc
@@ -71,7 +71,7 @@ class _$ScanResultStateCopyWithImpl<$Res>
 
 /// Create a copy of ScanResultState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? photoPath = null,Object? isStored = null,Object? phase = null,Object? isRoiRequest = null,Object? view = freezed,Object? overview = freezed,Object? selectedInstanceId = freezed,Object? pendingRoi = freezed,Object? isDrawing = null,Object? draft = freezed,Object? isEditingDraft = null,Object? retryAttempt = null,Object? retrySecondsLeft = null,Object? retryReason = null,Object? failure = freezed,Object? referenceAccess = freezed,Object? historyId = freezed,Object? showRescanHint = null,Object? techRows = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? photoPath = null,Object? isStored = null,Object? phase = null,Object? isRoiRequest = null,Object? view = freezed,Object? overview = freezed,Object? selectedInstanceId = freezed,Object? pendingRoi = freezed,Object? retryAttempt = null,Object? retrySecondsLeft = null,Object? retryReason = null,Object? failure = freezed,Object? referenceAccess = freezed,Object? historyId = freezed,Object? showRescanHint = null,Object? techRows = null,}) {
   return _then(_self.copyWith(
 screenStatus: null == screenStatus ? _self.screenStatus : screenStatus // ignore: cast_nullable_to_non_nullable
 as ScreenStatus,errorType: freezed == errorType ? _self.errorType : errorType // ignore: cast_nullable_to_non_nullable
@@ -83,10 +83,7 @@ as bool,view: freezed == view ? _self.view : view // ignore: cast_nullable_to_no
 as RecognitionView?,overview: freezed == overview ? _self.overview : overview // ignore: cast_nullable_to_non_nullable
 as RecognitionView?,selectedInstanceId: freezed == selectedInstanceId ? _self.selectedInstanceId : selectedInstanceId // ignore: cast_nullable_to_non_nullable
 as String?,pendingRoi: freezed == pendingRoi ? _self.pendingRoi : pendingRoi // ignore: cast_nullable_to_non_nullable
-as BottleBox?,isDrawing: null == isDrawing ? _self.isDrawing : isDrawing // ignore: cast_nullable_to_non_nullable
-as bool,draft: freezed == draft ? _self.draft : draft // ignore: cast_nullable_to_non_nullable
-as BottleBox?,isEditingDraft: null == isEditingDraft ? _self.isEditingDraft : isEditingDraft // ignore: cast_nullable_to_non_nullable
-as bool,retryAttempt: null == retryAttempt ? _self.retryAttempt : retryAttempt // ignore: cast_nullable_to_non_nullable
+as BottleBox?,retryAttempt: null == retryAttempt ? _self.retryAttempt : retryAttempt // ignore: cast_nullable_to_non_nullable
 as int,retrySecondsLeft: null == retrySecondsLeft ? _self.retrySecondsLeft : retrySecondsLeft // ignore: cast_nullable_to_non_nullable
 as int,retryReason: null == retryReason ? _self.retryReason : retryReason // ignore: cast_nullable_to_non_nullable
 as RetryReason,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
@@ -132,18 +129,6 @@ $BottleBoxCopyWith<$Res>? get pendingRoi {
 
   return $BottleBoxCopyWith<$Res>(_self.pendingRoi!, (value) {
     return _then(_self.copyWith(pendingRoi: value));
-  });
-}/// Create a copy of ScanResultState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$BottleBoxCopyWith<$Res>? get draft {
-    if (_self.draft == null) {
-    return null;
-  }
-
-  return $BottleBoxCopyWith<$Res>(_self.draft!, (value) {
-    return _then(_self.copyWith(draft: value));
   });
 }/// Create a copy of ScanResultState
 /// with the given fields replaced by the non-null parameter values.
@@ -239,10 +224,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  String photoPath,  bool isStored,  ResultPhase phase,  bool isRoiRequest,  RecognitionView? view,  RecognitionView? overview,  String? selectedInstanceId,  BottleBox? pendingRoi,  bool isDrawing,  BottleBox? draft,  bool isEditingDraft,  int retryAttempt,  int retrySecondsLeft,  RetryReason retryReason,  ScanFailure? failure,  ReferenceAccess? referenceAccess,  int? historyId,  bool showRescanHint,  List<TechRow> techRows)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  String photoPath,  bool isStored,  ResultPhase phase,  bool isRoiRequest,  RecognitionView? view,  RecognitionView? overview,  String? selectedInstanceId,  BottleBox? pendingRoi,  int retryAttempt,  int retrySecondsLeft,  RetryReason retryReason,  ScanFailure? failure,  ReferenceAccess? referenceAccess,  int? historyId,  bool showRescanHint,  List<TechRow> techRows)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ScanResultState() when $default != null:
-return $default(_that.screenStatus,_that.errorType,_that.photoPath,_that.isStored,_that.phase,_that.isRoiRequest,_that.view,_that.overview,_that.selectedInstanceId,_that.pendingRoi,_that.isDrawing,_that.draft,_that.isEditingDraft,_that.retryAttempt,_that.retrySecondsLeft,_that.retryReason,_that.failure,_that.referenceAccess,_that.historyId,_that.showRescanHint,_that.techRows);case _:
+return $default(_that.screenStatus,_that.errorType,_that.photoPath,_that.isStored,_that.phase,_that.isRoiRequest,_that.view,_that.overview,_that.selectedInstanceId,_that.pendingRoi,_that.retryAttempt,_that.retrySecondsLeft,_that.retryReason,_that.failure,_that.referenceAccess,_that.historyId,_that.showRescanHint,_that.techRows);case _:
   return orElse();
 
 }
@@ -260,10 +245,10 @@ return $default(_that.screenStatus,_that.errorType,_that.photoPath,_that.isStore
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  String photoPath,  bool isStored,  ResultPhase phase,  bool isRoiRequest,  RecognitionView? view,  RecognitionView? overview,  String? selectedInstanceId,  BottleBox? pendingRoi,  bool isDrawing,  BottleBox? draft,  bool isEditingDraft,  int retryAttempt,  int retrySecondsLeft,  RetryReason retryReason,  ScanFailure? failure,  ReferenceAccess? referenceAccess,  int? historyId,  bool showRescanHint,  List<TechRow> techRows)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ScreenStatus screenStatus,  ErrorType? errorType,  String photoPath,  bool isStored,  ResultPhase phase,  bool isRoiRequest,  RecognitionView? view,  RecognitionView? overview,  String? selectedInstanceId,  BottleBox? pendingRoi,  int retryAttempt,  int retrySecondsLeft,  RetryReason retryReason,  ScanFailure? failure,  ReferenceAccess? referenceAccess,  int? historyId,  bool showRescanHint,  List<TechRow> techRows)  $default,) {final _that = this;
 switch (_that) {
 case _ScanResultState():
-return $default(_that.screenStatus,_that.errorType,_that.photoPath,_that.isStored,_that.phase,_that.isRoiRequest,_that.view,_that.overview,_that.selectedInstanceId,_that.pendingRoi,_that.isDrawing,_that.draft,_that.isEditingDraft,_that.retryAttempt,_that.retrySecondsLeft,_that.retryReason,_that.failure,_that.referenceAccess,_that.historyId,_that.showRescanHint,_that.techRows);case _:
+return $default(_that.screenStatus,_that.errorType,_that.photoPath,_that.isStored,_that.phase,_that.isRoiRequest,_that.view,_that.overview,_that.selectedInstanceId,_that.pendingRoi,_that.retryAttempt,_that.retrySecondsLeft,_that.retryReason,_that.failure,_that.referenceAccess,_that.historyId,_that.showRescanHint,_that.techRows);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -280,10 +265,10 @@ return $default(_that.screenStatus,_that.errorType,_that.photoPath,_that.isStore
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ScreenStatus screenStatus,  ErrorType? errorType,  String photoPath,  bool isStored,  ResultPhase phase,  bool isRoiRequest,  RecognitionView? view,  RecognitionView? overview,  String? selectedInstanceId,  BottleBox? pendingRoi,  bool isDrawing,  BottleBox? draft,  bool isEditingDraft,  int retryAttempt,  int retrySecondsLeft,  RetryReason retryReason,  ScanFailure? failure,  ReferenceAccess? referenceAccess,  int? historyId,  bool showRescanHint,  List<TechRow> techRows)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ScreenStatus screenStatus,  ErrorType? errorType,  String photoPath,  bool isStored,  ResultPhase phase,  bool isRoiRequest,  RecognitionView? view,  RecognitionView? overview,  String? selectedInstanceId,  BottleBox? pendingRoi,  int retryAttempt,  int retrySecondsLeft,  RetryReason retryReason,  ScanFailure? failure,  ReferenceAccess? referenceAccess,  int? historyId,  bool showRescanHint,  List<TechRow> techRows)?  $default,) {final _that = this;
 switch (_that) {
 case _ScanResultState() when $default != null:
-return $default(_that.screenStatus,_that.errorType,_that.photoPath,_that.isStored,_that.phase,_that.isRoiRequest,_that.view,_that.overview,_that.selectedInstanceId,_that.pendingRoi,_that.isDrawing,_that.draft,_that.isEditingDraft,_that.retryAttempt,_that.retrySecondsLeft,_that.retryReason,_that.failure,_that.referenceAccess,_that.historyId,_that.showRescanHint,_that.techRows);case _:
+return $default(_that.screenStatus,_that.errorType,_that.photoPath,_that.isStored,_that.phase,_that.isRoiRequest,_that.view,_that.overview,_that.selectedInstanceId,_that.pendingRoi,_that.retryAttempt,_that.retrySecondsLeft,_that.retryReason,_that.failure,_that.referenceAccess,_that.historyId,_that.showRescanHint,_that.techRows);case _:
   return null;
 
 }
@@ -295,7 +280,7 @@ return $default(_that.screenStatus,_that.errorType,_that.photoPath,_that.isStore
 
 
 class _ScanResultState extends ScanResultState {
-  const _ScanResultState({required this.screenStatus, required this.errorType, required this.photoPath, required this.isStored, required this.phase, required this.isRoiRequest, required this.view, required this.overview, required this.selectedInstanceId, required this.pendingRoi, required this.isDrawing, required this.draft, required this.isEditingDraft, required this.retryAttempt, required this.retrySecondsLeft, required this.retryReason, required this.failure, required this.referenceAccess, required this.historyId, required this.showRescanHint, required final  List<TechRow> techRows}): _techRows = techRows,super._();
+  const _ScanResultState({required this.screenStatus, required this.errorType, required this.photoPath, required this.isStored, required this.phase, required this.isRoiRequest, required this.view, required this.overview, required this.selectedInstanceId, required this.pendingRoi, required this.retryAttempt, required this.retrySecondsLeft, required this.retryReason, required this.failure, required this.referenceAccess, required this.historyId, required this.showRescanHint, required final  List<TechRow> techRows}): _techRows = techRows,super._();
   
 
 /// `loading` until the photo (or the stored scan) is at hand; `error`
@@ -316,9 +301,6 @@ class _ScanResultState extends ScanResultState {
 @override final  String? selectedInstanceId;
 /// Frame of the request in flight or the one that failed.
 @override final  BottleBox? pendingRoi;
-@override final  bool isDrawing;
-@override final  BottleBox? draft;
-@override final  bool isEditingDraft;
 @override final  int retryAttempt;
 @override final  int retrySecondsLeft;
 @override final  RetryReason retryReason;
@@ -345,16 +327,16 @@ _$ScanResultStateCopyWith<_ScanResultState> get copyWith => __$ScanResultStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ScanResultState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&(identical(other.photoPath, photoPath) || other.photoPath == photoPath)&&(identical(other.isStored, isStored) || other.isStored == isStored)&&(identical(other.phase, phase) || other.phase == phase)&&(identical(other.isRoiRequest, isRoiRequest) || other.isRoiRequest == isRoiRequest)&&(identical(other.view, view) || other.view == view)&&(identical(other.overview, overview) || other.overview == overview)&&(identical(other.selectedInstanceId, selectedInstanceId) || other.selectedInstanceId == selectedInstanceId)&&(identical(other.pendingRoi, pendingRoi) || other.pendingRoi == pendingRoi)&&(identical(other.isDrawing, isDrawing) || other.isDrawing == isDrawing)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.isEditingDraft, isEditingDraft) || other.isEditingDraft == isEditingDraft)&&(identical(other.retryAttempt, retryAttempt) || other.retryAttempt == retryAttempt)&&(identical(other.retrySecondsLeft, retrySecondsLeft) || other.retrySecondsLeft == retrySecondsLeft)&&(identical(other.retryReason, retryReason) || other.retryReason == retryReason)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.referenceAccess, referenceAccess) || other.referenceAccess == referenceAccess)&&(identical(other.historyId, historyId) || other.historyId == historyId)&&(identical(other.showRescanHint, showRescanHint) || other.showRescanHint == showRescanHint)&&const DeepCollectionEquality().equals(other._techRows, _techRows));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ScanResultState&&(identical(other.screenStatus, screenStatus) || other.screenStatus == screenStatus)&&(identical(other.errorType, errorType) || other.errorType == errorType)&&(identical(other.photoPath, photoPath) || other.photoPath == photoPath)&&(identical(other.isStored, isStored) || other.isStored == isStored)&&(identical(other.phase, phase) || other.phase == phase)&&(identical(other.isRoiRequest, isRoiRequest) || other.isRoiRequest == isRoiRequest)&&(identical(other.view, view) || other.view == view)&&(identical(other.overview, overview) || other.overview == overview)&&(identical(other.selectedInstanceId, selectedInstanceId) || other.selectedInstanceId == selectedInstanceId)&&(identical(other.pendingRoi, pendingRoi) || other.pendingRoi == pendingRoi)&&(identical(other.retryAttempt, retryAttempt) || other.retryAttempt == retryAttempt)&&(identical(other.retrySecondsLeft, retrySecondsLeft) || other.retrySecondsLeft == retrySecondsLeft)&&(identical(other.retryReason, retryReason) || other.retryReason == retryReason)&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.referenceAccess, referenceAccess) || other.referenceAccess == referenceAccess)&&(identical(other.historyId, historyId) || other.historyId == historyId)&&(identical(other.showRescanHint, showRescanHint) || other.showRescanHint == showRescanHint)&&const DeepCollectionEquality().equals(other._techRows, _techRows));
 }
 
 
 @override
-int get hashCode => Object.hashAll([runtimeType,screenStatus,errorType,photoPath,isStored,phase,isRoiRequest,view,overview,selectedInstanceId,pendingRoi,isDrawing,draft,isEditingDraft,retryAttempt,retrySecondsLeft,retryReason,failure,referenceAccess,historyId,showRescanHint,const DeepCollectionEquality().hash(_techRows)]);
+int get hashCode => Object.hash(runtimeType,screenStatus,errorType,photoPath,isStored,phase,isRoiRequest,view,overview,selectedInstanceId,pendingRoi,retryAttempt,retrySecondsLeft,retryReason,failure,referenceAccess,historyId,showRescanHint,const DeepCollectionEquality().hash(_techRows));
 
 @override
 String toString() {
-  return 'ScanResultState(screenStatus: $screenStatus, errorType: $errorType, photoPath: $photoPath, isStored: $isStored, phase: $phase, isRoiRequest: $isRoiRequest, view: $view, overview: $overview, selectedInstanceId: $selectedInstanceId, pendingRoi: $pendingRoi, isDrawing: $isDrawing, draft: $draft, isEditingDraft: $isEditingDraft, retryAttempt: $retryAttempt, retrySecondsLeft: $retrySecondsLeft, retryReason: $retryReason, failure: $failure, referenceAccess: $referenceAccess, historyId: $historyId, showRescanHint: $showRescanHint, techRows: $techRows)';
+  return 'ScanResultState(screenStatus: $screenStatus, errorType: $errorType, photoPath: $photoPath, isStored: $isStored, phase: $phase, isRoiRequest: $isRoiRequest, view: $view, overview: $overview, selectedInstanceId: $selectedInstanceId, pendingRoi: $pendingRoi, retryAttempt: $retryAttempt, retrySecondsLeft: $retrySecondsLeft, retryReason: $retryReason, failure: $failure, referenceAccess: $referenceAccess, historyId: $historyId, showRescanHint: $showRescanHint, techRows: $techRows)';
 }
 
 
@@ -365,11 +347,11 @@ abstract mixin class _$ScanResultStateCopyWith<$Res> implements $ScanResultState
   factory _$ScanResultStateCopyWith(_ScanResultState value, $Res Function(_ScanResultState) _then) = __$ScanResultStateCopyWithImpl;
 @override @useResult
 $Res call({
- ScreenStatus screenStatus, ErrorType? errorType, String photoPath, bool isStored, ResultPhase phase, bool isRoiRequest, RecognitionView? view, RecognitionView? overview, String? selectedInstanceId, BottleBox? pendingRoi, bool isDrawing, BottleBox? draft, bool isEditingDraft, int retryAttempt, int retrySecondsLeft, RetryReason retryReason, ScanFailure? failure, ReferenceAccess? referenceAccess, int? historyId, bool showRescanHint, List<TechRow> techRows
+ ScreenStatus screenStatus, ErrorType? errorType, String photoPath, bool isStored, ResultPhase phase, bool isRoiRequest, RecognitionView? view, RecognitionView? overview, String? selectedInstanceId, BottleBox? pendingRoi, int retryAttempt, int retrySecondsLeft, RetryReason retryReason, ScanFailure? failure, ReferenceAccess? referenceAccess, int? historyId, bool showRescanHint, List<TechRow> techRows
 });
 
 
-@override $RecognitionViewCopyWith<$Res>? get view;@override $RecognitionViewCopyWith<$Res>? get overview;@override $BottleBoxCopyWith<$Res>? get pendingRoi;@override $BottleBoxCopyWith<$Res>? get draft;@override $ScanFailureCopyWith<$Res>? get failure;
+@override $RecognitionViewCopyWith<$Res>? get view;@override $RecognitionViewCopyWith<$Res>? get overview;@override $BottleBoxCopyWith<$Res>? get pendingRoi;@override $ScanFailureCopyWith<$Res>? get failure;
 
 }
 /// @nodoc
@@ -382,7 +364,7 @@ class __$ScanResultStateCopyWithImpl<$Res>
 
 /// Create a copy of ScanResultState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? photoPath = null,Object? isStored = null,Object? phase = null,Object? isRoiRequest = null,Object? view = freezed,Object? overview = freezed,Object? selectedInstanceId = freezed,Object? pendingRoi = freezed,Object? isDrawing = null,Object? draft = freezed,Object? isEditingDraft = null,Object? retryAttempt = null,Object? retrySecondsLeft = null,Object? retryReason = null,Object? failure = freezed,Object? referenceAccess = freezed,Object? historyId = freezed,Object? showRescanHint = null,Object? techRows = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? screenStatus = null,Object? errorType = freezed,Object? photoPath = null,Object? isStored = null,Object? phase = null,Object? isRoiRequest = null,Object? view = freezed,Object? overview = freezed,Object? selectedInstanceId = freezed,Object? pendingRoi = freezed,Object? retryAttempt = null,Object? retrySecondsLeft = null,Object? retryReason = null,Object? failure = freezed,Object? referenceAccess = freezed,Object? historyId = freezed,Object? showRescanHint = null,Object? techRows = null,}) {
   return _then(_ScanResultState(
 screenStatus: null == screenStatus ? _self.screenStatus : screenStatus // ignore: cast_nullable_to_non_nullable
 as ScreenStatus,errorType: freezed == errorType ? _self.errorType : errorType // ignore: cast_nullable_to_non_nullable
@@ -394,10 +376,7 @@ as bool,view: freezed == view ? _self.view : view // ignore: cast_nullable_to_no
 as RecognitionView?,overview: freezed == overview ? _self.overview : overview // ignore: cast_nullable_to_non_nullable
 as RecognitionView?,selectedInstanceId: freezed == selectedInstanceId ? _self.selectedInstanceId : selectedInstanceId // ignore: cast_nullable_to_non_nullable
 as String?,pendingRoi: freezed == pendingRoi ? _self.pendingRoi : pendingRoi // ignore: cast_nullable_to_non_nullable
-as BottleBox?,isDrawing: null == isDrawing ? _self.isDrawing : isDrawing // ignore: cast_nullable_to_non_nullable
-as bool,draft: freezed == draft ? _self.draft : draft // ignore: cast_nullable_to_non_nullable
-as BottleBox?,isEditingDraft: null == isEditingDraft ? _self.isEditingDraft : isEditingDraft // ignore: cast_nullable_to_non_nullable
-as bool,retryAttempt: null == retryAttempt ? _self.retryAttempt : retryAttempt // ignore: cast_nullable_to_non_nullable
+as BottleBox?,retryAttempt: null == retryAttempt ? _self.retryAttempt : retryAttempt // ignore: cast_nullable_to_non_nullable
 as int,retrySecondsLeft: null == retrySecondsLeft ? _self.retrySecondsLeft : retrySecondsLeft // ignore: cast_nullable_to_non_nullable
 as int,retryReason: null == retryReason ? _self.retryReason : retryReason // ignore: cast_nullable_to_non_nullable
 as RetryReason,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
@@ -444,18 +423,6 @@ $BottleBoxCopyWith<$Res>? get pendingRoi {
 
   return $BottleBoxCopyWith<$Res>(_self.pendingRoi!, (value) {
     return _then(_self.copyWith(pendingRoi: value));
-  });
-}/// Create a copy of ScanResultState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$BottleBoxCopyWith<$Res>? get draft {
-    if (_self.draft == null) {
-    return null;
-  }
-
-  return $BottleBoxCopyWith<$Res>(_self.draft!, (value) {
-    return _then(_self.copyWith(draft: value));
   });
 }/// Create a copy of ScanResultState
 /// with the given fields replaced by the non-null parameter values.

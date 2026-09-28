@@ -45,10 +45,7 @@ class DialogResultStep extends StatelessWidget {
         ],
         if (!hideButton) ...[
           const SizedBox(height: AppSpaces.s24),
-          ElevatedButton(
-            onPressed: onButtonTap,
-            child: Text(buttonText.toUpperCase()),
-          ),
+          ElevatedButton(onPressed: onButtonTap, child: Text(buttonText)),
         ],
       ],
     );

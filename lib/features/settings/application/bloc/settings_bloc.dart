@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/application/bloc/base_bloc.dart';
 import '../../../../core/application/bloc/screen_status.dart';
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/helpers/app_utils.dart';
 import '../../../../core/misc/preferences/app_preferences.dart';
 import '../../../../core/services/api/models/result.dart';
 import '../../../../core/services/language_service.dart';
@@ -60,6 +61,8 @@ class SettingsBloc extends BaseBloc<SettingsEvent, SettingsState> {
         themeMode: ThemeService.themeNotifier.value,
         languageCode: LanguageService.localeNotifier.value.languageCode,
         serviceState: ServiceState.checking,
+        version: AppUtils.appVersion,
+        buildNumber: AppUtils.buildNumber,
       ),
     );
     await _loadStatus(emit);

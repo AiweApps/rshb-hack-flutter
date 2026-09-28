@@ -14,6 +14,8 @@ class AboutSheet extends StatelessWidget {
 
   static Future<void> show(BuildContext context) {
     return showModalBottomSheet<void>(
+      // Above the tab shell, so the floating bar does not overlap it.
+      useRootNavigator: true,
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
@@ -41,7 +43,7 @@ class AboutSheet extends StatelessWidget {
                 AppHaptics.tap();
                 Navigator.of(context).pop();
               },
-              child: Text(l10n.commonGotIt.toUpperCase()),
+              child: Text(l10n.commonGotIt),
             ),
           ],
         ),

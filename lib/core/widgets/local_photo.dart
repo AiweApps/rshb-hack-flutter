@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_style_constants.dart';
 import '../extensions/context_extensions.dart';
+import '../presentation/app_icons.dart';
 
 /// A photo from the device, painted into a fixed box: decoded no larger than
 /// the box needs, and a blank card when the file is gone. The counterpart of
@@ -39,7 +40,7 @@ class LocalPhoto extends StatelessWidget {
           height: height,
           child: ColoredBox(
             color: context.colors.paper2,
-            child: Icon(Icons.wine_bar_outlined, color: context.colors.muted),
+            child: Icon(AppIcon.brokenImage.data, color: context.colors.muted),
           ),
         ),
       ),

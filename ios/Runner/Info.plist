@@ -57,6 +57,8 @@
 	<string>Main</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Камера нужна, чтобы сфотографировать этикетку вина для распознавания.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Микрофон приложение не использует; ключ нужен модулю камеры.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Доступ к фото нужен, чтобы выбрать снимок этикетки для распознавания.</string>
 	<key>UISupportedInterfaceOrientations</key>

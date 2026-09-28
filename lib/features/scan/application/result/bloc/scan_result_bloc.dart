@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/application/bloc/base_bloc.dart';
@@ -16,7 +15,6 @@ import '../../../../../core/misc/preferences/app_preferences.dart';
 import '../../../../../core/services/api/models/app_error.dart';
 import '../../../../../core/services/api/models/result.dart';
 import '../../../../../core/services/language_service.dart';
-import '../../../../../core/services/photo_picker_service.dart';
 import '../../../../../shared/helpers/service_locator.dart';
 import '../../../../../shared/presentation/errors/error_type.dart';
 import '../../../../history/domain/scan_history_repository.dart';
@@ -38,7 +36,6 @@ part 'scan_result_event.dart';
 class ScanResultBloc extends BaseBloc<ScanResultEvent, ScanResultState> {
   final ScanApiRepository _api = sl<ScanApiRepository>();
   final ScanHistoryRepository _history = sl<ScanHistoryRepository>();
-  final PhotoPickerService _picker = sl<PhotoPickerService>();
   final AppPreferences _preferences = sl<AppPreferences>();
 
   CancelToken? _cancelToken;
@@ -49,18 +46,15 @@ class ScanResultBloc extends BaseBloc<ScanResultEvent, ScanResultState> {
     on<ReferenceAccessLoaded>(_referenceAccessLoaded);
     on<BackPressed>(_backPressed);
     on<RetryPressed>(_retryPressed, transformer: droppable());
-    on<NewPhotoPressed>(_newPhotoPressed);
-    on<NewPhotoSourceChosen>(_newPhotoSourceChosen, transformer: droppable());
+    on<NewScanPressed>(_newScanPressed);
     on<BottleSelected>(_bottleSelected);
     on<RescanBottlePressed>(_rescanBottle, transformer: droppable());
     on<RescanHintDismissed>(_rescanHintDismissed);
-    on<DrawModeToggled>(_drawModeToggled);
-    on<DraftChanged>(_draftChanged);
-    on<DraftCleared>(_draftCleared);
-    on<DraftEditToggled>(_draftEditToggled);
-    on<DraftRecognizePressed>(_draftRecognize, transformer: droppable());
+    on<DrawFramePressed>(_drawFramePressed);
+    on<FrameDrawn>(_frameDrawn, transformer: droppable());
     on<BackToAllPressed>(_backToAll);
     on<CardLinkPressed>(_cardLinkPressed);
+    on<ComparePressed>(_comparePressed);
     on<CompareTapped>(_compareTapped);
     on<MorePressed>(_morePressed);
     on<MoreOptionChosen>(_moreOptionChosen);
@@ -151,9 +145,6 @@ class ScanResultBloc extends BaseBloc<ScanResultEvent, ScanResultState> {
         phase: ResultPhase.recognizing,
         isRoiRequest: roi != null,
         pendingRoi: roi,
-        isDrawing: false,
-        draft: null,
-        isEditingDraft: false,
         failure: null,
       ),
     );
@@ -290,47 +281,19 @@ class ScanResultBloc extends BaseBloc<ScanResultEvent, ScanResultState> {
     await _recognize(emit, roi: state.pendingRoi);
   }
 
-  // -------------------------------------------------------------- new photo
+  // --------------------------------------------------------------- new scan
 
-  void _newPhotoPressed(NewPhotoPressed event, Emitter<ScanResultState> emit) {
-    emitUiEffect(OpenPhotoSourceSheet());
-  }
-
-  Future<void> _newPhotoSourceChosen(
-    NewPhotoSourceChosen event,
-    Emitter<ScanResultState> emit,
-  ) async {
-    final source = event.source;
-    if (source == null) return;
-    final PickedPhoto? photo;
-    try {
-      photo = await _picker.pick(source);
-    } on PlatformException catch (e) {
-      debugPrint('Photo picker failed: $e');
-      emitSnackBar.error(lsl10n.scanErrorPhotoOpen);
-      return;
-    }
-    if (emit.isDone || photo == null) return;
-
+  void _newScanPressed(NewScanPressed event, Emitter<ScanResultState> emit) {
     _cancelToken?.cancel();
     _retryTimer?.cancel();
-    // A new photo is a new scan: nothing of the previous answer applies.
-    emit(
-      ScanResultState.initial().copyWith(
-        screenStatus: ScreenStatus.content,
-        photoPath: photo.path,
-        referenceAccess: state.referenceAccess,
-        showRescanHint: state.showRescanHint,
-      ),
-    );
-    await _recognize(emit, roi: null);
+    emitUiEffect(OpenScanner());
   }
 
   // -------------------------------------------------------------- selection
 
   void _bottleSelected(BottleSelected event, Emitter<ScanResultState> emit) {
     final view = state.view;
-    if (view == null || state.isDrawing) return;
+    if (view == null) return;
     // Tapping the selected bottle again returns to "all" when there are
     // several, as on the web.
     final String? next =
@@ -372,9 +335,6 @@ class ScanResultBloc extends BaseBloc<ScanResultEvent, ScanResultState> {
         pendingRoi: null,
         isRoiRequest: false,
         failure: null,
-        isDrawing: false,
-        draft: null,
-        isEditingDraft: false,
         techRows: _techRows(overview, null),
       ),
     );
@@ -382,42 +342,30 @@ class ScanResultBloc extends BaseBloc<ScanResultEvent, ScanResultState> {
 
   // ------------------------------------------------------------ manual frame
 
-  void _drawModeToggled(DrawModeToggled event, Emitter<ScanResultState> emit) {
-    emit(
-      state.copyWith(
-        isDrawing: !state.isDrawing,
-        draft: null,
-        isEditingDraft: false,
+  void _drawFramePressed(
+    DrawFramePressed event,
+    Emitter<ScanResultState> emit,
+  ) {
+    if (!state.canDrawFrame) return;
+    emitUiEffect(
+      OpenDrawFrame(
+        args: DrawFrameArgs(
+          photoPath: state.photoPath,
+          frame: state.frame,
+          view: state.pendingRoi == null ? state.view : null,
+        ),
       ),
     );
   }
 
-  void _draftChanged(DraftChanged event, Emitter<ScanResultState> emit) {
-    emit(state.copyWith(draft: event.draft));
-  }
-
-  void _draftCleared(DraftCleared event, Emitter<ScanResultState> emit) {
-    emit(state.copyWith(draft: null, isEditingDraft: false));
-  }
-
-  void _draftEditToggled(
-    DraftEditToggled event,
-    Emitter<ScanResultState> emit,
-  ) {
-    if (state.draft == null) return;
-    emit(state.copyWith(isEditingDraft: !state.isEditingDraft));
-  }
-
-  Future<void> _draftRecognize(
-    DraftRecognizePressed event,
+  Future<void> _frameDrawn(
+    FrameDrawn event,
     Emitter<ScanResultState> emit,
   ) async {
-    final draft = state.draft;
-    if (draft == null) return;
     final frame = state.frame;
     final roi = frame == null
-        ? draft
-        : draft.clampTo(frame[0].toDouble(), frame[1].toDouble());
+        ? event.roi
+        : event.roi.clampTo(frame[0].toDouble(), frame[1].toDouble());
     await _recognize(emit, roi: roi);
   }
 
@@ -427,19 +375,31 @@ class ScanResultBloc extends BaseBloc<ScanResultEvent, ScanResultState> {
     emitUiEffect(OpenExternalUrl(url: event.url));
   }
 
+  void _comparePressed(ComparePressed event, Emitter<ScanResultState> emit) {
+    final bottle = state.selectedBottle;
+    final card = state.selectedCard;
+    if (bottle == null || card == null) return;
+    _openCompare(bottle, card);
+  }
+
   void _compareTapped(CompareTapped event, Emitter<ScanResultState> emit) {
+    final bottle = state.view?.bottleById(event.instanceId);
+    if (bottle == null) return;
+    _openCompare(bottle, event.card);
+  }
+
+  void _openCompare(RecognizedBottle bottle, WineCard card) {
     final view = state.view;
-    final bottle = view?.bottleById(event.instanceId);
-    if (view == null || bottle == null) return;
+    if (view == null) return;
     emitUiEffect(
       OpenCompare(
         args: CompareArgs(
           photoPath: state.photoPath,
-          crop: bottle.geometry ?? (view.isExplicitRoi ? view.roi : null),
+          crop: view.cropOf(bottle),
           frame: view.frame,
           bottleNumber: bottle.number,
-          cardTitle: event.card.title,
-          referenceUrl: state.referenceAccess?.resolve(event.card.reference),
+          cardTitle: card.title,
+          referenceUrl: state.referenceAccess?.resolve(card.reference),
           referenceHeaders: state.referenceAccess?.headers ?? const {},
         ),
       ),
@@ -448,11 +408,11 @@ class ScanResultBloc extends BaseBloc<ScanResultEvent, ScanResultState> {
 
   void _morePressed(MorePressed event, Emitter<ScanResultState> emit) {
     final view = state.view;
+    if (view == null || !state.hasAnswer) return;
     emitUiEffect(
       OpenMoreSheet(
         args: MoreSheetArgs(
-          hasAnswer: view != null && state.phase == ResultPhase.answer,
-          isRoi: view?.isExplicitRoi ?? false,
+          isRoi: view.isExplicitRoi,
           bottleNumber: state.selectedBottle?.number,
         ),
       ),

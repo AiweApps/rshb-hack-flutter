@@ -22,7 +22,7 @@ class OnboardingHeroPage extends StatelessWidget {
           const Center(child: BottleArt(height: AppSize.s240)),
           const SizedBox(height: AppSpaces.s32),
           Text(
-            l10n.onboardingKicker.toUpperCase(),
+            l10n.onboardingKicker,
             style: context.ts.kicker.copyWith(color: context.colors.gold),
           ),
           const SizedBox(height: AppSpaces.s8),

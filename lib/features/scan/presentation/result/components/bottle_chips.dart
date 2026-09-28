@@ -63,11 +63,14 @@ class _Chip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final Color fg = isSelected ? colors.onWine : colors.wine;
+    final Color fg = isSelected ? colors.onWine : colors.ink2;
 
+    // Filled like the web `.chip`: paper on a rule border, wine when chosen.
     return Material(
-      color: isSelected ? colors.wine : Colors.transparent,
-      shape: StadiumBorder(side: BorderSide(color: colors.wine)),
+      color: isSelected ? colors.wine : colors.paper2,
+      shape: StadiumBorder(
+        side: BorderSide(color: isSelected ? colors.wine : colors.rule),
+      ),
       child: InkWell(
         customBorder: const StadiumBorder(),
         onTap: () {
@@ -79,10 +82,7 @@ class _Chip extends StatelessWidget {
             horizontal: AppPadding.p14,
             vertical: AppPadding.p10,
           ),
-          child: Text(
-            label.toUpperCase(),
-            style: context.ts.tab.copyWith(color: fg),
-          ),
+          child: Text(label, style: context.ts.tab.copyWith(color: fg)),
         ),
       ),
     );

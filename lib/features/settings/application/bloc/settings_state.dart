@@ -31,6 +31,10 @@ abstract class SettingsState with _$SettingsState implements BaseBlocState {
 
     /// The history is being wiped; a second confirm is ignored meanwhile.
     required bool isClearingHistory,
+
+    /// "1.0.0" and "12" from the package info, once read.
+    required String? version,
+    required String? buildNumber,
   }) = _SettingsState;
 
   factory SettingsState.initial() => const SettingsState(
@@ -42,5 +46,7 @@ abstract class SettingsState with _$SettingsState implements BaseBlocState {
     catalogCards: null,
     isRefreshing: false,
     isClearingHistory: false,
+    version: null,
+    buildNumber: null,
   );
 }

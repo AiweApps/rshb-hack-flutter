@@ -3,21 +3,22 @@ import 'package:flutter/material.dart';
 import '../../../../../core/constants/app_style_constants.dart';
 import '../../../../../core/extensions/context_extensions.dart';
 import '../../../../../core/helpers/app_haptics.dart';
+import '../../../../../core/presentation/app_icons.dart';
 import '../../../../../core/services/language_service.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../../domain/models/scan_failure.dart';
 
-/// The failed request, with retry and "another photo".
+/// The failed request, with retry and «Новый скан».
 class ResultErrorPanel extends StatelessWidget {
   final ScanFailure failure;
   final VoidCallback onRetry;
-  final VoidCallback onOtherPhoto;
+  final VoidCallback onNewScan;
 
   const ResultErrorPanel({
     super.key,
     required this.failure,
     required this.onRetry,
-    required this.onOtherPhoto,
+    required this.onNewScan,
   });
 
   @override
@@ -36,7 +37,7 @@ class ResultErrorPanel extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.error_outline, color: context.colors.bad),
+              Icon(AppIcon.error.data, color: context.colors.bad),
               const SizedBox(width: AppSpaces.s10),
               Expanded(
                 child: Text(
@@ -58,7 +59,7 @@ class ResultErrorPanel extends StatelessWidget {
                       AppHaptics.tap();
                       onRetry();
                     },
-                    child: Text(l10n.scanErrorRetry.toUpperCase()),
+                    child: Text(l10n.scanErrorRetry),
                   ),
                 ),
                 const SizedBox(width: AppSpaces.s10),
@@ -67,9 +68,9 @@ class ResultErrorPanel extends StatelessWidget {
                 child: OutlinedButton(
                   onPressed: () {
                     AppHaptics.tap();
-                    onOtherPhoto();
+                    onNewScan();
                   },
-                  child: Text(l10n.scanErrorOtherPhoto.toUpperCase()),
+                  child: Text(l10n.resultNewScan),
                 ),
               ),
             ],

@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/constants/app_style_constants.dart';
 import '../../../core/extensions/context_extensions.dart';
+import '../../../core/presentation/app_icons.dart';
 import '../../../core/services/language_service.dart';
+import '../../../core/widgets/navigation/nav_bar_height_provider.dart';
 import '../../../shared/presentation/service_status_pill.dart';
 import '../application/bloc/settings_bloc.dart';
 import '../application/bloc/settings_state.dart';
@@ -26,22 +28,24 @@ class SettingsContent extends StatelessWidget {
       onRefresh: () => _refresh(bloc),
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppPadding.p16,
-          vertical: AppPadding.p16,
+        padding: EdgeInsets.fromLTRB(
+          AppPadding.p16,
+          AppPadding.p16,
+          AppPadding.p16,
+          (NavBarHeightProvider.maybeOf(context) ?? 0) + AppPadding.p16,
         ),
         children: [
           SettingsSection(
             title: l10n.settingsAppearance,
             children: [
               SettingsRow(
-                icon: Icons.brightness_6_outlined,
+                icon: AppIcon.appearance.data,
                 title: l10n.settingsTheme,
                 value: themeModeLabel(context, state.themeMode),
                 onTap: () => bloc.add(const ThemePressed()),
               ),
               SettingsRow(
-                icon: Icons.language_outlined,
+                icon: AppIcon.language.data,
                 title: l10n.settingsLanguage,
                 value: languageLabel(context, state.languageCode),
                 onTap: () => bloc.add(const LanguagePressed()),
@@ -53,7 +57,7 @@ class SettingsContent extends StatelessWidget {
             title: l10n.settingsService,
             children: [
               SettingsRow(
-                icon: Icons.cloud_outlined,
+                icon: AppIcon.cloud.data,
                 title: l10n.settingsService,
                 subtitle: catalogCards == null
                     ? null
@@ -70,20 +74,20 @@ class SettingsContent extends StatelessWidget {
             title: l10n.settingsHelp,
             children: [
               SettingsRow(
-                icon: Icons.play_circle_outline,
+                icon: AppIcon.play.data,
                 title: l10n.settingsShowOnboarding,
                 onTap: () => bloc.add(const ShowOnboardingPressed()),
               ),
               SettingsRow(
-                icon: Icons.info_outline,
+                icon: AppIcon.info.data,
                 title: l10n.settingsAbout,
                 onTap: () => bloc.add(const AboutPressed()),
               ),
               SettingsRow(
-                icon: Icons.language,
+                icon: AppIcon.language.data,
                 title: l10n.settingsOpenSite,
                 trailing: Icon(
-                  Icons.open_in_new,
+                  AppIcon.openExternal.data,
                   size: AppSize.s20,
                   color: context.colors.muted,
                 ),
@@ -96,7 +100,7 @@ class SettingsContent extends StatelessWidget {
             title: l10n.settingsData,
             children: [
               SettingsRow(
-                icon: Icons.delete_outline,
+                icon: AppIcon.delete.data,
                 title: l10n.historyClear,
                 color: context.colors.bad,
                 onTap: state.isClearingHistory
@@ -106,14 +110,15 @@ class SettingsContent extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppSpaces.s32),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-            child: Text(
-              l10n.disclaimer,
+          if ((state.version, state.buildNumber) case (
+            final version?,
+            final build?,
+          ))
+            Text(
+              l10n.settingsVersion(version, build),
               style: context.ts.paragraphTiny,
               textAlign: TextAlign.center,
             ),
-          ),
         ],
       ),
     );

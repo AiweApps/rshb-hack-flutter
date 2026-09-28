@@ -8,15 +8,16 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/application/bloc/base_bloc_presentation_listener.dart';
 import '../../../../core/application/bloc/base_bloc_uieffect.dart';
 import '../../../../core/application/bloc/screen_status.dart';
-import '../../../../core/extensions/context_extensions.dart';
 import '../../../../core/helpers/app_haptics.dart';
+import '../../../../core/presentation/app_icons.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/services/language_service.dart';
 import '../../../../shared/helpers/service_locator.dart';
-import '../../../../shared/presentation/photo_source_sheet.dart';
 import '../../application/result/bloc/scan_result_bloc.dart';
 import '../../application/result/bloc/scan_result_state.dart';
 import '../../application/result/bloc/scan_result_uieffect.dart';
-import 'components/compare_viewer.dart';
+import 'components/compare_sheet.dart';
+import 'components/draw_frame_sheet.dart';
 import 'components/more_sheet.dart';
 import 'components/tech_details_sheet.dart';
 import 'scan_result_content.dart';
@@ -30,6 +31,8 @@ class ScanResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.localization;
+
     // Over a frame answer "back" means one answer level up and the bloc
     // handles it; otherwise the screen pops like any other, which also keeps
     // the iOS edge swipe, available only while `canPop` is true.
@@ -43,7 +46,27 @@ class ScanResultPage extends StatelessWidget {
           }
         },
         child: Scaffold(
-          backgroundColor: context.colors.ink,
+          appBar: AppBar(
+            title: Text(l10n.resultTitle),
+            actions: [
+              // «Ещё» is about the answer: nothing to offer before one.
+              BlocSelector<ScanResultBloc, ScanResultState, bool>(
+                selector: (state) => state.hasAnswer,
+                builder: (context, hasAnswer) => hasAnswer
+                    ? IconButton(
+                        onPressed: () {
+                          AppHaptics.tap();
+                          context.read<ScanResultBloc>().add(
+                            const MorePressed(),
+                          );
+                        },
+                        tooltip: l10n.resultMore,
+                        icon: Icon(AppIcon.more.data),
+                      )
+                    : const SizedBox.shrink(),
+              ),
+            ],
+          ),
           body: BaseBlocPresentationListener<ScanResultBloc>(
             listener: _onUiEffect,
             child: BlocListener<ScanResultBloc, ScanResultState>(
@@ -75,12 +98,12 @@ class ScanResultPage extends StatelessWidget {
   ) async {
     final bloc = context.read<ScanResultBloc>();
     switch (effect) {
-      case OpenPhotoSourceSheet():
-        final source = await PhotoSourceSheet.show(context);
-        if (!context.mounted) return;
-        bloc.add(NewPhotoSourceChosen(source: source));
+      case OpenDrawFrame(:final args):
+        final roi = await DrawFrameSheet.show(context, args);
+        if (!context.mounted || roi == null) return;
+        bloc.add(FrameDrawn(roi: roi));
       case OpenCompare(:final args):
-        await CompareViewer.show(context, args);
+        await CompareSheet.show(context, args);
       case OpenMoreSheet(:final args):
         final option = await MoreSheet.show(context, args);
         if (!context.mounted) return;
@@ -102,6 +125,8 @@ class ScanResultPage extends StatelessWidget {
         await TechDetailsSheet.show(context, rows);
       case OpenExternalUrl(:final url):
         await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+      case OpenScanner():
+        sl<AppRouter>().navigateToNewScan();
       case CloseScreen():
         sl<AppRouter>().navigateBack();
     }
