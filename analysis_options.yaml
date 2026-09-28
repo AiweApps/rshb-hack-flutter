@@ -16,6 +16,9 @@ analyzer:
     - build/**
     - "**/*.g.dart"
     - "**/*.freezed.dart"
+    - android/**
+    - ios/**
+    - macos/**
 
 linter:
   # Rules below back the project rules in .claude/rules/ — everything the

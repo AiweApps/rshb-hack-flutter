@@ -10,18 +10,30 @@ Flutter-приложение Винный Сканер.
 
 #### iOS
 
-- В App Store Connect заведено приложение `com.aiweapps.winescan`.
-- Distribution-сертификат и App Store provisioning-профиль с именем `ws_prod_appstore`
-  установлены в Xcode / связку ключей. Имя профиля задано в `ios/fastlane/Fastfile`
-  (`prodProvisioningProfileName`) и в `ios/Runner.xcodeproj/project.pbxproj`
-  (`PROVISIONING_PROFILE_SPECIFIER`). Там же нужно проставить свой `DEVELOPMENT_TEAM` — сейчас он пустой.
-- Импорт сертификата и профиля fastlane выполняет только на CI (`is_ci?`) — файлы берутся из:
+Схема та же, что в Mimir: команда Apple `G436Q38PRP` (4INGENS doo Novi Sad), **ручное
+подписывание**, без `match`. В отличие от Mimir, ничего из подписи в git не лежит —
+`ios/certificates/**`, `*.p12`, `*.p8` игнорируются.
 
+| Что | Где |
+|---|---|
+| Приложение в App Store Connect | `com.aiweapps.winescan` («Винный Сканер») |
+| Профили | `winescan_prod` (App Store) и `winescan_dev` (development) — лейны сами скачивают их в `ios/certificates/prod/` |
+| Сертификаты команды | `ios/certificates/prod/4ingens_{prod,dev}.p12` — кладутся руками, те же файлы, что в Mimir (`iosApp/Certificates/`) |
+| Ключ App Store Connect | `ios/fastlane/AuthKey_THBYJMJF79.p8` — тот же ключ, что в Mimir |
+| Команда и профили в проекте | `ios/Runner.xcodeproj/project.pbxproj`: `DEVELOPMENT_TEAM`, `PROVISIONING_PROFILE_SPECIFIER` |
+
+```bash
+cd ios/fastlane
+bundle exec fastlane install_signing --env prod   # сертификаты в связку ключей, оба профиля — для сборки из Xcode
+bundle exec fastlane verify_prod --env prod       # ключ, сертификат и профиль без сборки
+bundle exec fastlane testflight_prod --env prod   # сборка и заливка в TestFlight
 ```
-ios/certificates/prod/
-├── ws_prod_appstore.mobileprovision
-└── prod.p12
-```
+
+Ключ портал только читает: профили он не создаёт и не перевыпускает. Пропавший или
+`INVALID` профиль чинится руками на developer.apple.com, затем лейн скачает его заново.
+Для dev-флейвора (`com.aiweapps.winescan.dev`) профилей нет — его на устройство не собрать.
+Без локали шелл роняет fastlane на `invalid byte sequence in US-ASCII`, нужен `LANG=en_US.UTF-8`
+(в `upload_ios_tf_prod.command` она уже выставлена).
 
 #### Android
 
@@ -46,7 +58,10 @@ Keystore кладётся в `android/winescan.jks`.
 - `ASC_KEY_ISSUER_ID` — App Store Connect Issuer ID
 - `ASC_KEY_ID` — App Store Connect Key ID
 - `ASC_KEY_PATH` — путь к `AuthKey_XXXXXXXXXX.p8` (абсолютный или относительно `ios/fastlane`)
-- `SLAVE_PASSWORD`, `CERT_PASSWORD` — только для CI: пароль связки ключей и пароль от `.p12`
+- `IOS_CERT_PASSWORD` — пароль от `.p12` команды (тот же, что в Mimir)
+
+На сборочном сервере, где связка ключей заблокирована, перед лейном её нужно разблокировать:
+`security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db`.
 
 #### Android — `android/fastlane/.env.prod`
 
@@ -98,11 +113,12 @@ flutter run --flavor prod
 
 Проект использует Fastlane для автоматизации сборки и заливки:
 
-- `ios/fastlane/` — iOS (lanes: `testflight_prod`, `verify_prod`)
+- `ios/fastlane/` — iOS (lanes: `testflight_prod`, `install_signing`, `verify_prod`)
 - `android/fastlane/` — Android (lanes: `rustore_prod`, `verify_prod`)
 
 Номер сборки берётся из количества коммитов (`number_of_commits`), поэтому в репозитории
-должен быть хотя бы один коммит. Версия — из `pubspec.yaml`. Для iOS нужен Xcode 26.
+должен быть хотя бы один коммит, а каждая следующая заливка в TestFlight — с новым коммитом:
+тот же номер сборки второй раз не примут. Версия — из `pubspec.yaml`. Для iOS нужен Xcode 26.
 
 ## Сборка и заливка
 

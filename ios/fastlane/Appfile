@@ -1,1 +1,3 @@
+# The identifier the App Store knows the prod flavor by, and the Apple team that owns it.
 app_identifier("com.aiweapps.winescan")
+team_id("G436Q38PRP")

@@ -1,22 +1,32 @@
+# Signing and delivery of the iOS app to TestFlight.
+#
+# The shape is the one Mimir, videoai and video-editor use, because they share the Apple team:
+# **manual signing** with the team's certificates, no `match`. One difference from Mimir: here
+# nothing of the signing lives in git (`ios/certificates/**` is ignored, as the project rules
+# require). The team's .p12 files are copied into ios/certificates/prod/ by hand, once per
+# machine; the profiles are downloaded by the lanes themselves with the App Store Connect key.
+require 'open3'
+
 default_platform(:ios)
 
 BuildLogsPath = 'build'
 FastlaneDir = __dir__
 IosRoot = File.expand_path('..', FastlaneDir)
 ProjectRoot = File.expand_path('../..', FastlaneDir)
-VerificationLanes = %i[verify_prod].freeze
+TeamId = 'G436Q38PRP'
+NonBuildLanes = %i[verify_prod install_signing].freeze
 
 before_all do |lane|
   ensure_bundle_exec
   skip_docs
   xcversion(version: '~> 26')
-  next if verification_lane?(lane)
+  next if non_build_lane?(lane)
 
   sh "rm -rf ../#{BuildLogsPath}"
 end
 
-def verification_lane?(lane)
-  VerificationLanes.include?(lane.to_s.to_sym)
+def non_build_lane?(lane)
+  NonBuildLanes.include?(lane.to_s.to_sym)
 end
 
 def ensure_present!(value, description, hint = nil)
@@ -36,11 +46,13 @@ def ensure_file_exists!(path, description, hint = nil)
   UI.user_error!(message)
 end
 
+# Always absolute: plain Ruby here runs in ios/fastlane, while actions resolve relative paths
+# against ios/, so a relative path that exists for one is missing for the other.
 def asc_api_key_path
   path = ENV['ASC_KEY_PATH']
   return if path.to_s.strip.empty?
 
-  [path, File.expand_path(path, FastlaneDir), File.expand_path(path, IosRoot), File.expand_path(path, ProjectRoot)].uniq.find do |candidate|
+  [FastlaneDir, IosRoot, ProjectRoot].map { |base| File.expand_path(path, base) }.uniq.find do |candidate|
     File.exist?(candidate)
   end || path
 end
@@ -52,29 +64,30 @@ def validate_testflight_upload!
   ensure_file_exists!(asc_api_key_path, 'App Store Connect API key', 'Check ASC_KEY_PATH')
 end
 
+def certificates_dir(flavor)
+  File.join(IosRoot, 'certificates', flavor)
+end
+
 def certificate_path(flavor, certificate_name)
-  File.join(IosRoot, 'certificates', flavor, "#{certificate_name}.p12")
+  File.join(certificates_dir(flavor), "#{certificate_name}.p12")
 end
 
-def provisioning_profile_path(flavor, provisioning_profile_name)
-  File.join(IosRoot, 'certificates', flavor, "#{provisioning_profile_name}.mobileprovision")
+def distribution_identity_installed?
+  identities = sh('security', 'find-identity', '-v', '-p', 'codesigning', log: false)
+  identities.match?(/"Apple Distribution: .+ \(#{TeamId}\)"/)
 end
 
-def validate_ci_signing!(flavor:, certificate_name:, provisioning_profile_name:)
-  return unless is_ci?
+# Checked before sigh, which quietly skips a profile whose certificate is not in the keychain
+# and then reports the profile itself as missing — the wrong thing to go looking for.
+def validate_distribution_identity!(flavor:, certificate_name:)
+  return if distribution_identity_installed?
 
-  ensure_present!(ENV['SLAVE_PASSWORD'], 'Environment variable SLAVE_PASSWORD', 'Required on CI for keychain access')
-  ensure_present!(ENV['CERT_PASSWORD'], 'Environment variable CERT_PASSWORD', 'Required on CI for certificate import')
-  ensure_file_exists!(
-    certificate_path(flavor, certificate_name),
-    'iOS signing certificate',
-    'Place the .p12 file into ios/certificates/<flavor>/'
-  )
-  ensure_file_exists!(
-    provisioning_profile_path(flavor, provisioning_profile_name),
-    'iOS provisioning profile',
-    'Place the .mobileprovision file into ios/certificates/<flavor>/'
-  )
+  hint = if File.exist?(certificate_path(flavor, certificate_name))
+    'Import it with `bundle exec fastlane install_signing --env prod`.'
+  else
+    "Put the team's #{certificate_name}.p12 into #{certificates_dir(flavor)}/ first."
+  end
+  UI.user_error!("No Apple Distribution identity of team #{TeamId} in the keychain. #{hint}")
 end
 
 def flutterPrepare
@@ -89,46 +102,60 @@ end
 platform :ios do
 
   prodBundleId = 'com.aiweapps.winescan'
-  prodProvisioningProfileName = 'ws_prod_appstore'
-  prodCertificateName = 'prod'
+  prodProvisioningProfileName = 'winescan_prod'
+  prodDevelopmentProfileName = 'winescan_dev'
+  prodCertificateName = '4ingens_prod'
+  devCertificateName = '4ingens_dev'
 
+  desc 'Builds the prod flavor and uploads it to TestFlight'
   lane :testflight_prod do
     validate_testflight_upload!
+    load_api_key
+    prepare_signing(
+      flavor: 'prod',
+      certificateNames: [prodCertificateName],
+      bundleId: prodBundleId,
+      profiles: { prodProvisioningProfileName => false }
+    )
     buildApp(
       provisioningProfileName: prodProvisioningProfileName,
-      certificateName: prodCertificateName,
       exportMethod: 'app-store',
       bundleId: prodBundleId,
       flavor: 'prod'
     )
-    load_api_key
     pilot(
       skip_submission: true,
+      # The build is queued for processing and that takes as long as it takes; waiting here
+      # only holds a terminal open.
       skip_waiting_for_build_processing: true
     )
   end
 
-  lane :verify_prod do
-    validate_ci_signing!(
-      flavor: 'prod',
-      certificate_name: prodCertificateName,
-      provisioning_profile_name: prodProvisioningProfileName
-    )
+  desc 'Imports both team certificates and downloads both prod profiles, for building from Xcode'
+  lane :install_signing do
     validate_testflight_upload!
+    load_api_key
+    [prodCertificateName, devCertificateName].each do |certificate_name|
+      ensure_file_exists!(certificate_path('prod', certificate_name), 'Team certificate', 'Put the .p12 into ios/certificates/prod/')
+    end
+    prepare_signing(
+      flavor: 'prod',
+      certificateNames: [prodCertificateName, devCertificateName],
+      bundleId: prodBundleId,
+      profiles: { prodProvisioningProfileName => false, prodDevelopmentProfileName => true }
+    )
+  end
+
+  desc 'Checks the key, the certificate and the App Store profile without building'
+  lane :verify_prod do
+    validate_testflight_upload!
+    validate_distribution_identity!(flavor: 'prod', certificate_name: prodCertificateName)
+    load_api_key
+    fetch_profile(bundleId: prodBundleId, name: prodProvisioningProfileName, development: false, flavor: 'prod')
     UI.success('iOS production configuration is valid.')
   end
 
   private_lane :buildApp do |options|
-    validate_ci_signing!(
-      flavor: options[:flavor],
-      certificate_name: options[:certificateName],
-      provisioning_profile_name: options[:provisioningProfileName]
-    )
-    prepare_signing(
-      provisioningProfileNames: [options[:provisioningProfileName]],
-      certificateName: options[:certificateName],
-      flavor: options[:flavor]
-    )
     build_number = number_of_commits
     version_number = ''
     Dir.chdir '../..' do
@@ -148,10 +175,15 @@ platform :ios do
       include_symbols: true,
       include_bitcode: false,
       export_method: options[:exportMethod],
+      export_team_id: TeamId,
       export_options: {
+        signingStyle: 'manual',
         uploadSymbols: true,
-        uploadBitcode: false,
-        compileBitcode: false,
+        # The build number is the number of commits, set by `flutter build` above; Xcode must
+        # not replace it with one of its own while exporting.
+        manageAppVersionAndBuildNumber: false,
+        # Chosen by name rather than looked up: development and distribution profiles for one
+        # identifier is normal, and letting Xcode pick is how a build gets signed for the wrong one.
         provisioningProfiles: {
           options[:bundleId] => options[:provisioningProfileName]
         }
@@ -163,23 +195,65 @@ platform :ios do
     app_store_connect_api_key(
       key_id: ENV['ASC_KEY_ID'],
       issuer_id: ENV['ASC_KEY_ISSUER_ID'],
-      key_filepath: asc_api_key_path
+      key_filepath: asc_api_key_path,
+      duration: 1200,
+      in_house: false
     )
   end
 
-  def prepare_signing(options)
-    return unless is_ci?
+  # Certificates first: sigh skips a profile whose certificate is not in the keychain. A missing
+  # .p12 is fine when the identity is already there — that is how a developer's Mac usually looks.
+  private_lane :prepare_signing do |options|
+    options[:certificateNames].each do |certificate_name|
+      path = certificate_path(options[:flavor], certificate_name)
+      if File.exist?(path)
+        import_certificate_into_login_keychain(path: path)
+      else
+        validate_distribution_identity!(flavor: options[:flavor], certificate_name: certificate_name)
+        UI.success("#{certificate_name}: the distribution identity is already in the keychain")
+      end
+    end
+    options[:profiles].each do |name, development|
+      fetch_profile(bundleId: options[:bundleId], name: name, development: development, flavor: options[:flavor])
+    end
+  end
 
-    import_certificate(
-      keychain_name: 'login',
-      keychain_password: ENV['SLAVE_PASSWORD'],
-      certificate_path: certificate_path(options[:flavor], options[:certificateName]),
-      certificate_password: ENV['CERT_PASSWORD'],
-      log_output: true
+  # Only downloads: the key reads the developer portal but cannot write to it, so a missing or
+  # invalid profile is fixed by hand at developer.apple.com, not recreated from here — a forced
+  # regeneration would also invalidate the profile every other machine holds.
+  private_lane :fetch_profile do |options|
+    sigh(
+      app_identifier: options[:bundleId],
+      development: options[:development],
+      provisioning_name: options[:name],
+      ignore_profiles_with_different_name: true,
+      readonly: true,
+      filename: "#{options[:name]}.mobileprovision",
+      output_path: certificates_dir(options[:flavor])
     )
-    options[:provisioningProfileNames].each do |provisioningProfileName|
-      install_provisioning_profile(path: provisioning_profile_path(options[:flavor], provisioningProfileName))
-      puts provisioningProfileName
+  end
+
+  # `security` rather than fastlane's `import_certificate`: that action sets the item's access,
+  # which needs the keychain password — on a developer's Mac that is their login password.
+  # Importing into an unlocked login keychain needs none. On a machine where it is locked — a
+  # build server — unlock it first:
+  #   security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
+  #
+  # Open3 with an argument list rather than `sh` with a string: no shell to break on a quote in
+  # the password, and a non-zero exit ("already exists") is an answer here, not a failure to log.
+  private_lane :import_certificate_into_login_keychain do |options|
+    password = ENV['IOS_CERT_PASSWORD'] || ''
+    name = File.basename(options[:path], '.p12')
+    keychain = "#{ENV['HOME']}/Library/Keychains/login.keychain-db"
+
+    output, _status = Open3.capture2e(
+      'security', 'import', options[:path], '-k', keychain, '-P', password, '-T', '/usr/bin/codesign'
+    )
+
+    case output
+    when /already exists/ then UI.success("#{name} is already in the keychain")
+    when /imported/ then UI.success("Imported #{name}")
+    else UI.user_error!("Could not import #{options[:path]}: #{output.strip}")
     end
   end
 
