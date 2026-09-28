@@ -1,0 +1,160 @@
+default_platform(:android)
+
+FastlaneDir = __dir__
+ProjectRoot = File.expand_path('../..', FastlaneDir)
+AndroidRoot = File.expand_path('..', FastlaneDir)
+AndroidAppRoot = File.expand_path('../app', FastlaneDir)
+RequiredAndroidSigningKeys = %w[keyAlias keyPassword storeFile storePassword].freeze
+VerificationLanes = %i[verify_prod].freeze
+
+before_all do |lane|
+  ensure_bundle_exec
+  skip_docs
+  next if verification_lane?(lane)
+
+  clean_builds
+end
+
+after_all do |lane|
+  cleanup(lane)
+end
+
+error do |lane, exception|
+  cleanup(lane)
+end
+
+def verification_lane?(lane)
+  VerificationLanes.include?(lane.to_s.to_sym)
+end
+
+def cleanup(lane = nil)
+  return if verification_lane?(lane)
+
+  clean_build_artifacts
+  clean_builds
+end
+
+def clean_builds
+  sh "rm -rf ../../build/app"
+end
+
+def ensure_present!(value, description, hint = nil)
+  return unless value.to_s.strip.empty?
+
+  message = "#{description} is missing or empty"
+  message = "#{message}. #{hint}" unless hint.to_s.strip.empty?
+  UI.user_error!(message)
+end
+
+def ensure_file_exists!(path, description, hint = nil)
+  return if !path.to_s.strip.empty? && File.exist?(path)
+
+  message = "#{description} not found"
+  message = "#{message}: #{path}" unless path.to_s.strip.empty?
+  message = "#{message}. #{hint}" unless hint.to_s.strip.empty?
+  UI.user_error!(message)
+end
+
+def parse_key_value_file(path)
+  ensure_file_exists!(path, 'Required file')
+
+  File.readlines(path, chomp: true).each_with_object({}) do |raw_line, values|
+    line = raw_line.strip
+    next if line.empty? || line.start_with?('#')
+
+    separator_index = line.index('=')
+    next if separator_index.nil?
+
+    key = line[0...separator_index].strip
+    value = line[(separator_index + 1)..].to_s.strip
+    values[key] = value
+  end
+end
+
+def resolve_existing_path(path, base_paths)
+  return if path.to_s.strip.empty?
+
+  candidates = [path, *base_paths.map { |base_path| File.expand_path(path, base_path) }].uniq
+  candidates.find { |candidate| File.exist?(candidate) }
+end
+
+def validate_file_values!(path:, keys:, description:, hint: nil)
+  values = parse_key_value_file(path)
+  keys.each do |key|
+    ensure_present!(values[key], "#{description} value #{key}", hint || "Check #{path}")
+  end
+  values
+end
+
+def validate_android_signing!
+  key_properties_path = File.join(AndroidRoot, 'key.properties')
+  key_properties = validate_file_values!(
+    path: key_properties_path,
+    keys: RequiredAndroidSigningKeys,
+    description: 'android/key.properties',
+    hint: "Fill it by example of #{File.join(AndroidRoot, 'key.properties.sample')}"
+  )
+
+  keystore_path = resolve_existing_path(key_properties['storeFile'], [AndroidAppRoot, AndroidRoot, ProjectRoot]) || key_properties['storeFile']
+  ensure_file_exists!(keystore_path, 'Android keystore', "Check storeFile in #{key_properties_path}")
+end
+
+def validate_rustore_upload!
+  ensure_present!(ENV['RUSTORE_KEY_ID'], 'Environment variable RUSTORE_KEY_ID', 'Set it in android/fastlane/.env.prod')
+  ensure_present!(ENV['RUSTORE_PRIVATE_KEY'], 'Environment variable RUSTORE_PRIVATE_KEY', 'Set it in android/fastlane/.env.prod')
+end
+
+def android_aab_path(flavor)
+  File.join(ProjectRoot, 'build', 'app', 'outputs', 'bundle', "#{flavor}Release", "app-#{flavor}-release.aab")
+end
+
+def flutterPrepare
+  sh('flutter', 'clean')
+  sh('flutter', 'packages', 'get')
+end
+
+platform :android do
+
+  prodBundleId = 'com.aiweapps.winescan'
+
+  lane :rustore_prod do
+    validate_rustore_upload!
+    buildApp(
+      output: 'appbundle',
+      flavor: 'prod'
+    )
+    aab_path = android_aab_path('prod')
+    ensure_file_exists!(aab_path, 'Android App Bundle')
+    upload_to_ru_store(
+      package_name: prodBundleId,
+      key_id: ENV['RUSTORE_KEY_ID'],
+      private_key: ENV['RUSTORE_PRIVATE_KEY'],
+      aab: aab_path,
+      publish_type: 'MANUAL'
+    )
+  end
+
+  lane :verify_prod do
+    validate_android_signing!
+    validate_rustore_upload!
+    UI.success('Android production configuration is valid.')
+  end
+
+  private_lane :buildApp do |options|
+    ensure_present!(options[:output], 'Android build output option')
+    ensure_present!(options[:flavor], 'Android flavor option')
+    validate_android_signing!
+
+    build_number = number_of_commits
+    version_number = ''
+    Dir.chdir '../..' do
+      #read from pubspec.yaml
+      version_number = sh("grep '^version:' pubspec.yaml | cut -d' ' -f2 | cut -d'+' -f1 | tr -d '[:space:]'")
+      #prepare flutter
+      flutterPrepare
+      #build flutter android app
+      sh('flutter', 'build', "#{options[:output]}", '--release', '--flavor', "#{options[:flavor]}", '--target', 'lib/main.dart', '--build-number', "#{build_number}", '--build-name', "#{version_number}")
+    end
+  end
+
+end

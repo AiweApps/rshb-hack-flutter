@@ -1,0 +1,155 @@
+{
+  "@@locale": "en",
+  "appTitle": "Винный Сканер",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings page title"
+  },
+  "home": "Home",
+  "@home": {
+    "description": "Home page title and navigation label"
+  },
+  "searchForTracks": "Search for tracks...",
+  "@searchForTracks": {
+    "description": "Search field placeholder text"
+  },
+  "noTracksFound": "No tracks found. Try searching for something!",
+  "@noTracksFound": {
+    "description": "Message when no search results are found"
+  },
+  "splashApp": "Splash App",
+  "@splashApp": {
+    "description": "Splash screen app name"
+  },
+  "pageNotFound": "Page not found",
+  "@pageNotFound": {
+    "description": "Error page title when route not found"
+  },
+  "routeDoesNotExist": "Route [{route}] does not exist",
+  "@routeDoesNotExist": {
+    "description": "Error message when route does not exist",
+    "placeholders": {
+      "route": {
+        "type": "String",
+        "description": "The route that was not found"
+      }
+    }
+  },
+  "goToHome": "Go to home",
+  "@goToHome": {
+    "description": "Button text to navigate to home"
+  },
+  "appearance": "Appearance",
+  "@appearance": {
+    "description": "Appearance settings section title"
+  },
+  "themeMode": "Theme Mode",
+  "@themeMode": {
+    "description": "Theme mode setting title"
+  },
+  "followSystemTheme": "Follow system theme",
+  "@followSystemTheme": {
+    "description": "System theme mode description"
+  },
+  "alwaysUseLightTheme": "Always use light theme",
+  "@alwaysUseLightTheme": {
+    "description": "Light theme mode description"
+  },
+  "alwaysUseDarkTheme": "Always use dark theme",
+  "@alwaysUseDarkTheme": {
+    "description": "Dark theme mode description"
+  },
+  "system": "System",
+  "@system": {
+    "description": "System theme mode dropdown option"
+  },
+  "light": "Light",
+  "@light": {
+    "description": "Light theme mode dropdown option"
+  },
+  "dark": "Dark",
+  "@dark": {
+    "description": "Dark theme mode dropdown option"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language setting title"
+  },
+  "languageDescription": "Select your preferred language",
+  "@languageDescription": {
+    "description": "Language setting description"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English language option"
+  },
+  "german": "German",
+  "@german": {
+    "description": "German language option"
+  },
+  "flavorMessage": "Flavor - {flavor}\nSplash will hide in {duration}",
+  "@flavorMessage": {
+    "description": "Splash screen flavor and duration message",
+    "placeholders": {
+      "flavor": {
+        "type": "String",
+        "description": "The current app flavor"
+      },
+      "duration": {
+        "type": "String",
+        "description": "Duration until splash hides"
+      }
+    }
+  },
+  "trackDetails": "Track Details",
+  "@trackDetails": {
+    "description": "Track details page title"
+  },
+  "artist": "Artist",
+  "@artist": {
+    "description": "Artist label"
+  },
+  "album": "Album",
+  "@album": {
+    "description": "Album label"
+  },
+  "duration": "Duration",
+  "@duration": {
+    "description": "Duration label"
+  },
+  "explicit": "Explicit",
+  "@explicit": {
+    "description": "Explicit content badge text"
+  },
+  "playPreview": "Play Preview",
+  "@playPreview": {
+    "description": "Play preview button text"
+  },
+  "errorConnectionTitle": "No connection",
+  "@errorConnectionTitle": {
+    "description": "Title of the inline connection error block"
+  },
+  "errorConnectionFullScreenTitle": "No internet connection",
+  "@errorConnectionFullScreenTitle": {
+    "description": "Title of the full screen connection error"
+  },
+  "errorConnectionSubtitle": "Check your internet connection and try again",
+  "@errorConnectionSubtitle": {
+    "description": "Subtitle of the connection error"
+  },
+  "errorServerTitle": "Something went wrong",
+  "@errorServerTitle": {
+    "description": "Title of the server error"
+  },
+  "errorServerSubtitle": "We couldn't load the data. Please try again",
+  "@errorServerSubtitle": {
+    "description": "Subtitle of the server error"
+  },
+  "errorReloadButton": "Try again",
+  "@errorReloadButton": {
+    "description": "Retry button on the full screen error"
+  }
+}

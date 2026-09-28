@@ -1,0 +1,186 @@
+default_platform(:ios)
+
+BuildLogsPath = 'build'
+FastlaneDir = __dir__
+IosRoot = File.expand_path('..', FastlaneDir)
+ProjectRoot = File.expand_path('../..', FastlaneDir)
+VerificationLanes = %i[verify_prod].freeze
+
+before_all do |lane|
+  ensure_bundle_exec
+  skip_docs
+  xcversion(version: '~> 26')
+  next if verification_lane?(lane)
+
+  sh "rm -rf ../#{BuildLogsPath}"
+end
+
+def verification_lane?(lane)
+  VerificationLanes.include?(lane.to_s.to_sym)
+end
+
+def ensure_present!(value, description, hint = nil)
+  return unless value.to_s.strip.empty?
+
+  message = "#{description} is missing or empty"
+  message = "#{message}. #{hint}" unless hint.to_s.strip.empty?
+  UI.user_error!(message)
+end
+
+def ensure_file_exists!(path, description, hint = nil)
+  return if !path.to_s.strip.empty? && File.exist?(path)
+
+  message = "#{description} not found"
+  message = "#{message}: #{path}" unless path.to_s.strip.empty?
+  message = "#{message}. #{hint}" unless hint.to_s.strip.empty?
+  UI.user_error!(message)
+end
+
+def asc_api_key_path
+  path = ENV['ASC_KEY_PATH']
+  return if path.to_s.strip.empty?
+
+  [path, File.expand_path(path, FastlaneDir), File.expand_path(path, IosRoot), File.expand_path(path, ProjectRoot)].uniq.find do |candidate|
+    File.exist?(candidate)
+  end || path
+end
+
+def validate_testflight_upload!
+  ensure_present!(ENV['ASC_KEY_ISSUER_ID'], 'Environment variable ASC_KEY_ISSUER_ID', 'Set it in ios/fastlane/.env.prod')
+  ensure_present!(ENV['ASC_KEY_ID'], 'Environment variable ASC_KEY_ID', 'Set it in ios/fastlane/.env.prod')
+  ensure_present!(ENV['ASC_KEY_PATH'], 'Environment variable ASC_KEY_PATH', 'Set it in ios/fastlane/.env.prod')
+  ensure_file_exists!(asc_api_key_path, 'App Store Connect API key', 'Check ASC_KEY_PATH')
+end
+
+def certificate_path(flavor, certificate_name)
+  File.join(IosRoot, 'certificates', flavor, "#{certificate_name}.p12")
+end
+
+def provisioning_profile_path(flavor, provisioning_profile_name)
+  File.join(IosRoot, 'certificates', flavor, "#{provisioning_profile_name}.mobileprovision")
+end
+
+def validate_ci_signing!(flavor:, certificate_name:, provisioning_profile_name:)
+  return unless is_ci?
+
+  ensure_present!(ENV['SLAVE_PASSWORD'], 'Environment variable SLAVE_PASSWORD', 'Required on CI for keychain access')
+  ensure_present!(ENV['CERT_PASSWORD'], 'Environment variable CERT_PASSWORD', 'Required on CI for certificate import')
+  ensure_file_exists!(
+    certificate_path(flavor, certificate_name),
+    'iOS signing certificate',
+    'Place the .p12 file into ios/certificates/<flavor>/'
+  )
+  ensure_file_exists!(
+    provisioning_profile_path(flavor, provisioning_profile_name),
+    'iOS provisioning profile',
+    'Place the .mobileprovision file into ios/certificates/<flavor>/'
+  )
+end
+
+def flutterPrepare
+  sh('flutter', 'clean')
+  sh('flutter', 'packages', 'get')
+  sh('flutter', 'precache', '--ios')
+  Dir.chdir 'ios' do
+    sh('bundle', 'exec', 'pod', 'install')
+  end
+end
+
+platform :ios do
+
+  prodBundleId = 'com.aiweapps.winescan'
+  prodProvisioningProfileName = 'ws_prod_appstore'
+  prodCertificateName = 'prod'
+
+  lane :testflight_prod do
+    validate_testflight_upload!
+    buildApp(
+      provisioningProfileName: prodProvisioningProfileName,
+      certificateName: prodCertificateName,
+      exportMethod: 'app-store',
+      bundleId: prodBundleId,
+      flavor: 'prod'
+    )
+    load_api_key
+    pilot(
+      skip_submission: true,
+      skip_waiting_for_build_processing: true
+    )
+  end
+
+  lane :verify_prod do
+    validate_ci_signing!(
+      flavor: 'prod',
+      certificate_name: prodCertificateName,
+      provisioning_profile_name: prodProvisioningProfileName
+    )
+    validate_testflight_upload!
+    UI.success('iOS production configuration is valid.')
+  end
+
+  private_lane :buildApp do |options|
+    validate_ci_signing!(
+      flavor: options[:flavor],
+      certificate_name: options[:certificateName],
+      provisioning_profile_name: options[:provisioningProfileName]
+    )
+    prepare_signing(
+      provisioningProfileNames: [options[:provisioningProfileName]],
+      certificateName: options[:certificateName],
+      flavor: options[:flavor]
+    )
+    build_number = number_of_commits
+    version_number = ''
+    Dir.chdir '../..' do
+      #read from pubspec.yaml
+      version_number = sh("grep '^version:' pubspec.yaml | cut -d' ' -f2 | cut -d'+' -f1 | tr -d '[:space:]'")
+      #prepare flutter
+      flutterPrepare
+      #build flutter ios app
+      sh('flutter', 'build', 'ios', '--release', '--flavor', "#{options[:flavor]}", '--no-codesign', '--target', 'lib/main.dart', '--build-number', "#{build_number}", '--build-name', "#{version_number}")
+    end
+    gym(
+      scheme: options[:flavor],
+      configuration: "Release-#{options[:flavor]}",
+      clean: true,
+      output_directory: BuildLogsPath,
+      buildlog_path: BuildLogsPath,
+      include_symbols: true,
+      include_bitcode: false,
+      export_method: options[:exportMethod],
+      export_options: {
+        uploadSymbols: true,
+        uploadBitcode: false,
+        compileBitcode: false,
+        provisioningProfiles: {
+          options[:bundleId] => options[:provisioningProfileName]
+        }
+      }
+    )
+  end
+
+  private_lane :load_api_key do
+    app_store_connect_api_key(
+      key_id: ENV['ASC_KEY_ID'],
+      issuer_id: ENV['ASC_KEY_ISSUER_ID'],
+      key_filepath: asc_api_key_path
+    )
+  end
+
+  def prepare_signing(options)
+    return unless is_ci?
+
+    import_certificate(
+      keychain_name: 'login',
+      keychain_password: ENV['SLAVE_PASSWORD'],
+      certificate_path: certificate_path(options[:flavor], options[:certificateName]),
+      certificate_password: ENV['CERT_PASSWORD'],
+      log_output: true
+    )
+    options[:provisioningProfileNames].each do |provisioningProfileName|
+      install_provisioning_profile(path: provisioning_profile_path(options[:flavor], provisioningProfileName))
+      puts provisioningProfileName
+    end
+  end
+
+end

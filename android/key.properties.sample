@@ -1,0 +1,4 @@
+storeFile=../winescan.jks
+storePassword=
+keyAlias=winescan_app_key
+keyPassword=

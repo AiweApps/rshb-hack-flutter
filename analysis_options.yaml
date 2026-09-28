@@ -1,0 +1,56 @@
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
+#
+# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
+# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
+# invoked from the command line by running `flutter analyze`.
+
+# The following line activates a set of recommended lints for Flutter apps,
+# packages, and plugins designed to encourage good coding practices.
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    # Build output, incl. SwiftPM checkouts of third-party sources pulled in
+    # by iOS builds — not our code, and it doesn't analyze cleanly.
+    - build/**
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+
+linter:
+  # Rules below back the project rules in .claude/rules/ — everything the
+  # analyzer can enforce should not be left to a human reviewer or to grep.
+  # Suppress a rule for one line with `// ignore: name_of_lint` only when the
+  # violation is deliberate and explained by a comment.
+  rules:
+    # bloc.md — leaks: a subscription or sink that is never released
+    cancel_subscriptions: true
+    close_sinks: true
+
+    # errors.md — a swallowed future is a swallowed error
+    unawaited_futures: true
+    unnecessary_await_in_return: true
+
+    # performance.md — const widgets are not rebuilt
+    prefer_const_constructors: true
+    prefer_const_constructors_in_immutables: true
+    prefer_const_declarations: true
+    prefer_const_literals_to_create_immutables: true
+    use_colored_box: true
+    use_decorated_box: true
+
+    # models.md / screens.md — explicit types instead of implicit dynamic
+    always_declare_return_types: true
+    avoid_dynamic_calls: true
+
+    # code-style.md — member ordering (constructors are kept after fields on
+    # purpose, so sort_constructors_first stays off)
+    sort_unnamed_constructors_first: true
+
+    # style — matches how the existing code is written
+    prefer_final_locals: true
+    unnecessary_parenthesis: true
+    directives_ordering: true
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
