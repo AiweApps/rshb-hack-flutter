@@ -33,10 +33,11 @@ class ErrorBlockGeneral extends StatelessWidget {
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: isTransparent
-                ? Colors.transparent
-                : context.colors.neutrals300,
-            borderRadius: BorderRadius.circular(AppRadius.r12),
+            color: isTransparent ? Colors.transparent : context.colors.card,
+            borderRadius: BorderRadius.circular(AppRadius.r16),
+            border: isTransparent
+                ? null
+                : Border.all(color: context.colors.rule),
           ),
           padding: const EdgeInsets.only(
             top: AppPadding.p32,

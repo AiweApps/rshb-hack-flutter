@@ -2,183 +2,172 @@ import 'package:flutter/material.dart';
 
 /// Design-system palette exposed as a [ThemeExtension].
 ///
-/// Access it from any widget:
-/// ```dart
-/// final appColors = Theme.of(context).extension<AppColors>()!;
-/// ```
+/// The names and values are the ones of the «Винный сканер» web UI
+/// (`static/app.css`): paper and card surfaces, ink for text, wine for
+/// actions, gold for accents. Access it as `context.colors.wine`.
 ///
-/// Registered in `getBaseTheme` for both brightnesses. The `dark` variant
-/// currently mirrors `light` — override the values once the dark design is
-/// defined.
+/// Adding a colour: field → constructor → `light` and `dark` values →
+/// `copyWith` → `lerp`.
 @immutable
 class AppColors extends ThemeExtension<AppColors> {
-  final Color primary100;
-  final Color primary200;
-  final Color primary300;
-  final Color primary400;
-  final Color primary500;
+  /// Page background.
+  final Color paper;
 
-  final Color neutrals100;
-  final Color neutrals200;
-  final Color neutrals300;
-  final Color neutrals400;
-  final Color neutrals500;
-  final Color neutrals600;
-  final Color neutrals700;
-  final Color neutrals800;
-  final Color neutrals900;
+  /// Slightly deeper background: sheets, chips, inactive tabs.
+  final Color paper2;
 
-  final Color red;
-  final Color grey;
-  final Color error;
-  final Color delete;
-  final Color success;
-  final Color azure100;
+  /// Surface of cards and dialogs.
+  final Color card;
 
-  final Color chipBackground;
-  final Color darkCardBackground;
-  final Color headerBlackBackground;
+  /// Primary text.
+  final Color ink;
 
+  /// Secondary text.
+  final Color ink2;
+
+  /// Captions, hints, placeholders.
+  final Color muted;
+
+  /// Hairlines, borders.
+  final Color rule;
+
+  /// Brand colour: primary buttons, links, active state.
+  final Color wine;
+
+  /// Pressed / hovered brand colour.
+  final Color wine2;
+
+  /// Text and icons on a wine-filled surface.
+  final Color onWine;
+
+  /// Accent: focus rings, selected frame, step numerals.
+  final Color gold;
+
+  /// Service is ready.
+  final Color ok;
+
+  /// Service is busy; warnings.
+  final Color warn;
+
+  /// Errors; service down.
+  final Color bad;
+
+  /// Badges drawn over a photo: white on any theme.
+  final Color onPhoto;
+
+  /// Scrim over a photo (draw mode, viewer).
+  final Color scrim;
+
+  final Color toastInfo;
   final Color toastSuccess;
   final Color toastError;
 
   const AppColors({
-    required this.primary100,
-    required this.primary200,
-    required this.primary300,
-    required this.primary400,
-    required this.primary500,
-    required this.neutrals100,
-    required this.neutrals200,
-    required this.neutrals300,
-    required this.neutrals400,
-    required this.neutrals500,
-    required this.neutrals600,
-    required this.neutrals700,
-    required this.neutrals800,
-    required this.neutrals900,
-    required this.red,
-    required this.grey,
-    required this.error,
-    required this.delete,
-    required this.success,
-    required this.azure100,
-    required this.chipBackground,
-    required this.darkCardBackground,
-    required this.headerBlackBackground,
+    required this.paper,
+    required this.paper2,
+    required this.card,
+    required this.ink,
+    required this.ink2,
+    required this.muted,
+    required this.rule,
+    required this.wine,
+    required this.wine2,
+    required this.onWine,
+    required this.gold,
+    required this.ok,
+    required this.warn,
+    required this.bad,
+    required this.onPhoto,
+    required this.scrim,
+    required this.toastInfo,
     required this.toastSuccess,
     required this.toastError,
   });
 
   static const light = AppColors(
-    primary100: Color(0xFFFFF3BD),
-    primary200: Color(0xFFFFEAA2),
-    primary300: Color(0xFFFFE187),
-    primary400: Color(0xFFFFD861),
-    primary500: Color(0xFFFFA100),
-    neutrals100: Color(0xFFFFFFFF),
-    neutrals200: Color(0xFFFCFCFD),
-    neutrals300: Color(0xFFF4F5F6),
-    neutrals400: Color(0xFFE6E8EC),
-    neutrals500: Color(0xFFB1B5C3),
-    neutrals600: Color(0xFF777E90),
-    neutrals700: Color(0xFF353945),
-    neutrals800: Color(0xFF23262F),
-    neutrals900: Color(0xFF141416),
-    red: Color(0xFFFF3B30),
-    grey: Color(0xFFAAAAAA),
-    error: Color(0xFFF62F56),
-    delete: Color(0xFFE02E2E),
-    success: Color(0xFF00C8B3),
-    azure100: Color(0xFF0077FF),
-    chipBackground: Color(0xFFF4F5F8),
-    darkCardBackground: Color(0xFF222224),
-    headerBlackBackground: Color(0xFF16191A),
-    toastSuccess: Color(0xFFD6FFBE),
-    toastError: Color(0xFFFFBEBF),
+    paper: Color(0xFFF3ECDF),
+    paper2: Color(0xFFEBE1CF),
+    card: Color(0xFFFBF7EF),
+    ink: Color(0xFF26181A),
+    ink2: Color(0xFF5A4A45),
+    muted: Color(0xFF86766E),
+    rule: Color(0xFFD6C8B2),
+    wine: Color(0xFF6B1D2C),
+    wine2: Color(0xFF8C2A3C),
+    onWine: Color(0xFFFBF7EF),
+    gold: Color(0xFFA9853F),
+    ok: Color(0xFF3F6B3A),
+    warn: Color(0xFF9A6516),
+    bad: Color(0xFF9B2B2B),
+    onPhoto: Color(0xFFFFFFFF),
+    scrim: Color(0xFF26181A),
+    toastInfo: Color(0xFFEBE1CF),
+    toastSuccess: Color(0xFFDCE9D8),
+    toastError: Color(0xFFF1D6D3),
   );
 
   static const dark = AppColors(
-    primary100: Color(0xFFFFEAA2),
-    primary200: Color(0xFFFFEAA2),
-    primary300: Color(0xFFFFE187),
-    primary400: Color(0xFFFFD861),
-    primary500: Color(0xFFFFA100),
-    neutrals100: Color(0xFFFFFFFF),
-    neutrals200: Color(0xFFFCFCFD),
-    neutrals300: Color(0xFFF4F5F6),
-    neutrals400: Color(0xFFE6E8EC),
-    neutrals500: Color(0xFFB1B5C3),
-    neutrals600: Color(0xFF777E90),
-    neutrals700: Color(0xFF353945),
-    neutrals800: Color(0xFF23262F),
-    neutrals900: Color(0xFF141416),
-    red: Color(0xFFFF3B30),
-    grey: Color(0xFFAAAAAA),
-    error: Color(0xFFF62F56),
-    delete: Color(0xFFE02E2E),
-    success: Color(0xFF00C8B3),
-    azure100: Color(0xFF0077FF),
-    chipBackground: Color(0xFFF4F5F8),
-    darkCardBackground: Color(0xFF222224),
-    headerBlackBackground: Color(0xFF16191A),
-    toastSuccess: Color(0xFFD6FFBE),
-    toastError: Color(0xFFFFBEBF),
+    paper: Color(0xFF16100F),
+    paper2: Color(0xFF1F1715),
+    card: Color(0xFF231A18),
+    ink: Color(0xFFEFE4D3),
+    ink2: Color(0xFFCBBBA6),
+    muted: Color(0xFF9A8A7C),
+    rule: Color(0xFF3A2D29),
+    wine: Color(0xFFD77A88),
+    wine2: Color(0xFFE9909C),
+    onWine: Color(0xFF16100F),
+    gold: Color(0xFFD0AB62),
+    ok: Color(0xFF8FBF83),
+    warn: Color(0xFFE0A64A),
+    bad: Color(0xFFEC8B84),
+    onPhoto: Color(0xFFFFFFFF),
+    scrim: Color(0xFF000000),
+    toastInfo: Color(0xFF2B211E),
+    toastSuccess: Color(0xFF2E3F2B),
+    toastError: Color(0xFF4A2A28),
   );
 
   @override
   AppColors copyWith({
-    Color? primary100,
-    Color? primary200,
-    Color? primary300,
-    Color? primary400,
-    Color? primary500,
-    Color? neutrals100,
-    Color? neutrals200,
-    Color? neutrals300,
-    Color? neutrals400,
-    Color? neutrals500,
-    Color? neutrals600,
-    Color? neutrals700,
-    Color? neutrals800,
-    Color? neutrals900,
-    Color? red,
-    Color? grey,
-    Color? error,
-    Color? delete,
-    Color? success,
-    Color? azure100,
-    Color? chipBackground,
-    Color? darkCardBackground,
-    Color? headerBlackBackground,
+    Color? paper,
+    Color? paper2,
+    Color? card,
+    Color? ink,
+    Color? ink2,
+    Color? muted,
+    Color? rule,
+    Color? wine,
+    Color? wine2,
+    Color? onWine,
+    Color? gold,
+    Color? ok,
+    Color? warn,
+    Color? bad,
+    Color? onPhoto,
+    Color? scrim,
+    Color? toastInfo,
     Color? toastSuccess,
     Color? toastError,
   }) {
     return AppColors(
-      primary100: primary100 ?? this.primary100,
-      primary200: primary200 ?? this.primary200,
-      primary300: primary300 ?? this.primary300,
-      primary400: primary400 ?? this.primary400,
-      primary500: primary500 ?? this.primary500,
-      neutrals100: neutrals100 ?? this.neutrals100,
-      neutrals200: neutrals200 ?? this.neutrals200,
-      neutrals300: neutrals300 ?? this.neutrals300,
-      neutrals400: neutrals400 ?? this.neutrals400,
-      neutrals500: neutrals500 ?? this.neutrals500,
-      neutrals600: neutrals600 ?? this.neutrals600,
-      neutrals700: neutrals700 ?? this.neutrals700,
-      neutrals800: neutrals800 ?? this.neutrals800,
-      neutrals900: neutrals900 ?? this.neutrals900,
-      red: red ?? this.red,
-      grey: grey ?? this.grey,
-      error: error ?? this.error,
-      delete: delete ?? this.delete,
-      success: success ?? this.success,
-      azure100: azure100 ?? this.azure100,
-      chipBackground: chipBackground ?? this.chipBackground,
-      darkCardBackground: darkCardBackground ?? this.darkCardBackground,
-      headerBlackBackground:
-          headerBlackBackground ?? this.headerBlackBackground,
+      paper: paper ?? this.paper,
+      paper2: paper2 ?? this.paper2,
+      card: card ?? this.card,
+      ink: ink ?? this.ink,
+      ink2: ink2 ?? this.ink2,
+      muted: muted ?? this.muted,
+      rule: rule ?? this.rule,
+      wine: wine ?? this.wine,
+      wine2: wine2 ?? this.wine2,
+      onWine: onWine ?? this.onWine,
+      gold: gold ?? this.gold,
+      ok: ok ?? this.ok,
+      warn: warn ?? this.warn,
+      bad: bad ?? this.bad,
+      onPhoto: onPhoto ?? this.onPhoto,
+      scrim: scrim ?? this.scrim,
+      toastInfo: toastInfo ?? this.toastInfo,
       toastSuccess: toastSuccess ?? this.toastSuccess,
       toastError: toastError ?? this.toastError,
     );
@@ -188,37 +177,23 @@ class AppColors extends ThemeExtension<AppColors> {
   AppColors lerp(ThemeExtension<AppColors>? other, double t) {
     if (other is! AppColors) return this;
     return AppColors(
-      primary100: Color.lerp(primary100, other.primary100, t)!,
-      primary200: Color.lerp(primary200, other.primary200, t)!,
-      primary300: Color.lerp(primary300, other.primary300, t)!,
-      primary400: Color.lerp(primary400, other.primary400, t)!,
-      primary500: Color.lerp(primary500, other.primary500, t)!,
-      neutrals100: Color.lerp(neutrals100, other.neutrals100, t)!,
-      neutrals200: Color.lerp(neutrals200, other.neutrals200, t)!,
-      neutrals300: Color.lerp(neutrals300, other.neutrals300, t)!,
-      neutrals400: Color.lerp(neutrals400, other.neutrals400, t)!,
-      neutrals500: Color.lerp(neutrals500, other.neutrals500, t)!,
-      neutrals600: Color.lerp(neutrals600, other.neutrals600, t)!,
-      neutrals700: Color.lerp(neutrals700, other.neutrals700, t)!,
-      neutrals800: Color.lerp(neutrals800, other.neutrals800, t)!,
-      neutrals900: Color.lerp(neutrals900, other.neutrals900, t)!,
-      red: Color.lerp(red, other.red, t)!,
-      grey: Color.lerp(grey, other.grey, t)!,
-      error: Color.lerp(error, other.error, t)!,
-      delete: Color.lerp(delete, other.delete, t)!,
-      success: Color.lerp(success, other.success, t)!,
-      azure100: Color.lerp(azure100, other.azure100, t)!,
-      chipBackground: Color.lerp(chipBackground, other.chipBackground, t)!,
-      darkCardBackground: Color.lerp(
-        darkCardBackground,
-        other.darkCardBackground,
-        t,
-      )!,
-      headerBlackBackground: Color.lerp(
-        headerBlackBackground,
-        other.headerBlackBackground,
-        t,
-      )!,
+      paper: Color.lerp(paper, other.paper, t)!,
+      paper2: Color.lerp(paper2, other.paper2, t)!,
+      card: Color.lerp(card, other.card, t)!,
+      ink: Color.lerp(ink, other.ink, t)!,
+      ink2: Color.lerp(ink2, other.ink2, t)!,
+      muted: Color.lerp(muted, other.muted, t)!,
+      rule: Color.lerp(rule, other.rule, t)!,
+      wine: Color.lerp(wine, other.wine, t)!,
+      wine2: Color.lerp(wine2, other.wine2, t)!,
+      onWine: Color.lerp(onWine, other.onWine, t)!,
+      gold: Color.lerp(gold, other.gold, t)!,
+      ok: Color.lerp(ok, other.ok, t)!,
+      warn: Color.lerp(warn, other.warn, t)!,
+      bad: Color.lerp(bad, other.bad, t)!,
+      onPhoto: Color.lerp(onPhoto, other.onPhoto, t)!,
+      scrim: Color.lerp(scrim, other.scrim, t)!,
+      toastInfo: Color.lerp(toastInfo, other.toastInfo, t)!,
       toastSuccess: Color.lerp(toastSuccess, other.toastSuccess, t)!,
       toastError: Color.lerp(toastError, other.toastError, t)!,
     );

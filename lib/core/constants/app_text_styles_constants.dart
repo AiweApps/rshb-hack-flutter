@@ -6,147 +6,183 @@ import 'app_style_constants.dart';
 
 /// Design-system typography exposed as a [ThemeExtension].
 ///
-/// This — not Flutter's [TextTheme] — is the source of truth for text styles.
-/// Styles carry the names used in the design file, so a call site says what it
-/// means: `context.ts.h2`, not `context.textStyle.displayMedium`.
+/// The scale follows the web UI: PT Serif Caption for display headings,
+/// PT Serif for reading text, PT Sans Narrow (upper case) for controls, and
+/// PT Mono for technical values. Access it as `context.ts.paragraph`.
 ///
-/// Access it from any widget through the `BuildContextTextStyle` extension:
-/// ```dart
-/// Text('...', style: context.ts.paragraphSmall)
-/// Text('...', style: context.ts.h3.copyWith(color: context.colors.error))
-/// ```
+/// Upper-casing is not part of a style; the control widgets apply it to their
+/// label, so the ARB strings stay readable.
 ///
-/// Registered in `getBaseTheme` for both brightnesses. The [TextTheme] inside
-/// `ThemeData` is derived from these tokens purely so that stock Material
-/// widgets stay in sync — application code must not read it.
-///
-/// Adding a style: add the field, the constructor argument, the value in
-/// [AppTextStyles.from] and the entry in [copyWith].
+/// Adding a style: field → constructor → value in [AppTextStyles.from] →
+/// entry in [copyWith].
 @immutable
 class AppTextStyles extends ThemeExtension<AppTextStyles> {
-  /// "H1" — 30sp extra bold.
+  /// Screen title on the landing and onboarding — 34sp display bold.
   final TextStyle h1;
 
-  /// "H2" — 24sp medium.
+  /// Section title — 28sp display bold.
   final TextStyle h2;
 
-  /// "H3" — 21sp medium.
+  /// Card title of the best match — 22sp display bold.
   final TextStyle h3;
 
-  /// "H4" — 18sp extra bold.
+  /// Card title of an alternative, list titles — 18sp serif bold.
   final TextStyle h4;
 
-  /// "Paragraph Large Bold" — 24sp bold.
-  final TextStyle paragraphLargeBold;
-
-  /// "Fieldset Label" — 21sp medium.
-  final TextStyle fieldsetLabel;
-
-  /// "Timer Large" — 60sp black.
-  final TextStyle timerLarge;
-
-  /// "Timer" — 21sp black.
-  final TextStyle timer;
-
-  /// App bar title only — 21sp black.
+  /// App bar title — 20sp display bold.
   final TextStyle appBarTitle;
 
-  /// "Paragraph Bold" — 18sp bold.
-  final TextStyle paragraphBold;
-
-  /// "Paragraph Small Bold" — 15sp bold.
-  final TextStyle paragraphSmallBold;
-
-  /// "Paragraph Tiny Bold" — 12sp bold.
-  final TextStyle paragraphTinyBold;
-
-  /// "Paragraph" / "Label" — 18sp regular.
+  /// Reading text — 17sp serif.
   final TextStyle paragraph;
 
-  /// "Paragraph Small" / "Label Small" — 15sp regular.
+  /// Reading text, bold — 17sp serif bold.
+  final TextStyle paragraphBold;
+
+  /// Secondary text: producer, meta line — 15sp serif.
   final TextStyle paragraphSmall;
 
-  /// "Paragraph Tiny" — 12sp regular.
+  /// Captions under photos, notes — 13sp serif.
   final TextStyle paragraphTiny;
+
+  /// Small upper-case label above a title — 11sp narrow bold, wide tracking.
+  final TextStyle kicker;
+
+  /// Primary and ghost button label — 15sp narrow semibold.
+  final TextStyle button;
+
+  /// Small button label — 13sp narrow semibold.
+  final TextStyle buttonSmall;
+
+  /// Tab / chip label, status pill — 14sp narrow semibold.
+  final TextStyle tab;
+
+  /// Number badge on a bottle frame — 14sp narrow bold.
+  final TextStyle badge;
+
+  /// Technical values — 12sp mono.
+  final TextStyle mono;
 
   const AppTextStyles({
     required this.h1,
     required this.h2,
     required this.h3,
     required this.h4,
-    required this.paragraphLargeBold,
-    required this.fieldsetLabel,
-    required this.timerLarge,
-    required this.timer,
     required this.appBarTitle,
-    required this.paragraphBold,
-    required this.paragraphSmallBold,
-    required this.paragraphTinyBold,
     required this.paragraph,
+    required this.paragraphBold,
     required this.paragraphSmall,
     required this.paragraphTiny,
+    required this.kicker,
+    required this.button,
+    required this.buttonSmall,
+    required this.tab,
+    required this.badge,
+    required this.mono,
   });
 
   /// Builds the type scale on top of a palette, so light and dark share one
   /// definition and differ only by the colours they are given.
   factory AppTextStyles.from(AppColors colors) {
-    final Color defaultColor = colors.neutrals900;
+    final Color ink = colors.ink;
 
     return AppTextStyles(
-      h1: _style(FontSize.s30, FontWeight.w800, 36, defaultColor),
-      h2: _style(FontSize.s24, FontWeight.w500, 28.8, defaultColor),
-      h3: _style(FontSize.s21, FontWeight.w500, 25.2, defaultColor),
-      h4: _style(FontSize.s18, FontWeight.w800, 21.6, defaultColor),
-      paragraphLargeBold: _style(
-        FontSize.s24,
+      h1: _display(FontSize.s34, FontWeight.w700, 1.1, ink),
+      h2: _display(FontSize.s28, FontWeight.w700, 1.15, ink),
+      h3: _display(FontSize.s22, FontWeight.w700, 1.2, ink),
+      h4: _text(FontSize.s18, FontWeight.w700, 1.25, ink),
+      appBarTitle: _display(FontSize.s20, FontWeight.w700, 1.2, ink),
+      paragraph: _text(FontSize.s17, FontWeight.w400, 1.5, ink),
+      paragraphBold: _text(FontSize.s17, FontWeight.w700, 1.5, ink),
+      paragraphSmall: _text(FontSize.s15, FontWeight.w400, 1.45, colors.ink2),
+      paragraphTiny: _text(FontSize.s13, FontWeight.w400, 1.4, colors.muted),
+      kicker: _ui(
+        FontSize.s11,
         FontWeight.w700,
-        28.8,
-        defaultColor,
+        1.2,
+        colors.muted,
+        letterSpacing: _kickerLetterSpacing,
       ),
-      fieldsetLabel: _style(FontSize.s21, FontWeight.w500, 25.2, defaultColor),
-      timerLarge: _style(FontSize.s60, FontWeight.w900, 72, defaultColor),
-      timer: _style(FontSize.s21, FontWeight.w900, 25.2, defaultColor),
-      appBarTitle: _style(FontSize.s21, FontWeight.w900, 25.2, defaultColor),
-      paragraphBold: _style(FontSize.s18, FontWeight.w700, 21.6, defaultColor),
-      paragraphSmallBold: _style(
+      button: _ui(
         FontSize.s15,
-        FontWeight.w700,
-        18,
-        defaultColor,
+        FontWeight.w600,
+        1.0,
+        ink,
+        letterSpacing: _buttonLetterSpacing,
       ),
-      paragraphTinyBold: _style(
-        FontSize.s12,
-        FontWeight.w700,
-        14.4,
-        defaultColor,
+      buttonSmall: _ui(
+        FontSize.s13,
+        FontWeight.w600,
+        1.0,
+        ink,
+        letterSpacing: _buttonLetterSpacing,
       ),
-      paragraph: _style(FontSize.s18, FontWeight.w400, 21.6, defaultColor),
-      paragraphSmall: _style(FontSize.s15, FontWeight.w400, 18, defaultColor),
-      paragraphTiny: _style(FontSize.s12, FontWeight.w400, 14.4, defaultColor),
+      tab: _ui(
+        FontSize.s14,
+        FontWeight.w600,
+        1.0,
+        ink,
+        letterSpacing: _tabLetterSpacing,
+      ),
+      badge: _ui(FontSize.s14, FontWeight.w700, 1.0, colors.onPhoto),
+      mono: GoogleFonts.ptMono(
+        fontSize: FontSize.s12,
+        fontWeight: FontWeight.w400,
+        height: 1.4,
+        color: colors.ink2,
+      ),
     );
   }
 
-  /// The app font. Changing the typeface is a one-line change here.
-  ///
-  /// [lineHeight] is the absolute line height from the design file; Flutter
-  /// wants it as a multiplier, hence the division.
-  static TextStyle _style(
+  static const double _kickerLetterSpacing = 1.76;
+  static const double _buttonLetterSpacing = 0.6;
+  static const double _tabLetterSpacing = 0.28;
+
+  /// Display face for headings.
+  static TextStyle _display(
     double fontSize,
     FontWeight fontWeight,
-    double lineHeight,
-    Color color, {
-    double letterSpacing = _defaultLetterSpacing,
-  }) {
-    return GoogleFonts.lato(
+    double height,
+    Color color,
+  ) {
+    return GoogleFonts.ptSerifCaption(
       fontSize: fontSize,
       fontWeight: fontWeight,
+      height: height,
       color: color,
-      letterSpacing: letterSpacing,
-      height: lineHeight / fontSize,
     );
   }
 
-  static const double _defaultLetterSpacing = 0.04;
+  /// Reading face.
+  static TextStyle _text(
+    double fontSize,
+    FontWeight fontWeight,
+    double height,
+    Color color,
+  ) {
+    return GoogleFonts.ptSerif(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      height: height,
+      color: color,
+    );
+  }
+
+  /// Control face: buttons, tabs, kickers.
+  static TextStyle _ui(
+    double fontSize,
+    FontWeight fontWeight,
+    double height,
+    Color color, {
+    double letterSpacing = 0,
+  }) {
+    return GoogleFonts.ptSansNarrow(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      height: height,
+      color: color,
+      letterSpacing: letterSpacing,
+    );
+  }
 
   @override
   AppTextStyles copyWith({
@@ -154,34 +190,34 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     TextStyle? h2,
     TextStyle? h3,
     TextStyle? h4,
-    TextStyle? paragraphLargeBold,
-    TextStyle? fieldsetLabel,
-    TextStyle? timerLarge,
-    TextStyle? timer,
     TextStyle? appBarTitle,
-    TextStyle? paragraphBold,
-    TextStyle? paragraphSmallBold,
-    TextStyle? paragraphTinyBold,
     TextStyle? paragraph,
+    TextStyle? paragraphBold,
     TextStyle? paragraphSmall,
     TextStyle? paragraphTiny,
+    TextStyle? kicker,
+    TextStyle? button,
+    TextStyle? buttonSmall,
+    TextStyle? tab,
+    TextStyle? badge,
+    TextStyle? mono,
   }) {
     return AppTextStyles(
       h1: h1 ?? this.h1,
       h2: h2 ?? this.h2,
       h3: h3 ?? this.h3,
       h4: h4 ?? this.h4,
-      paragraphLargeBold: paragraphLargeBold ?? this.paragraphLargeBold,
-      fieldsetLabel: fieldsetLabel ?? this.fieldsetLabel,
-      timerLarge: timerLarge ?? this.timerLarge,
-      timer: timer ?? this.timer,
       appBarTitle: appBarTitle ?? this.appBarTitle,
-      paragraphBold: paragraphBold ?? this.paragraphBold,
-      paragraphSmallBold: paragraphSmallBold ?? this.paragraphSmallBold,
-      paragraphTinyBold: paragraphTinyBold ?? this.paragraphTinyBold,
       paragraph: paragraph ?? this.paragraph,
+      paragraphBold: paragraphBold ?? this.paragraphBold,
       paragraphSmall: paragraphSmall ?? this.paragraphSmall,
       paragraphTiny: paragraphTiny ?? this.paragraphTiny,
+      kicker: kicker ?? this.kicker,
+      button: button ?? this.button,
+      buttonSmall: buttonSmall ?? this.buttonSmall,
+      tab: tab ?? this.tab,
+      badge: badge ?? this.badge,
+      mono: mono ?? this.mono,
     );
   }
 

@@ -30,48 +30,24 @@ class DialogResultStep extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Center(child: icon.widget(width: AppSize.s60, height: AppSize.s60)),
-        const SizedBox(height: AppSize.s16),
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: context.ts.h3.copyWith(
-            color: context.colors.neutrals900,
-          ),
+        Center(
+          child: icon.widget(width: AppSize.s60, height: AppSize.s60),
         ),
+        const SizedBox(height: AppSpaces.s16),
+        Text(title, textAlign: TextAlign.center, style: context.ts.h3),
         if (description != null) ...[
-          const SizedBox(height: AppSize.s16),
+          const SizedBox(height: AppSpaces.s12),
           Text(
             description!,
             textAlign: TextAlign.center,
-            style: context.ts.paragraphTiny.copyWith(
-              color: context.colors.neutrals600,
-            ),
+            style: context.ts.paragraphSmall,
           ),
         ],
         if (!hideButton) ...[
-          const SizedBox(height: AppSize.s24),
-          SizedBox(
-            height: AppSize.s52,
-            child: ElevatedButton(
-              onPressed: onButtonTap,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: context.colors.neutrals900,
-                foregroundColor: context.colors.neutrals100,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppRadius.r10),
-                ),
-                elevation: 0,
-              ),
-              child: Text(
-                buttonText,
-                style: context.ts.paragraphSmall.copyWith(
-                  color: context.colors.neutrals100,
-                  fontSize: FontSize.s18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+          const SizedBox(height: AppSpaces.s24),
+          ElevatedButton(
+            onPressed: onButtonTap,
+            child: Text(buttonText.toUpperCase()),
           ),
         ],
       ],

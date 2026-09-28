@@ -38,33 +38,22 @@ class ErrorBlockContent extends StatelessWidget {
             width: AppSize.s44,
             height: AppSize.s44,
             child: isLoading
-                ? CircularProgressIndicator(
-                    strokeWidth: 3,
-                    color: context.colors.neutrals900,
-                  )
+                ? const CircularProgressIndicator()
                 : SvgIconRes.errorReload.widget(
                     width: AppSize.s44,
                     height: AppSize.s44,
                     colorFilter: ColorFilter.mode(
-                      context.colors.neutrals900,
+                      context.colors.wine,
                       BlendMode.srcIn,
                     ),
                   ),
           ),
-          const SizedBox(height: AppSize.s20),
-          Text(
-            title,
-            style: context.ts.h3.copyWith(
-              color: context.colors.neutrals900,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSize.s12),
+          const SizedBox(height: AppSpaces.s20),
+          Text(title, style: context.ts.h3, textAlign: TextAlign.center),
+          const SizedBox(height: AppSpaces.s12),
           Text(
             errorSubtitle(context, errorType),
-            style: context.ts.paragraphSmall.copyWith(
-              color: context.colors.neutrals900,
-            ),
+            style: context.ts.paragraphSmall,
             textAlign: TextAlign.center,
           ),
         ],

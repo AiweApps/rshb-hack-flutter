@@ -4,6 +4,7 @@ import '../../application/bloc/base_bloc_uieffect.dart';
 import '../../constants/app_colors_constants.dart';
 import '../../constants/app_constants.dart';
 import '../../constants/app_style_constants.dart';
+import '../../extensions/context_extensions.dart';
 import '../../widgets/navigation/nav_bar_height_provider.dart';
 import '../app_icons.dart';
 
@@ -99,7 +100,7 @@ double _resolveBottomOffset(BuildContext context) {
   final navBarHeight = NavBarHeightProvider.maybeOf(context);
   if (navBarHeight != null) return navBarHeight + AppPadding.p8;
 
-  final safeAreaBottom = MediaQuery.of(context).viewPadding.bottom;
+  final safeAreaBottom = MediaQuery.viewPaddingOf(context).bottom;
   return safeAreaBottom + AppPadding.p12;
 }
 
@@ -178,7 +179,7 @@ class _AppToastEntryState extends State<_AppToastEntry>
   }
 
   Color _backgroundColor() => switch (widget.type) {
-    SnackBarType.info => widget.appColors.neutrals400,
+    SnackBarType.info => widget.appColors.toastInfo,
     SnackBarType.success => widget.appColors.toastSuccess,
     SnackBarType.error => widget.appColors.toastError,
   };
@@ -190,15 +191,13 @@ class _AppToastEntryState extends State<_AppToastEntry>
   };
 
   Widget _buildContent(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Material(
       key: _contentKey,
       color: Colors.transparent,
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: _backgroundColor(),
-          borderRadius: BorderRadius.circular(AppSize.s12),
+          borderRadius: BorderRadius.circular(AppRadius.r12),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -217,9 +216,8 @@ class _AppToastEntryState extends State<_AppToastEntry>
                 padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
                 child: Text(
                   widget.message,
-                  style: textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: widget.appColors.neutrals800,
+                  style: context.ts.paragraphSmall.copyWith(
+                    color: widget.appColors.ink,
                   ),
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
@@ -239,8 +237,8 @@ class _AppToastEntryState extends State<_AppToastEntry>
                   },
                   child: Text(
                     widget.actionLabel!,
-                    style: textTheme.labelSmall?.copyWith(
-                      color: widget.appColors.neutrals900,
+                    style: context.ts.buttonSmall.copyWith(
+                      color: widget.appColors.wine,
                     ),
                   ),
                 ),
@@ -264,7 +262,7 @@ class _AppToastEntryState extends State<_AppToastEntry>
     //
     // While _contentHeight is unknown (first frame), use a large placeholder so
     // the widget stays completely off-screen — no visible flash.
-    final keyboardOffset = MediaQuery.of(context).viewInsets.bottom;
+    final keyboardOffset = MediaQuery.viewInsetsOf(context).bottom;
     final slideDistance =
         widget.bottomOffset + keyboardOffset + (_contentHeight ?? 1000.0);
 

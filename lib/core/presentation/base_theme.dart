@@ -17,121 +17,158 @@ ThemeData getBaseTheme({Brightness brightness = Brightness.light}) {
       : AppColors.dark;
   final AppTextStyles textStyles = AppTextStyles.from(colors);
   final ColorScheme colorScheme = _colorSchemeFrom(colors, brightness);
+  const RoundedRectangleBorder pill = RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(AppRadius.rPill)),
+  );
 
   return ThemeData(
     colorScheme: colorScheme,
     textTheme: _textThemeFrom(textStyles),
-    scaffoldBackgroundColor: colors.neutrals100,
-    splashColor: colors.neutrals100.withAlpha(AppAlpha.a70),
-    bottomAppBarTheme: BottomAppBarThemeData(
-      color: colors.primary500,
-      surfaceTintColor: colors.primary500,
-      height: AppSize.s100,
-    ),
+    scaffoldBackgroundColor: colors.paper,
+    canvasColor: colors.paper,
+    splashColor: colors.wine.withAlpha(AppAlpha.a12),
+    highlightColor: colors.wine.withAlpha(AppAlpha.a8),
+    splashFactory: InkSparkle.splashFactory,
     appBarTheme: AppBarTheme(
-      centerTitle: true,
-      surfaceTintColor: colors.neutrals100,
-      backgroundColor: colors.neutrals100,
+      centerTitle: false,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      surfaceTintColor: Colors.transparent,
+      backgroundColor: colors.paper,
+      foregroundColor: colors.ink,
       titleTextStyle: textStyles.appBarTitle,
+      iconTheme: IconThemeData(color: colors.ink, size: AppSize.s24),
     ),
     dividerTheme: DividerThemeData(
       thickness: AppSize.dividerThickness,
-      color: colors.neutrals400,
-    ),
-    tabBarTheme: TabBarThemeData(
-      labelColor: colors.neutrals900,
-      unselectedLabelColor: colors.neutrals900.withAlpha(AppAlpha.a30),
-      indicatorColor: colors.neutrals900,
-      overlayColor: WidgetStatePropertyAll(
-        colors.neutrals900.withAlpha(AppAlpha.a30),
-      ),
+      space: AppSize.dividerThickness,
+      color: colors.rule,
     ),
     listTileTheme: ListTileThemeData(
-      textColor: colors.neutrals900,
-      titleTextStyle: textStyles.h4,
-      subtitleTextStyle: textStyles.paragraph,
-      iconColor: colors.neutrals900,
-      tileColor: colors.neutrals100,
+      textColor: colors.ink,
+      titleTextStyle: textStyles.paragraph,
+      subtitleTextStyle: textStyles.paragraphTiny,
+      iconColor: colors.ink2,
+      tileColor: Colors.transparent,
     ),
-    popupMenuTheme: PopupMenuThemeData(
-      color: colors.neutrals100,
-      iconColor: colors.neutrals900,
-    ),
-    progressIndicatorTheme: ProgressIndicatorThemeData(
-      color: colors.neutrals900,
-      strokeWidth: 1.5,
-    ),
-    // For buttons with text and icon
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ButtonStyle(
-        foregroundColor: WidgetStatePropertyAll<Color>(colors.neutrals100),
-        backgroundColor: WidgetStatePropertyAll<Color>(colors.neutrals900),
-        overlayColor: WidgetStatePropertyAll<Color>(
-          colors.neutrals100.withAlpha(AppAlpha.a30),
-        ),
-        textStyle: WidgetStatePropertyAll<TextStyle?>(
-          textStyles.paragraphSmall,
-        ),
-        minimumSize: const WidgetStatePropertyAll<Size?>(
-          Size.fromHeight(AppSize.s75),
-        ),
-        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(
-          RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+    bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: colors.card,
+      surfaceTintColor: Colors.transparent,
+      modalBackgroundColor: colors.card,
+      dragHandleColor: colors.rule,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(AppRadius.r24),
         ),
       ),
     ),
-    // For buttons with text only
+    dialogTheme: DialogThemeData(
+      backgroundColor: colors.card,
+      surfaceTintColor: Colors.transparent,
+      titleTextStyle: textStyles.h3,
+      contentTextStyle: textStyles.paragraph,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(AppRadius.r20)),
+      ),
+    ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: colors.wine,
+      strokeWidth: AppSize.s2,
+    ),
+    // Primary pill: wine fill.
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: WidgetStatePropertyAll<Color>(colors.onWine),
+        backgroundColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.disabled)
+              ? colors.wine.withAlpha(AppAlpha.a40)
+              : colors.wine,
+        ),
+        overlayColor: WidgetStatePropertyAll<Color>(
+          colors.onWine.withAlpha(AppAlpha.a12),
+        ),
+        elevation: const WidgetStatePropertyAll<double>(0),
+        textStyle: WidgetStatePropertyAll<TextStyle?>(textStyles.button),
+        minimumSize: const WidgetStatePropertyAll<Size?>(
+          Size(AppSize.s0, AppSize.buttonHeight),
+        ),
+        padding: const WidgetStatePropertyAll<EdgeInsets>(
+          EdgeInsets.symmetric(
+            horizontal: AppPadding.p24,
+            vertical: AppPadding.p12,
+          ),
+        ),
+        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(pill),
+      ),
+    ),
+    // Ghost pill: wine outline.
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: WidgetStatePropertyAll(colors.wine),
+        backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
+        overlayColor: WidgetStatePropertyAll<Color>(
+          colors.wine.withAlpha(AppAlpha.a12),
+        ),
+        textStyle: WidgetStatePropertyAll<TextStyle?>(textStyles.button),
+        minimumSize: const WidgetStatePropertyAll<Size?>(
+          Size(AppSize.s0, AppSize.buttonHeight),
+        ),
+        padding: const WidgetStatePropertyAll<EdgeInsets>(
+          EdgeInsets.symmetric(
+            horizontal: AppPadding.p20,
+            vertical: AppPadding.p12,
+          ),
+        ),
+        side: WidgetStatePropertyAll<BorderSide>(
+          BorderSide(color: colors.wine, width: AppSize.s1_5),
+        ),
+        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(pill),
+      ),
+    ),
+    // Text-only action, e.g. a link in a card.
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         minimumSize: const WidgetStatePropertyAll<Size>(
-          Size(double.minPositive, AppSize.s45),
+          Size(AppSize.s0, AppSize.minTapTarget),
         ),
-        foregroundColor: WidgetStatePropertyAll<Color>(colors.neutrals900),
-        backgroundColor: WidgetStatePropertyAll<Color>(colors.neutrals100),
+        foregroundColor: WidgetStatePropertyAll<Color>(colors.wine),
         overlayColor: WidgetStatePropertyAll<Color>(
-          colors.neutrals900.withAlpha(AppAlpha.a30),
+          colors.wine.withAlpha(AppAlpha.a12),
         ),
-        textStyle: WidgetStatePropertyAll<TextStyle?>(
-          textStyles.paragraphSmall,
-        ),
-        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(
-          RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-        ),
+        textStyle: WidgetStatePropertyAll<TextStyle?>(textStyles.buttonSmall),
+        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(pill),
       ),
     ),
-    // For "secondary" buttons
-    outlinedButtonTheme: OutlinedButtonThemeData(
+    iconButtonTheme: IconButtonThemeData(
       style: ButtonStyle(
-        fixedSize: const WidgetStatePropertyAll<Size>(
-          Size(double.infinity, AppSize.s45),
-        ),
-        foregroundColor: WidgetStatePropertyAll(colors.neutrals900),
-        backgroundColor: WidgetStatePropertyAll(colors.primary500),
-        overlayColor: WidgetStatePropertyAll<Color>(
-          colors.neutrals900.withAlpha(AppAlpha.a30),
-        ),
-        textStyle: WidgetStatePropertyAll<TextStyle?>(
-          textStyles.paragraphSmall,
-        ),
-        side: WidgetStatePropertyAll<BorderSide>(
-          BorderSide(color: colors.neutrals900),
-        ),
-        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(
-          RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        foregroundColor: WidgetStatePropertyAll<Color>(colors.ink),
+        minimumSize: const WidgetStatePropertyAll<Size>(
+          Size(AppSize.minTapTarget, AppSize.minTapTarget),
         ),
       ),
     ),
     switchTheme: SwitchThemeData(
-      thumbColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
-        return colors.neutrals900;
-      }),
-      trackColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
-        if (states.contains(WidgetState.selected)) {
-          return colors.primary100;
-        }
-        // Color for disabled state
-        return colors.neutrals400;
-      }),
+      thumbColor: WidgetStateProperty.resolveWith(
+        (states) =>
+            states.contains(WidgetState.selected) ? colors.onWine : colors.card,
+      ),
+      trackColor: WidgetStateProperty.resolveWith(
+        (states) =>
+            states.contains(WidgetState.selected) ? colors.wine : colors.rule,
+      ),
+      trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
+    ),
+    radioTheme: RadioThemeData(fillColor: WidgetStatePropertyAll(colors.wine)),
+    chipTheme: ChipThemeData(
+      backgroundColor: colors.paper2,
+      selectedColor: colors.wine,
+      labelStyle: textStyles.tab,
+      side: BorderSide(color: colors.rule),
+      shape: pill,
+    ),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: colors.ink,
+      contentTextStyle: textStyles.paragraphSmall.copyWith(color: colors.paper),
     ),
     extensions: <ThemeExtension<dynamic>>[colors, textStyles],
   );
@@ -145,19 +182,21 @@ ThemeData getBaseTheme({Brightness brightness = Brightness.light}) {
 ColorScheme _colorSchemeFrom(AppColors colors, Brightness brightness) {
   return ColorScheme(
     brightness: brightness,
-    primary: colors.neutrals900,
-    onPrimary: colors.neutrals100,
-    secondary: colors.primary500,
-    onSecondary: colors.neutrals900,
-    error: colors.error,
-    onError: colors.neutrals100,
-    surface: colors.neutrals100,
-    onSurface: colors.neutrals900,
-    outline: colors.neutrals400,
-    primaryContainer: colors.neutrals300,
-    onPrimaryContainer: colors.neutrals900,
-    secondaryContainer: colors.primary100,
-    onSecondaryContainer: colors.neutrals900,
+    primary: colors.wine,
+    onPrimary: colors.onWine,
+    secondary: colors.gold,
+    onSecondary: colors.ink,
+    error: colors.bad,
+    onError: colors.card,
+    surface: colors.card,
+    onSurface: colors.ink,
+    onSurfaceVariant: colors.ink2,
+    outline: colors.rule,
+    primaryContainer: colors.paper2,
+    onPrimaryContainer: colors.ink,
+    secondaryContainer: colors.paper2,
+    onSecondaryContainer: colors.ink,
+    surfaceContainerHighest: colors.paper2,
   );
 }
 
@@ -170,15 +209,15 @@ TextTheme _textThemeFrom(AppTextStyles t) {
     displayLarge: t.h1,
     displayMedium: t.h2,
     displaySmall: t.h3,
-    headlineLarge: t.h4,
-    headlineMedium: t.paragraphLargeBold,
-    headlineSmall: t.fieldsetLabel,
-    titleLarge: t.timerLarge,
-    titleMedium: t.timer,
-    titleSmall: t.appBarTitle,
-    labelLarge: t.paragraphBold,
-    labelMedium: t.paragraphSmallBold,
-    labelSmall: t.paragraphTinyBold,
+    headlineLarge: t.h2,
+    headlineMedium: t.h3,
+    headlineSmall: t.h4,
+    titleLarge: t.appBarTitle,
+    titleMedium: t.h4,
+    titleSmall: t.paragraphBold,
+    labelLarge: t.button,
+    labelMedium: t.tab,
+    labelSmall: t.kicker,
     bodyLarge: t.paragraph,
     bodyMedium: t.paragraphSmall,
     bodySmall: t.paragraphTiny,

@@ -15,7 +15,7 @@ import '../extensions/context_extensions.dart';
 ///
 /// ```dart
 /// RemoteImage(
-///   url: track.album.coverSmall,
+///   url: card.referenceUrl,
 ///   width: AppSize.s56,
 ///   height: AppSize.s56,
 ///   borderRadius: AppRadius.r8,
@@ -27,8 +27,8 @@ import '../extensions/context_extensions.dart';
 ///
 /// ```dart
 /// RemoteImage.withFallbacks(
-///   url: track.album.coverMedium,
-///   fallbackUrls: [track.album.coverBig, track.album.cover],
+///   url: photo.medium,
+///   fallbackUrls: [photo.big, photo.original],
 ///   width: AppSize.s250,
 ///   height: AppSize.s250,
 /// )
@@ -55,6 +55,10 @@ class RemoteImage extends StatefulWidget {
 
   final Duration fadeIn;
 
+  /// Sent with the request, for images behind the API's Bearer (catalogue
+  /// references). The value comes from the bloc's state, never from `sl`.
+  final Map<String, String>? headers;
+
   const RemoteImage({
     super.key,
     required this.url,
@@ -65,6 +69,7 @@ class RemoteImage extends StatefulWidget {
     this.placeholder,
     this.errorWidget,
     this.fadeIn = DurationConstant.d300ms,
+    this.headers,
   }) : fallbackUrls = const <String?>[];
 
   const RemoteImage.withFallbacks({
@@ -78,6 +83,7 @@ class RemoteImage extends StatefulWidget {
     this.placeholder,
     this.errorWidget,
     this.fadeIn = DurationConstant.d300ms,
+    this.headers,
   });
 
   @override
@@ -130,17 +136,16 @@ class _RemoteImageState extends State<RemoteImage> {
 
     // Decode at the size the image is actually painted at: a 56pt thumbnail
     // otherwise costs as much memory as the full-resolution original.
+    // An unbounded side (`double.infinity`, the image filling its box) has no
+    // decode size to derive; that side is left to the decoder.
     final double pixelRatio = MediaQuery.devicePixelRatioOf(context);
-    final int? memWidth = widget.width == null
-        ? null
-        : (widget.width! * pixelRatio).round();
-    final int? memHeight = widget.height == null
-        ? null
-        : (widget.height! * pixelRatio).round();
+    final int? memWidth = _decodeSize(widget.width, pixelRatio);
+    final int? memHeight = _decodeSize(widget.height, pixelRatio);
 
     return _clipped(
       CachedNetworkImage(
         imageUrl: _urls[_index],
+        httpHeaders: widget.headers,
         width: widget.width,
         height: widget.height,
         fit: widget.fit,
@@ -159,6 +164,11 @@ class _RemoteImageState extends State<RemoteImage> {
     );
   }
 
+  int? _decodeSize(double? side, double pixelRatio) {
+    if (side == null || !side.isFinite) return null;
+    return (side * pixelRatio).round();
+  }
+
   Widget _clipped(Widget child) {
     if (widget.borderRadius == null) return child;
     return ClipRRect(
@@ -175,7 +185,7 @@ class _RemoteImageState extends State<RemoteImage> {
     return SizedBox(
       width: widget.width,
       height: widget.height,
-      child: ColoredBox(color: context.colors.neutrals300),
+      child: ColoredBox(color: context.colors.paper2),
     );
   }
 }

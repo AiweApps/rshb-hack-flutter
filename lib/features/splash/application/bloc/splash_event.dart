@@ -7,5 +7,3 @@ sealed class SplashEvent {
 final class SplashStart extends SplashEvent {
   const SplashStart();
 }
-
-

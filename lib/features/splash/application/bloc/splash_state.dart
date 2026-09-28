@@ -11,6 +11,6 @@ abstract class SplashState with _$SplashState implements BaseBlocState {
       _SplashState;
 
   factory SplashState.initial() {
-    return const SplashState(screenStatus: ScreenStatus.content);
+    return const SplashState(screenStatus: ScreenStatus.loading);
   }
 }

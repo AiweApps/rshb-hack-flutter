@@ -1,63 +1,42 @@
-import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/widgets.dart';
+
 import '../../l10n/app_localizations.dart';
+import '../../shared/helpers/service_locator.dart';
+import '../misc/preferences/app_preferences.dart';
 
 extension BuildContextL10n on BuildContext {
   AppLocalizations get localization => AppLocalizations.of(this)!;
 }
 
+/// Localizations for code without a context (blocs, services).
 AppLocalizations get lsl10n => LanguageService.localizations;
 
+/// Current UI language. Russian is the product language and the default;
+/// the choice is stored through [AppPreferences].
 class LanguageService {
-  static const String _languageKey = 'selected_language';
-  static const String _defaultLanguage = 'en';
+  static const String defaultLanguageCode = 'ru';
   static AppLocalizations? _currentLocalizations;
   static final ValueNotifier<Locale> localeNotifier = ValueNotifier(
-    const Locale(_defaultLanguage),
+    const Locale(defaultLanguageCode),
   );
 
-  static const List<Locale> supportedLocales = [Locale('en'), Locale('de')];
+  static const List<Locale> supportedLocales = [Locale('ru'), Locale('en')];
 
-  static String getLanguageDisplayName(String languageCode) {
-    switch (languageCode) {
-      case 'en':
-        return localizations.english;
-      case 'de':
-        return localizations.german;
-      default:
-        return languageCode.toUpperCase();
-    }
-  }
-
-  static Future<Locale> getSavedLanguage() async {
-    final prefs = await SharedPreferences.getInstance();
-    final languageCode = prefs.getString(_languageKey) ?? _defaultLanguage;
-    return Locale(languageCode);
+  static Future<void> initialize() async {
+    final code = sl<AppPreferences>().languageCode ?? defaultLanguageCode;
+    final locale = Locale(code);
+    localeNotifier.value = locale;
+    _currentLocalizations = lookupAppLocalizations(locale);
   }
 
   static Future<void> saveLanguage(Locale locale) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_languageKey, locale.languageCode);
-    // Update the localizations and notifier immediately
-    updateLocalizations(lookupAppLocalizations(locale));
+    await sl<AppPreferences>().setLanguageCode(locale.languageCode);
+    _currentLocalizations = lookupAppLocalizations(locale);
     localeNotifier.value = locale;
   }
 
-  static Future<void> initialize() async {
-    final savedLocale = await getSavedLanguage();
-    localeNotifier.value = savedLocale;
-    updateLocalizations(lookupAppLocalizations(savedLocale));
-  }
-
-  static void updateLocalizations(AppLocalizations localizations) {
-    _currentLocalizations = localizations;
-  }
-
   static AppLocalizations get localizations {
-    if (_currentLocalizations == null) {
-      // Fallback to English if no localizations are set
-      return lookupAppLocalizations(const Locale(_defaultLanguage));
-    }
-    return _currentLocalizations!;
+    return _currentLocalizations ??
+        lookupAppLocalizations(const Locale(defaultLanguageCode));
   }
 }

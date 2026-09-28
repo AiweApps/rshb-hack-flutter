@@ -8,8 +8,6 @@ import 'core/services/theme_service.dart';
 import 'l10n/app_localizations.dart';
 import 'shared/helpers/service_locator.dart';
 
-enum AppThemeMode { light, dark, system }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

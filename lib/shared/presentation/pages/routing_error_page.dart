@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 
+import '../../../core/constants/app_style_constants.dart';
+import '../../../core/extensions/context_extensions.dart';
 import '../../../core/router/pages.dart';
 import '../../../core/services/language_service.dart';
 
@@ -21,8 +23,15 @@ class RoutingErrorPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(context.localization.routeDoesNotExist(state.uri.toString())),
-            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p24),
+              child: Text(
+                context.localization.routeDoesNotExist(state.uri.toString()),
+                style: context.ts.paragraph,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(height: AppSpaces.s16),
             ElevatedButton(
               onPressed: () => context.go(Pages.splash.navigationPath),
               child: Text(context.localization.goToHome),

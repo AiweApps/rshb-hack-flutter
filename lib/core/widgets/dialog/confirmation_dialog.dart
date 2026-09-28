@@ -38,46 +38,36 @@ class ConfirmationDialog extends StatelessWidget {
     return PopScope(
       canPop: !isLoading,
       child: Dialog(
-        backgroundColor: context.colors.neutrals100,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadius.r24),
-        ),
-        insetPadding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+        insetPadding: const EdgeInsets.symmetric(horizontal: AppPadding.p24),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: AppPadding.p16,
-            vertical: AppPadding.p32,
+            horizontal: AppPadding.p24,
+            vertical: AppPadding.p28,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               if (title != null) ...[
-                Text(
-                  title!,
-                  style: context.ts.paragraphBold.copyWith(
-                    color: context.colors.neutrals900,
-                    fontSize: FontSize.s20,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: AppPadding.p12),
+                Text(title!, style: context.ts.h3, textAlign: TextAlign.center),
+                const SizedBox(height: AppSpaces.s12),
               ],
               Text(
                 message,
-                style: context.ts.paragraphSmall.copyWith(
-                  color: context.colors.neutrals900,
-                  fontSize: FontSize.s16,
-                  height: 1.2,
-                ),
+                style: context.ts.paragraph,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: AppPadding.p32),
-              Row(
-                children: [
-                  Expanded(child: _buildConfirmButton(context)),
-                  const SizedBox(width: AppPadding.p12),
-                  Expanded(child: _buildCancelButton(context)),
-                ],
+              const SizedBox(height: AppSpaces.s24),
+              _ConfirmButton(
+                text: confirmButtonText,
+                onPressed: isLoading ? null : onConfirm,
+                isDangerous: isDangerous,
+                isLoading: isLoading,
+              ),
+              const SizedBox(height: AppSpaces.s8),
+              OutlinedButton(
+                onPressed: isLoading ? null : onCancel,
+                child: Text(cancelButtonText.toUpperCase()),
               ),
             ],
           ),
@@ -85,79 +75,40 @@ class ConfirmationDialog extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildConfirmButton(BuildContext context) {
-    final background = isDangerous
-        ? context.colors.delete
-        : context.colors.neutrals900;
+class _ConfirmButton extends StatelessWidget {
+  final String text;
+  final VoidCallback? onPressed;
+  final bool isDangerous;
+  final bool isLoading;
 
-    return SizedBox(
-      height: AppSize.s52,
-      child: ElevatedButton(
-        onPressed: isLoading ? null : onConfirm,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: background,
-          foregroundColor: context.colors.neutrals100,
-          disabledBackgroundColor: background.withAlpha(AppAlpha.a30),
-          disabledForegroundColor: context.colors.neutrals100.withAlpha(
-            AppAlpha.a30,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppRadius.r10),
-          ),
-          elevation: 0,
-        ),
-        child: isLoading
-            ? SizedBox(
-                width: AppSize.s20,
-                height: AppSize.s20,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    context.colors.neutrals100,
-                  ),
-                ),
-              )
-            : Text(
-                confirmButtonText,
-                style: context.ts.paragraphSmall.copyWith(
-                  color: context.colors.neutrals100,
-                  fontSize: FontSize.s18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+  const _ConfirmButton({
+    required this.text,
+    required this.onPressed,
+    required this.isDangerous,
+    required this.isLoading,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final Color background = isDangerous
+        ? context.colors.bad
+        : context.colors.wine;
+
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: background,
+        disabledBackgroundColor: background.withAlpha(AppAlpha.a40),
       ),
-    );
-  }
-
-  Widget _buildCancelButton(BuildContext context) {
-    return SizedBox(
-      height: AppSize.s52,
-      child: ElevatedButton(
-        onPressed: isLoading ? null : onCancel,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: context.colors.neutrals400,
-          foregroundColor: context.colors.neutrals900,
-          disabledBackgroundColor: context.colors.neutrals400.withAlpha(
-            AppAlpha.a30,
-          ),
-          disabledForegroundColor: context.colors.neutrals900.withAlpha(
-            AppAlpha.a30,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppRadius.r10),
-          ),
-          elevation: 0,
-        ),
-        child: Text(
-          cancelButtonText,
-          style: context.ts.paragraphSmall.copyWith(
-            color: context.colors.neutrals900,
-            fontSize: FontSize.s18,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
+      child: isLoading
+          ? SizedBox(
+              width: AppSize.s20,
+              height: AppSize.s20,
+              child: CircularProgressIndicator(color: context.colors.onWine),
+            )
+          : Text(text.toUpperCase()),
     );
   }
 }

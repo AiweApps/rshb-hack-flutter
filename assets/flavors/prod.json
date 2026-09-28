@@ -1,3 +1,6 @@
 {
-"FLAVOR": "prod"
+  "FLAVOR": "prod",
+  "API_BASE_URL": "https://vines.aiweapps.com",
+  "ANALYTICS_ENABLED": true,
+  "LOG_NETWORK_BODIES": false
 }

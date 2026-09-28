@@ -1,41 +1,44 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String _keyIsFirstLaunch = "is_first_launch";
+const String _keyIsOnboardingDone = 'is_onboarding_done';
+const String _keyLanguageCode = 'selected_language';
+const String _keyThemeModeIndex = 'selected_theme';
+const String _keyRescanHintShown = 'hint_rescan_one_shown';
 
 /// Thin typed wrapper over [SharedPreferences].
 ///
-/// Resolve it through the service locator: `sl<AppPreferences>()`.
+/// Resolve it through the service locator: `sl<AppPreferences>()`. Every
+/// stored value is a named pair; the keys stay private to this file.
 class AppPreferences {
   final SharedPreferences _prefs;
 
   AppPreferences(this._prefs);
 
-  bool get isFirstLaunch => _prefs.getBool(_keyIsFirstLaunch) ?? true;
+  bool get isOnboardingDone => _prefs.getBool(_keyIsOnboardingDone) ?? false;
 
-  Future<void> setIsFirstLaunch(bool value) async {
-    await _prefs.setBool(_keyIsFirstLaunch, value);
+  Future<void> setIsOnboardingDone(bool value) async {
+    await _prefs.setBool(_keyIsOnboardingDone, value);
   }
 
-  // Generic key/value helpers
-  String? getString(String key) => _prefs.getString(key);
+  /// Saved UI language code, or null to follow the system.
+  String? get languageCode => _prefs.getString(_keyLanguageCode);
 
-  Future<void> setString(String key, String value) async {
-    await _prefs.setString(key, value);
+  Future<void> setLanguageCode(String value) async {
+    await _prefs.setString(_keyLanguageCode, value);
   }
 
-  bool? getBool(String key) => _prefs.getBool(key);
+  /// Index into `AppThemeMode.values`, or null for the default.
+  int? get themeModeIndex => _prefs.getInt(_keyThemeModeIndex);
 
-  Future<void> setBool(String key, bool value) async {
-    await _prefs.setBool(key, value);
+  Future<void> setThemeModeIndex(int value) async {
+    await _prefs.setInt(_keyThemeModeIndex, value);
   }
 
-  int? getInt(String key) => _prefs.getInt(key);
+  /// The "what does «Распознать» do" bubble opens by itself the first time
+  /// only, as on the web.
+  bool get isRescanHintShown => _prefs.getBool(_keyRescanHintShown) ?? false;
 
-  Future<void> setInt(String key, int value) async {
-    await _prefs.setInt(key, value);
-  }
-
-  Future<void> remove(String key) async {
-    await _prefs.remove(key);
+  Future<void> setIsRescanHintShown(bool value) async {
+    await _prefs.setBool(_keyRescanHintShown, value);
   }
 }

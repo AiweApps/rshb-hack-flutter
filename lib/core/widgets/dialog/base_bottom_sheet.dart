@@ -4,10 +4,12 @@ import '../../constants/app_style_constants.dart';
 import '../../extensions/context_extensions.dart';
 import '../../presentation/app_icons.dart';
 
-/// Standard modal sheet chrome: rounded top corners, optional title row with a
-/// close button, a divider, and the content below.
+/// Standard modal sheet chrome: rounded top corners, a drag handle, an optional
+/// title row with a close button, and the content below, sized to it.
 ///
-/// Show it with `showModalBottomSheet(isScrollControlled: true, ...)`.
+/// Show it with `showModalBottomSheet(isScrollControlled: true, ...)`. The
+/// content is wrapped so the sheet never sits under the home indicator or the
+/// keyboard (adaptive.md §3).
 class BaseBottomSheet extends StatelessWidget {
   final String? title;
   final Widget child;
@@ -26,71 +28,103 @@ class BaseBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasHeader = title != null || showCloseButton;
+    final bool hasHeader = title != null || showCloseButton;
+    final double bottomInset =
+        MediaQuery.viewInsetsOf(context).bottom +
+        MediaQuery.viewPaddingOf(context).bottom;
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: backgroundColor ?? context.colors.neutrals300,
+        color: backgroundColor ?? context.colors.card,
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(AppRadius.r16),
-          topRight: Radius.circular(AppRadius.r16),
+          topLeft: Radius.circular(AppRadius.r24),
+          topRight: Radius.circular(AppRadius.r24),
         ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          if (hasHeader) _buildHeader(context),
-          if (hasHeader)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-              child: Container(
-                height: AppSize.s1,
-                color: context.colors.neutrals900.withValues(alpha: 0.1),
+      child: Padding(
+        padding: EdgeInsets.only(bottom: bottomInset),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const _DragHandle(),
+            if (hasHeader) ...[
+              _Header(title: title, showCloseButton: showCloseButton),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                child: Divider(),
+              ),
+            ],
+            Flexible(
+              child: Padding(
+                padding:
+                    padding ??
+                    const EdgeInsets.symmetric(
+                      horizontal: AppPadding.p16,
+                      vertical: AppPadding.p16,
+                    ),
+                child: child,
               ),
             ),
-          Expanded(
-            child: Padding(
-              padding:
-                  padding ??
-                  const EdgeInsets.symmetric(
-                    horizontal: AppPadding.p16,
-                    vertical: AppPadding.p24,
-                  ),
-              child: child,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
+}
 
-  Widget _buildHeader(BuildContext context) {
+class _DragHandle extends StatelessWidget {
+  const _DragHandle();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(top: AppPadding.p8),
+        child: Container(
+          width: AppSize.s36,
+          height: AppSize.s4,
+          decoration: BoxDecoration(
+            color: context.colors.rule,
+            borderRadius: BorderRadius.circular(AppRadius.rPill),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Header extends StatelessWidget {
+  final String? title;
+  final bool showCloseButton;
+
+  const _Header({required this.title, required this.showCloseButton});
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(AppPadding.p16),
+      padding: const EdgeInsets.only(
+        left: AppPadding.p16,
+        right: AppPadding.p8,
+        top: AppPadding.p8,
+        bottom: AppPadding.p4,
+      ),
       child: Row(
         children: [
           Expanded(
             child: title != null
-                ? Padding(
-                    padding: const EdgeInsets.only(right: AppPadding.p8),
-                    child: Text(
-                      title!,
-                      style: context.ts.h2.copyWith(
-                        color: context.colors.neutrals900,
-                        fontSize: FontSize.s20,
-                      ),
-                    ),
-                  )
+                ? Text(title!, style: context.ts.h3)
                 : const SizedBox.shrink(),
           ),
           if (showCloseButton)
-            GestureDetector(
-              onTap: () => Navigator.of(context).pop(),
-              child: SvgIconRes.close24.widget(
+            IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
+              icon: SvgIconRes.close24.widget(
                 width: AppSize.s24,
                 height: AppSize.s24,
                 colorFilter: ColorFilter.mode(
-                  context.colors.neutrals900,
+                  context.colors.ink,
                   BlendMode.srcIn,
                 ),
               ),

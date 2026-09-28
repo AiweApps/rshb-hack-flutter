@@ -29,37 +29,21 @@ class ErrorFullScreen extends StatelessWidget {
             ErrorBlockContent(
               errorType: errorType,
               isLoading: isLoading,
-              horizontalPadding: AppPadding.p16,
+              horizontalPadding: AppPadding.p24,
               useFullScreenTitle: true,
             ),
-            const SizedBox(height: AppSize.s32),
-            GestureDetector(
-              onTap: isLoading ? null : onRefresh,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppPadding.p32,
-                  vertical: AppPadding.p16,
-                ),
-                decoration: BoxDecoration(
-                  color: context.colors.primary300,
-                  borderRadius: BorderRadius.circular(AppRadius.rPill),
-                ),
-                child: isLoading
-                    ? SizedBox(
-                        width: AppSize.s14,
-                        height: AppSize.s14,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: context.colors.neutrals900,
-                        ),
-                      )
-                    : Text(
-                        context.localization.errorReloadButton,
-                        style: context.ts.paragraphSmall.copyWith(
-                          color: context.colors.neutrals900,
-                        ),
+            const SizedBox(height: AppSpaces.s32),
+            ElevatedButton(
+              onPressed: isLoading ? null : onRefresh,
+              child: isLoading
+                  ? SizedBox(
+                      width: AppSize.s16,
+                      height: AppSize.s16,
+                      child: CircularProgressIndicator(
+                        color: context.colors.onWine,
                       ),
-              ),
+                    )
+                  : Text(context.localization.errorReloadButton.toUpperCase()),
             ),
           ],
         ),

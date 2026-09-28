@@ -1,4 +1,6 @@
 class AppMargin {
+  const AppMargin._();
+
   static const double m8 = 8.0;
   static const double m10 = 10.0;
   static const double m12 = 12.0;
@@ -10,11 +12,24 @@ class AppMargin {
 }
 
 class AppSpaces {
+  const AppSpaces._();
+
+  static const double s2 = 2.0;
   static const double s4 = 4.0;
+  static const double s6 = 6.0;
+  static const double s8 = 8.0;
   static const double s10 = 10.0;
+  static const double s12 = 12.0;
+  static const double s16 = 16.0;
+  static const double s20 = 20.0;
+  static const double s24 = 24.0;
+  static const double s32 = 32.0;
+  static const double s40 = 40.0;
 }
 
 class AppPadding {
+  const AppPadding._();
+
   static const double p0 = 0.0;
   static const double p2 = 2.0;
   static const double p4 = 4.0;
@@ -43,10 +58,13 @@ class AppPadding {
 }
 
 class AppSize {
+  const AppSize._();
+
   static const double s0 = 0;
   static const double s1 = 1;
   static const double s2 = 2;
   static const double s1_5 = 1.5;
+  static const double s2_5 = 2.5;
   static const double s3 = 3.0;
   static const double s4 = 4.0;
   static const double s6 = 6.0;
@@ -59,8 +77,9 @@ class AppSize {
   static const double s16 = 16.0;
   static const double s18 = 18.0;
   static const double s20 = 20.0;
-  static const double s28 = 28.0;
+  static const double s22 = 22.0;
   static const double s24 = 24.0;
+  static const double s28 = 28.0;
   static const double s30 = 30.0;
   static const double s32 = 32.0;
   static const double s36 = 36.0;
@@ -71,7 +90,9 @@ class AppSize {
   static const double s52 = 52.0;
   static const double s56 = 56.0;
   static const double s60 = 60.0;
+  static const double s64 = 64.0;
   static const double s65 = 65.0;
+  static const double s72 = 72.0;
   static const double s75 = 75.0;
   static const double s80 = 80.0;
   static const double s90 = 90.0;
@@ -80,36 +101,71 @@ class AppSize {
   static const double s120 = 120.0;
   static const double s130 = 130.0;
   static const double s140 = 140.0;
+  static const double s160 = 160.0;
   static const double s180 = 180.0;
   static const double s190 = 190.0;
   static const double s200 = 200.0;
+  static const double s240 = 240.0;
   static const double s250 = 250.0;
+  static const double s280 = 280.0;
   static const double s400 = 400.0;
+
+  /// Smallest comfortable touch target (adaptive.md §6).
+  static const double minTapTarget = s44;
+
+  /// Height of the pill buttons of the design (44 on the web).
+  static const double buttonHeight = s44;
+  static const double buttonSmallHeight = s36;
+
+  /// Corner handles of the drawn frame.
+  static const double roiHandle = s28;
+  static const double roiStroke = s2_5;
+  static const double bottleBoxStroke = s3;
 
   static const double sheetFactor = 0.45;
   static const double defaultCircularProgressSize = 36.0;
-
-  static const double avatarDefaultHeight = 140;
-  static const double avatarDefaultWidth = 105;
-
   static const double dividerThickness = 1;
+
+  /// Draggable result sheet: how much of the screen it takes when collapsed,
+  /// half open, and fully expanded.
+  static const double resultSheetMin = 0.22;
+  static const double resultSheetInitial = 0.45;
+  static const double resultSheetMax = 0.92;
 }
 
 class AppRadius {
+  const AppRadius._();
+
+  static const double r0 = 0.0;
   static const double r4 = 4.0;
   static const double r8 = 8.0;
   static const double r10 = 10.0;
   static const double r12 = 12.0;
   static const double r16 = 16.0;
+  static const double r20 = 20.0;
   static const double r24 = 24.0;
 
   /// Fully rounded ("pill") corners.
-  static const double rPill = 90.0;
+  static const double rPill = 999.0;
 }
 
 class AppAlpha {
+  const AppAlpha._();
+
+  /// Opacity of 8%
+  static const int a8 = 20;
+
+  /// Opacity of 12%
+  static const int a12 = 31;
+
+  /// Opacity of 20%
+  static const int a20 = 51;
+
   /// Opacity of 30%
   static const int a30 = 77;
+
+  /// Opacity of 40%
+  static const int a40 = 102;
 
   /// Opacity of 50%
   static const int a50 = 128;
@@ -119,10 +175,17 @@ class AppAlpha {
 
   /// Opacity of 75%
   static const int a75 = 191;
+
+  /// Opacity of 85%
+  static const int a85 = 217;
 }
 
 class FontSize {
+  const FontSize._();
+
+  static const double s11 = 11.0;
   static const double s12 = 12.0;
+  static const double s13 = 13.0;
   static const double s14 = 14.0;
   static const double s15 = 15.0;
   static const double s16 = 16.0;
@@ -135,5 +198,5 @@ class FontSize {
   static const double s26 = 26.0;
   static const double s28 = 28.0;
   static const double s30 = 30.0;
-  static const double s60 = 60.0;
+  static const double s34 = 34.0;
 }

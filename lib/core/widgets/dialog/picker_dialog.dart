@@ -18,28 +18,37 @@ class PickerDialog extends StatelessWidget {
     required this.onItemSelected,
   });
 
+  /// Shows the picker; [onItemSelected] fires before it closes itself.
+  static Future<void> show(
+    BuildContext context, {
+    required String title,
+    required List<PickerItem> items,
+    String? selectedItemId,
+    required ValueChanged<String> onItemSelected,
+  }) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => PickerDialog(
+        title: title,
+        items: items,
+        selectedItemId: selectedItemId,
+        onItemSelected: onItemSelected,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: context.colors.neutrals100,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadius.r16),
-      ),
       child: Container(
         padding: const EdgeInsets.all(AppPadding.p16),
         constraints: const BoxConstraints(maxHeight: AppSize.s400),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: AppPadding.p12),
-            Text(
-              title,
-              style: context.ts.fieldsetLabel.copyWith(
-                fontSize: FontSize.s16,
-                color: context.colors.neutrals900,
-              ),
-            ),
-            const SizedBox(height: AppPadding.p16),
+            const SizedBox(height: AppSpaces.s8),
+            Text(title, style: context.ts.h4),
+            const SizedBox(height: AppSpaces.s16),
             Flexible(
               child: ListView.builder(
                 shrinkWrap: true,
@@ -49,13 +58,12 @@ class PickerDialog extends StatelessWidget {
                   final isSelected = selectedItemId == item.id;
 
                   return ListTile(
-                    tileColor: Colors.transparent,
                     title: Text(
                       item.label,
-                      style: context.ts.paragraphSmall.copyWith(
+                      style: context.ts.paragraph.copyWith(
                         color: isSelected
-                            ? context.colors.neutrals900
-                            : context.colors.neutrals600,
+                            ? context.colors.wine
+                            : context.colors.ink,
                       ),
                     ),
                     onTap: () {

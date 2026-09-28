@@ -57,11 +57,11 @@ class BaseDialog extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Padding(
         padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
         ),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: context.colors.neutrals100,
+            color: context.colors.card,
             borderRadius: useBottomBorderRadius
                 ? BorderRadius.circular(AppRadius.r24)
                 : const BorderRadius.vertical(
@@ -69,14 +69,43 @@ class BaseDialog extends StatelessWidget {
                   ),
           ),
           child: title != null
-              ? _buildTitledContent(context)
-              : _buildPlainContent(context),
+              ? _TitledContent(
+                  title: title!,
+                  showCloseButton: showCloseButton,
+                  onClose: onClose,
+                  childPadding: childPadding,
+                  child: child,
+                )
+              : _PlainContent(
+                  showCloseButton: showCloseButton,
+                  onClose: onClose,
+                  childPadding: childPadding,
+                  closeButtonPosition: closeButtonPosition,
+                  child: child,
+                ),
         ),
       ),
     );
   }
+}
 
-  Widget _buildPlainContent(BuildContext context) {
+class _PlainContent extends StatelessWidget {
+  final Widget child;
+  final bool showCloseButton;
+  final VoidCallback? onClose;
+  final CustomChildPadding? childPadding;
+  final CloseButtonPosition? closeButtonPosition;
+
+  const _PlainContent({
+    required this.child,
+    required this.showCloseButton,
+    required this.onClose,
+    required this.childPadding,
+    required this.closeButtonPosition,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Stack(
       children: [
         Padding(
@@ -86,7 +115,7 @@ class BaseDialog extends StatelessWidget {
             top: childPadding?.top ?? AppPadding.p32,
             bottom:
                 (childPadding?.bottom ?? AppPadding.p24) +
-                MediaQuery.of(context).padding.bottom,
+                MediaQuery.paddingOf(context).bottom,
           ),
           child: child,
         ),
@@ -94,23 +123,30 @@ class BaseDialog extends StatelessWidget {
           Positioned(
             top: closeButtonPosition?.top ?? AppSize.s12,
             right: closeButtonPosition?.right ?? AppSize.s12,
-            child: GestureDetector(
-              onTap: onClose,
-              child: SvgIconRes.close24.widget(
-                width: AppSize.s24,
-                height: AppSize.s24,
-                colorFilter: ColorFilter.mode(
-                  context.colors.neutrals900,
-                  BlendMode.srcIn,
-                ),
-              ),
-            ),
+            child: _CloseButton(onClose: onClose),
           ),
       ],
     );
   }
+}
 
-  Widget _buildTitledContent(BuildContext context) {
+class _TitledContent extends StatelessWidget {
+  final String title;
+  final Widget child;
+  final bool showCloseButton;
+  final VoidCallback? onClose;
+  final CustomChildPadding? childPadding;
+
+  const _TitledContent({
+    required this.title,
+    required this.child,
+    required this.showCloseButton,
+    required this.onClose,
+    required this.childPadding,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -125,26 +161,12 @@ class BaseDialog extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  title!,
-                  style: context.ts.paragraphBold.copyWith(
-                    fontSize: FontSize.s20,
-                    color: context.colors.neutrals900,
-                  ),
+                  title,
+                  style: context.ts.h3,
                   textAlign: TextAlign.left,
                 ),
               ),
-              if (showCloseButton)
-                GestureDetector(
-                  onTap: onClose,
-                  child: SvgIconRes.close24.widget(
-                    width: AppSize.s24,
-                    height: AppSize.s24,
-                    colorFilter: ColorFilter.mode(
-                      context.colors.neutrals900,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                ),
+              if (showCloseButton) _CloseButton(onClose: onClose),
             ],
           ),
         ),
@@ -153,13 +175,33 @@ class BaseDialog extends StatelessWidget {
           padding: EdgeInsets.only(
             left: childPadding?.left ?? AppPadding.p24,
             right: childPadding?.right ?? AppPadding.p24,
+            top: childPadding?.top ?? AppPadding.p16,
             bottom:
                 (childPadding?.bottom ?? AppPadding.p24) +
-                MediaQuery.of(context).padding.bottom,
+                MediaQuery.paddingOf(context).bottom,
           ),
           child: child,
         ),
       ],
+    );
+  }
+}
+
+class _CloseButton extends StatelessWidget {
+  final VoidCallback? onClose;
+
+  const _CloseButton({required this.onClose});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onClose,
+      tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
+      icon: SvgIconRes.close24.widget(
+        width: AppSize.s24,
+        height: AppSize.s24,
+        colorFilter: ColorFilter.mode(context.colors.ink, BlendMode.srcIn),
+      ),
     );
   }
 }

@@ -1,3 +1,5 @@
+import '../../constants/app_constants.dart';
+
 abstract class BaseBlocUiEffect {}
 
 enum SnackBarType { info, success, error }
@@ -8,9 +10,9 @@ enum SnackBarDuration {
   long;
 
   Duration get duration => switch (this) {
-    SnackBarDuration.short => const Duration(seconds: 1),
-    SnackBarDuration.medium => const Duration(seconds: 2),
-    SnackBarDuration.long => const Duration(seconds: 4),
+    SnackBarDuration.short => DurationConstant.d1s,
+    SnackBarDuration.medium => DurationConstant.d2s,
+    SnackBarDuration.long => DurationConstant.d5s,
   };
 }
 

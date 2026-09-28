@@ -1,6 +1,32 @@
 # winescan
 
-Flutter-приложение Винный Сканер.
+Flutter-приложение «Винный сканер»: фотографируешь этикетку — сканер ищет вино в каталоге
+«Своё вино» и показывает лучшее совпадение, похожие варианты, эталон и ссылку на карточку.
+Мобильная версия веб-интерфейса из `rshb-hack/rshb_vine/scan_web_v1`.
+
+## Как устроено приложение
+
+Три вкладки: **Сканер · История · Настройки**, перед ними — одноразовый онбординг.
+
+| Экран | Где | Что делает |
+|---|---|---|
+| Онбординг | `lib/features/onboarding/` | три страницы «как это работает»; повтор — из настроек |
+| Сканер | `lib/features/scan/…/home/` | камера / галерея, статус сервиса (обновляется каждые 15 с), последние сканы |
+| Результат | `lib/features/scan/…/result/` | фото с рамками бутылок, вытягиваемый шит с ответом, ручная рамка, сравнение с эталоном, авто-повтор при 429/503, «Ещё»: JSON и технические детали |
+| История | `lib/features/history/` | сканы на устройстве (drift + фото в Application Support), свайп-удаление, очистка |
+| Настройки | `lib/features/settings/` | тема, язык, статус сервиса, онбординг, «О сканере», очистка истории |
+
+### API
+
+Базовый адрес — `API_BASE_URL` в `assets/flavors/<flavor>.json` (сейчас оба флейвора
+смотрят на `https://vines.aiweapps.com`). Авторизация — гостевой токен
+`POST /auth/guest/token` в secure storage, подставляется интерсептором; при 401 токен
+перевыпускается и запрос повторяется один раз. Запросы: `POST /api/recognize`
+(multipart `image` + опционально `target_roi`), `GET /api/status`, эталоны
+`GET /api/reference/<slug>.jpg` с тем же Bearer. Контракт — `rshb-hack/docs/mobile-api.md`.
+
+Уверенность сканер не показывает: бэк её не рассчитывает. Футер «Сканер может ошибаться»
+обязателен.
 
 ## Установка и настройка
 
@@ -88,8 +114,9 @@ cd android/fastlane && bundle exec fastlane verify_prod --env prod
 `GoogleService-Info.plist` в `ios/flavors/<flavor>/` и перезапишет
 `lib/firebase/firebase_options_<flavor>.dart`.
 
-Инициализация Firebase в `lib/main.dart` пока закомментирована — раскомментируйте
-`initializeFirebaseApp` после генерации конфигов. В `android/app/build.gradle.kts`
+Firebase в `lib/main.dart` пока не инициализируется: после генерации конфигов добавьте
+`Firebase.initializeApp` с выбором `FirebaseOptions` по флейвору между `initDependencies()`
+и `LanguageService.initialize()` (порядок — `.claude/rules/di.md`). В `android/app/build.gradle.kts`
 также нужно раскомментировать плагин `com.google.gms.google-services`.
 
 ## Flavors
@@ -132,7 +159,8 @@ flutter run --flavor prod
 
 ## Локализация
 
-ARB-файлы лежат в `lib/l10n` (`app_en.arb`, `app_de.arb`), настройки — в `l10n.yaml`.
+ARB-файлы лежат в `lib/l10n` (`app_ru.arb` — основной язык, `app_en.arb` — шаблон с описаниями),
+настройки — в `l10n.yaml`.
 После правок:
 
 ```bash
@@ -161,7 +189,8 @@ dart run build_runner build --delete-conflicting-outputs
 - **Тема** — дизайн-токены `AppColors` и `AppTextStyles` (оба `ThemeExtension`) —
   источник правды; `ColorScheme` и `TextTheme` внутри `getBaseTheme` выводятся из них
   и нужны только стоковым Material-виджетам. В коде — `context.colors.*` и `context.ts.*`.
-  Светлая/тёмная схема переключается `ThemeService`; тёмная палитра пока копирует светлую.
+  Палитра и шрифты (PT Serif / PT Sans Narrow) повторяют веб-интерфейс; светлая и тёмная
+  схемы переключаются `ThemeService`.
 - **Экраны** — стейт обязан реализовывать `BaseBlocState` с полем `screenStatus`
   (`ScreenStatus.loading / content / error`) — `BaseBloc` других стейтов не принимает.
 - **Тосты** — единственный способ показать сообщение: `emitSnackBar.info/success/error(...)`
@@ -170,9 +199,10 @@ dart run build_runner build --delete-conflicting-outputs
   `ErrorDisplay.fullScreen` и `ErrorDisplay.general` с ретраем.
 - **Диалоги** — `BaseDialog`, `BaseBottomSheet`, `ConfirmationDialog`,
   `PickerDialog`, `DialogSuccessStep` / `DialogErrorStep` в `lib/core/widgets/dialog/`.
-- **Хранилище** — `sl<AppPreferences>()` поверх `shared_preferences`.
-- **API** — `ApiService` на `dio` с логирующим интерцептором, ответы приходят
-  как `Result<T>` (`Success` / `Error` с `AppError`).
+- **Хранилище** — `sl<AppPreferences>()` поверх `shared_preferences`; токен — в
+  `flutter_secure_storage`; история сканов — `drift` (`lib/core/database/`).
+- **API** — `ApiService` на `dio` с интерцепторами логирования и гостевой авторизации,
+  умеет multipart и отмену; ответы приходят как `Result<T>` (`Success` / `Error` с `AppError`).
 - **Ассеты** — типизированный реестр `SvgIconRes` в `lib/core/presentation/app_icons.dart`.
 
 - **Картинки из сети** — `RemoteImage` в `lib/core/widgets/remote_image.dart`:
