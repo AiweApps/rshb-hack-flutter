@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
           valueListenable: LanguageService.localeNotifier,
           builder: (context, locale, _) {
             return MaterialApp.router(
+              debugShowCheckedModeBanner: false,
               routerConfig: appRouter.mainRouter,
               onGenerateTitle: (context) => context.localization.appTitle,
               theme: getBaseTheme(brightness: Brightness.light),
