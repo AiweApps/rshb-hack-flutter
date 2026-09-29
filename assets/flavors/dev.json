@@ -1,6 +1,6 @@
 {
   "FLAVOR": "dev",
-  "API_BASE_URL": "https://vines.aiweapps.com",
+  "API_BASE_URL": "https://wines.aiweapps.com",
   "ANALYTICS_ENABLED": false,
   "LOG_NETWORK_BODIES": true
 }

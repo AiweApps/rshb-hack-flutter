@@ -4,7 +4,7 @@
 или выберите фото из галереи: приложение покажет найденные бутылки, карточку вина,
 альтернативы, эталон и ссылку на «Своё вино».
 
-[Веб-демо](https://vines.aiweapps.com/) ·
+[Веб-демо](https://wines.aiweapps.com/) ·
 [Сервер, Docker и API](https://github.com/AiweApps/rshb-wine-scanner)
 
 ## Возможности
@@ -20,7 +20,9 @@
 
 Используйте **Flutter 3.44.8** с входящим в него Dart SDK. Старый Flutter 3.35
 не подходит для текущих зависимостей. Для iOS нужны macOS, Xcode и CocoaPods;
-для Android — Android SDK и эмулятор либо подключённое устройство.
+для Android — Android SDK с платформами `android-36` (compileSdk Flutter 3.44.8) и `android-35`
+и эмулятор либо подключённое устройство. `permission_handler` ограничен `^12.0.3`:
+версия 13 требует compileSdk 37, который AGP 8.9.1 не находит в SDK.
 
 ```bash
 git clone https://github.com/AiweApps/rshb-hack-flutter.git
@@ -43,7 +45,7 @@ flutter build ios --simulator --debug --flavor prod --dart-define=FLAVOR=prod
 
 ## Подключение к API
 
-По умолчанию приложение подключается к `https://vines.aiweapps.com`.
+По умолчанию приложение подключается к `https://wines.aiweapps.com`.
 Адрес задаётся в `assets/flavors/prod.json` и `assets/flavors/dev.json`, поле
 `API_BASE_URL`. Секретный общий ключ приложению не нужен.
 
