@@ -1,0 +1,18 @@
+{
+  "source_url": "https://www.perekrestok.ru/shops/shop/814",
+  "retrieved_at": "2026-10-17T08:46:00Z",
+  "source_method": "chrome_dom_script_json",
+  "source_path": "window.__INITIAL_STATE__.shop.cityShop.data",
+  "records": [
+    {"id":802,"title":"ул. Батуринская, д. 157/31","address":"г Ростов-на-Дону, ул Батуринская, д 157/31","city":"Ростов-на-Дону","location":{"coordinates":[39.651331,47.202393],"type":"Point"},"isCatalogAvailable":true,"isPickupAvailable":false},
+    {"id":803,"title":"ТЦ Галерея Астор","address":"Ростов-на-Дону ,пр. Будённовский,49","city":"Ростов-на-Дону","location":{"coordinates":[39.704664,47.22493],"type":"Point"},"isCatalogAvailable":true,"isPickupAvailable":false},
+    {"id":804,"title":"ТЦ Талер","address":"г Ростов-на-Дону, ул Зорге, д 33","city":"Ростов-на-Дону","location":{"coordinates":[39.628532,47.229281],"type":"Point"},"isCatalogAvailable":true,"isPickupAvailable":false},
+    {"id":805,"title":"ТЦ Сокол","address":"Ростов-на-Дону, пр.Стачки,25","city":"Ростов-на-Дону","location":{"coordinates":[39.672361,47.210602],"type":"Point"},"isCatalogAvailable":true,"isPickupAvailable":false},
+    {"id":809,"title":"ул. Привокзальная, д. 10Б","address":"Азов ул. Привокзальная 10б","city":"Азов","location":{"coordinates":[39.418533,47.098887],"type":"Point"},"isCatalogAvailable":true,"isPickupAvailable":false},
+    {"id":811,"title":"просп. Коммунистический, д. 32","address":"Россия  Ростов-на-Дону пр-т Коммунистический 32","city":"Ростов-на-Дону","location":{"coordinates":[39.629511,47.208698],"type":"Point"},"isCatalogAvailable":true,"isPickupAvailable":false},
+    {"id":813,"title":"ТЦ Миллениум","address":"г Ростов-на-Дону, ул Текучева, д 139А","city":"Ростов-на-Дону","location":{"coordinates":[39.7054319,47.2350975],"type":"Point"},"isCatalogAvailable":true,"isPickupAvailable":false},
+    {"id":814,"title":"ТЦ Арбуз","address":"РО, Таганрог, ул.Бакинская, 65","city":"Таганрог","location":{"coordinates":[38.915126,47.27645],"type":"Point"},"isCatalogAvailable":true,"isPickupAvailable":false},
+    {"id":817,"title":"ТЦ СитиЦентр","address":"РО Таганрог   пер.Гоголевский 2/1","city":"Таганрог","location":{"coordinates":[38.919851,47.219397],"type":"Point"},"isCatalogAvailable":true,"isPickupAvailable":false},
+    {"id":992,"title":"ул. Портовая, д. 456","address":"г Ростов-на-Дону, ул Портовая, зд 456","city":"Ростов-на-Дону","location":{"coordinates":[39.640435,47.192578],"type":"Point"},"isCatalogAvailable":true,"isPickupAvailable":false}
+  ]
+}

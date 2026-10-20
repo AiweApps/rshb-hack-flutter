@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="assistant_v3_welcome_title">С чего начнём?</string>
+    <string name="assistant_v3_welcome_body">Пришлите фото бутылки или напишите, что ищете.</string>
+    <string name="assistant_v3_find_wine">Узнать по фото</string>
+    <string name="assistant_v3_plan_dinner">Спланировать ужин</string>
+    <string name="assistant_v3_plan_dinner_prompt">Помоги спланировать ужин и подобрать к нему вино.</string>
+    <string name="assistant_v3_store_choose">Выбрать магазин</string>
+    <string name="assistant_v3_ask_about_wine">Обсудить</string>
+    <string name="assistant_v3_uncertain_all">Совпадения неточные — сверьте с этикеткой.</string>
+    <string name="assistant_v3_previous_store">Ранее выбранный магазин</string>
+    <string name="assistant_v3_from_comparison">Из сравнения</string>
+    <string name="assistant_v3_about_wine">О вине</string>
+    <string name="assistant_v3_pairs_with">К блюдам: %1$s</string>
+    <string name="assistant_v3_show_cards">Показать карточки вин</string>
+    <string name="assistant_v3_hide_cards">Скрыть карточки вин</string>
+</resources>

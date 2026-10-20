@@ -1,0 +1,6 @@
+"CFBundleDisplayName" = "Вино в фокусе";
+"NSCameraUsageDescription" = "Камера нужна, чтобы сфотографировать этикетку вина для распознавания.";
+"NSPhotoLibraryUsageDescription" = "Доступ к фото нужен, чтобы выбрать снимок этикетки для распознавания.";
+"NSLocationWhenInUseUsageDescription" = "Местоположение помогает найти ближайший магазин для ужина с выбранным вином.";
+"NSMicrophoneUsageDescription" = "Микрофон нужен для короткой диктовки текста сообщения на устройстве.";
+"NSSpeechRecognitionUsageDescription" = "Распознавание речи превращает короткую диктовку в черновик сообщения на устройстве.";

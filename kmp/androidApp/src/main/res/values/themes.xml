@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The window behind Compose. The theme paints its own surfaces; this only keeps the
+         first frame and the system bars from flashing a foreign colour. -->
+    <style name="Theme.WineScan" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/paper</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- The system splash (API 31+ and the compat library below): the logo on the paper. -->
+    <style name="Theme.WineScan.Launch" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/paper</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/app_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.WineScan</item>
+    </style>
+</resources>

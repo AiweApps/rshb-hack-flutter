@@ -1,0 +1,6 @@
+"CFBundleDisplayName" = "VinoFocus";
+"NSCameraUsageDescription" = "Use the camera to photograph a wine label for recognition.";
+"NSPhotoLibraryUsageDescription" = "Choose a wine label photo for recognition.";
+"NSLocationWhenInUseUsageDescription" = "Use your location to find a nearby store for dinner with your chosen wine.";
+"NSMicrophoneUsageDescription" = "Use the microphone for short on-device message dictation.";
+"NSSpeechRecognitionUsageDescription" = "Turn short on-device dictation into a message draft.";

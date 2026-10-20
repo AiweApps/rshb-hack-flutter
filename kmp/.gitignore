@@ -1,0 +1,40 @@
+*.iml
+.kotlin
+.gradle
+**/build/
+xcuserdata
+!src/**/build/
+local.properties
+.idea
+.DS_Store
+captures
+.externalNativeBuild
+.cxx
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+node_modules/
+
+# Claude Code: personal overrides and per-developer agent memory.
+# Team-wide config lives in .claude/settings.json and is committed.
+.claude/settings.local.json
+.claude/agent-memory/
+
+# Python bytecode from .claude/skills scripts
+__pycache__/
+*.pyc
+
+# Signing and delivery: nothing of it lives in git. The team's .p12 files are copied into
+# iosApp/certificates/prod/ by hand, the profiles are downloaded there by the fastlane lanes.
+.env.prod
+*.p8
+iosApp/certificates/prod/*
+!iosApp/certificates/prod/.gitkeep
+**/fastlane/report.xml
+
+# Firebase configs of the production project: fetched with `firebase apps:sdkconfig`, see README.
+androidApp/google-services.json
+iosApp/iosApp/GoogleService-Info.plist

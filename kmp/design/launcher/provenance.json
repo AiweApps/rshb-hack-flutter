@@ -1,0 +1,19 @@
+{
+  "selected": "D2",
+  "approved_on": "2026-10-19",
+  "generator": "built-in ImageGen",
+  "approved_prompt": {
+    "id": "D2",
+    "tool": "built-in ImageGen",
+    "intent": "edit",
+    "reference": "05-glass-wine-refined.png",
+    "prompt": "Refine this exact wine-glass app-icon artwork for small-size legibility. Preserve its neutral translucent/frosted glass, ruby wine with one diagonal surface, deep burgundy background, quiet studio lighting, overall style, and clear red-wine-glass identity. Make ONLY a proportion adjustment: shorten the visible stem by about 35 percent and make the stem about twice as thick, smoothly integrated into the bowl and foot; widen the bowl by about 12 percent without making it squat. The visible stem length should be roughly one third of the bowl height, clearly longer than a cognac snifter stem. Reduce the foot width slightly and keep its clean smooth edge. This is an elegant sturdy wine goblet that must remain obvious at 32 and 48 pixels; avoid a hairline stem, huge foot, golden brandy goblet or overly realistic fussy highlights. Single centered icon, generous balanced margins, square full-bleed burgundy background. No typography, no added symbols, no outer tile or rounded-square border, no comparison layout."
+  },
+  "foreground_prompt": "Extract only the exact approved glass with ruby wine on transparency. Preserve outline, proportions, placement, material, reflections; remove burgundy background and external shadows. No redesign.",
+  "files": {
+    "d2-approved.png": "9b1118034e12f7a10be9cb52eee9bf7e2b309f7b644b6969e75179660a677ac5",
+    "d2-glass.png": "fe3a5492a135671c8e4c861a6a8970d3bf35b715782744dc79443af59c773919",
+    "d2-monochrome.svg": "e4cf0b6469102e9370686c52dc5072853c17bb7dbc2c3ec7a0ed82d28fff6705"
+  },
+  "adaptation": "Android transparent glass resized740/1080 centered; solid#650014 background. iOS approved raster resized, opaque square. Monochrome is editable simplified glass silhouette."
+}

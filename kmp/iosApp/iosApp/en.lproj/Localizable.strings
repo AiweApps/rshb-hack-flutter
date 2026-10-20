@@ -1,0 +1,618 @@
+/* App */
+"app_name" = "VinoFocus";
+"splash_title" = "VinoFocus";
+
+/* Tabs */
+"tab_scan" = "Scanner";
+"tab_history" = "History";
+"tab_settings" = "Settings";
+
+/* Common */
+"disclaimer" = "The scanner can be wrong — check the name and the year on the card.";
+"common_cancel" = "Cancel";
+"common_got_it" = "Got it";
+"common_close" = "Close";
+"common_back" = "Back";
+"common_retry" = "Try again";
+
+/* Onboarding */
+"onboarding_next" = "Next";
+"onboarding_skip" = "Skip";
+
+/* Scan tab */
+"scan_pick_photo" = "Choose a photo";
+"scan_recent_title" = "Recent scans";
+"scan_recent_all" = "All";
+"scan_hint" = "Point at the label";
+"scan_shutter" = "Take a photo";
+"scan_flash" = "Flash";
+"scan_no_camera_title" = "No access to the camera";
+"scan_no_camera_body" = "Allow the camera in Settings to shoot labels. Meanwhile you can pick an existing photo.";
+"scan_no_camera_ask_body" = "Allow camera access to shoot labels. Meanwhile you can pick an existing photo.";
+"scan_open_settings" = "Open Settings";
+"scan_camera_unavailable_title" = "This device has no camera";
+"scan_camera_unavailable_body" = "Choose a label photo from your library — we will find the wine in the catalogue just like from a shot.";
+"scan_status_checking" = "Connecting to the service…";
+"scan_status_busy" = "Service is busy";
+"scan_status_busy_queue" = "Service is busy · %d ahead of you";
+"scan_status_blocked" = "Recognition is unavailable";
+"scan_status_offline" = "Can't reach the service";
+"scan_status_queued" = "Photo queued";
+"scan_status_queued_ahead" = "Photo queued · %d ahead of you";
+
+/* Service status */
+"status_checking" = "checking…";
+"status_ready" = "ready";
+"status_busy" = "busy";
+"status_busy_queue" = "busy · %d in queue";
+"status_down" = "not responding";
+"status_unavailable" = "unavailable";
+"status_no_access" = "no access";
+"status_rate_limited" = "wait a bit";
+"status_offline" = "no connection";
+"status_dev" = "dev mode";
+"status_ready_detail" = "The recognition service is connected and idle — you can upload a photo.";
+"status_busy_detail" = "The service is recognising another photo. A new photo will wait its turn.";
+"status_down_detail" = "The recognition service is not responding. Try again later.";
+"status_unavailable_detail" = "The recognition service is temporarily unavailable. Try again later.";
+"status_no_access_detail" = "Could not open a session. Check the internet and try again.";
+"status_rate_limited_detail" = "Wait a few seconds and refresh the status.";
+"status_offline_detail" = "No connection to the scanner. Check the internet.";
+"status_dev_detail" = "Interface development mode: recognition is not connected.";
+"status_auto_refresh" = "The status refreshes by itself.";
+
+/* Result: loading */
+"loading_reading" = "Reading the label…";
+"loading_roi" = "Recognising the selected bottle…";
+"loading_note" = "Usually a few seconds.";
+"loading_busy" = "Service is busy";
+"loading_too_many" = "Too many requests";
+"loading_retry_in" = "Retrying in %1$d s (attempt %2$d of %3$d).";
+
+/* Result */
+"result_title" = "Result";
+"result_answer_title" = "Scanner answer";
+"result_bottle_n" = "Bottle %d";
+"result_bottle_near_center_tag" = "Bottle %d · near the centre";
+"result_tab_all" = "All";
+"result_best_match" = "best match";
+"result_alternatives" = "Similar options";
+"result_no_match_for_bottle" = "No match found for this bottle.";
+"result_bottle_no_match" = "Bottle %d: no match found";
+"result_no_bottle_advice_auto" = "Shoot the label larger and straighter.";
+"result_no_bottle_advice_roi" = "Go back to all bottles or shoot the label larger.";
+"result_no_bottle_auto" = "No bottle with a label was found. Shoot the label larger and straighter.";
+"result_no_bottle_roi" = "No bottle with a label was found. Go back to all bottles or shoot the label larger.";
+"result_open_on_site" = "Open on «Svoe Vino»";
+"result_no_site_url" = "The catalogue has no «Svoe Vino» page for this card";
+"result_reference_missing" = "no reference";
+"result_photo_missing" = "no photo";
+"result_your_photo" = "Your photo";
+"result_reference" = "Catalogue reference";
+"result_compare_title" = "Compare with the reference";
+"result_your_photo_bottle" = "Your photo · bottle %d";
+"result_reference_of" = "Reference: %@";
+"result_more" = "More";
+"result_new_scan" = "New scan";
+"result_share_json" = "Share the full JSON answer";
+"result_share_bottle_json" = "Share bottle %d JSON";
+"result_share_frame_json" = "Share the frame JSON";
+"result_rescan_bottle" = "Recognise only bottle %d";
+"result_choose_frame" = "Choose a frame";
+"result_no_bottle_framed" = "No bottle found in this frame. Choose another frame in More.";
+"frame_hint" = "Frame the bottle";
+"frame_scan" = "Scan";
+"result_tech_details" = "Technical details";
+"notice_roi_found" = "Recognised within the selected frame. Below is the answer for this area.";
+"notice_roi_empty" = "Recognised within the selected frame. No bottle with a label was found in it.";
+"notice_many_bottles" = "More than one bottle found — %d. Each has its own answer: pick one by its frame on the photo or by a chip below.";
+"decision_unknown" = "Could not pick a match";
+"decision_insufficient" = "Not enough evidence for an answer";
+"decision_ambiguous" = "Several bottles in the photo — pick one";
+"decision_no_target" = "No bottle with a label was found";
+
+/* Frame sheet */
+
+/* Scan errors */
+"scan_error_title_default" = "It did not work";
+"scan_error_retry" = "Retry";
+"scan_error_no_access" = "No access";
+"scan_error_too_large" = "Image is too large";
+"scan_error_format" = "Format not supported";
+"scan_error_unprocessed" = "Image not processed";
+"scan_error_too_many" = "Too many requests";
+"scan_error_service" = "Service error";
+"scan_error_busy" = "Service busy or unavailable";
+"scan_error_timeout" = "Timed out";
+"scan_error_no_response" = "No answer";
+"scan_error_photo_open" = "Could not open the photo";
+"scan_error_text_no_access" = "Could not open a session. Check the internet and try again.";
+"scan_error_text_too_large" = "The file is over 20 MB or 24 MP. Take the photo again.";
+"scan_error_text_format" = "JPEG, PNG or WebP is required.";
+"scan_error_text_unprocessed" = "The service could not process the image. Try another photo.";
+"scan_error_text_bad_roi" = "The frame is outside the image. Draw it again.";
+"scan_error_text_too_many" = "Wait a few seconds and retry.";
+"scan_error_text_service" = "The recognition service answered with an error. Try later.";
+"scan_error_text_busy" = "The service is busy with other photos, try again shortly.";
+"scan_error_text_timeout" = "Timed out. Repeat the request.";
+"scan_error_text_offline" = "No connection to the service. Check the internet and retry.";
+"scan_error_text_default" = "Try again.";
+"scan_error_text_photo_open" = "Choose another photo.";
+
+/* Tech details */
+"tech_decision" = "decision";
+"tech_primary_basis" = "target basis";
+"tech_mode" = "mode";
+"tech_raw_slug" = "raw.slug";
+"tech_best_candidate" = "best_candidate";
+"tech_card_slug" = "card slug";
+"tech_page_url" = "page address";
+"tech_page_source" = "address source";
+"tech_snapshot" = "site snapshot";
+"tech_snapshot_yes" = "present in the site snapshots of 17–21.09";
+"tech_snapshot_no" = "absent from the site snapshots of 17–21.09";
+"tech_roi" = "request frame";
+"tech_bottles" = "bottles";
+"tech_frame" = "frame (EXIF)";
+"tech_file" = "file";
+"tech_file_value" = "%1$@ · %2$lld bytes";
+"tech_probability" = "probability";
+"tech_probability_value" = "not calculated (no calibration)";
+"tech_backend_time" = "service time";
+"tech_seconds" = "%@ s";
+"tech_profile" = "answer profile";
+"tech_reasons" = "reasons";
+"tech_none" = "—";
+
+/* History */
+"history_title" = "History";
+"history_empty_title" = "Nothing scanned yet";
+"history_empty_body" = "Take a photo of a label — the result will appear here.";
+"history_empty_action" = "Scan";
+"history_clear" = "Clear history";
+"history_clear_confirm_title" = "Clear the history?";
+"history_clear_confirm_body" = "All scans and their photos will be deleted from this phone.";
+"history_clear_confirm" = "Clear";
+"history_delete" = "Delete";
+"history_deleted" = "Scan deleted";
+"history_cleared" = "History cleared";
+"history_delete_failed" = "Could not delete the scan";
+"history_clear_failed" = "Could not clear the history";
+"history_no_match" = "No match found";
+"history_today" = "Today";
+"history_yesterday" = "Yesterday";
+
+/* Settings */
+"settings_title" = "Settings";
+"settings_appearance" = "Appearance";
+"settings_theme" = "Theme";
+"theme_system" = "As in the system";
+"theme_light" = "Light";
+"theme_dark" = "Dark";
+"settings_language" = "Language";
+"language_russian" = "Русский";
+"language_english" = "English";
+"settings_help" = "Help";
+"settings_show_onboarding" = "Show the intro again";
+"settings_about" = "About the scanner";
+"settings_about_body" = "The scanner looks the wine up in the «Svoe Vino» catalogue by a photo of the label. Confidence is not calculated: check the name and the year on the card. Photos are sent to the recognition service and are kept only on this phone.";
+"settings_open_site" = "Open «Svoe Vino»";
+"settings_data" = "Data";
+"settings_service" = "Recognition service";
+"settings_version" = "Version %1$@ (%2$@)";
+"settings_alcohol_warning" = "Excessive alcohol consumption is harmful to your health";
+"settings_age_limit" = "18+";
+
+/* Errors */
+"error_network" = "No internet connection";
+"error_timeout" = "Timed out";
+"error_unauthorized" = "Could not open a session";
+"error_server" = "Service unavailable, please try again later";
+"error_unknown" = "Something went wrong";
+"action_retry" = "Retry";
+
+/* Compare, pairing, reveal */
+"common_no_data" = "No data";
+"common_open_catalogue" = "Open on Svoe Vino";
+"compare_title" = "Compare";
+"compare_segment_diff" = "Differences";
+"compare_segment_all" = "All";
+"compare_attr_color" = "Colour";
+"compare_attr_sugar" = "Sugar";
+"compare_attr_grapes" = "Grapes";
+"compare_attr_region" = "Region";
+"compare_attr_pairings" = "Food pairings";
+"compare_attr_temperature" = "Serving";
+"compare_remove" = "Remove from comparison";
+"compare_empty_title" = "Nothing to compare yet";
+"compare_empty_body" = "Tap + to add up to three wines from history or a new scan.";
+"compare_need_second" = "Add a second wine with + to compare.";
+"compare_footer" = "Data comes from Svoe Vino cards. If a card lists no pairings we show “No data”.";
+"compare_remove_failed" = "Could not remove the wine from the comparison";
+"pairing_title" = "Wine pairing";
+"pairing_heading" = "Choose a dish";
+"pairing_caption" = "Pairings from the Svoe Vino catalogue";
+"pairing_change_dish" = "Change dish";
+"pairing_not_listed" = "This pairing is not listed";
+"pairing_listed_header" = "Pairing listed";
+"pairing_no_dishes_title" = "The catalogue has no food pairings for these wines yet. Name your dish below and the assistant will compare the wines for it.";
+"pairing_add_wine" = "Add another wine";
+"pairing_count_of" = "%1$d of %2$d";
+"pairing_explanation" = "Listed pairing: %@";
+"pairing_no_data_header" = "No data";
+"pairing_no_data_row" = "Food pairings are not listed";
+"pairing_no_matches_body" = "The catalogue does not list this pairing. This does not mean the wine is a poor fit.";
+"pairing_save" = "Save pairing";
+"pairing_saved" = "Choice saved";
+"pairing_toast_saved" = "Choice saved";
+"pairing_toast_save_failed" = "Could not save the choice";
+"result_add_to_compare" = "Add to comparison";
+"result_remove_from_compare" = "Remove from comparison";
+"result_pair_dish" = "Pick for a dish";
+"result_about" = "About the wine";
+"result_gastronomy" = "Food pairings";
+"result_by_card" = "From the Svoe Vino card";
+"result_compare_wines" = "Compare wines";
+"result_expand_compare" = "Compare with the reference";
+"loading_recognizing" = "Recognising the label…";
+"notice_compare_added" = "Wine added to the comparison";
+"notice_compare_already" = "This wine is already in the comparison";
+"notice_compare_full" = "The comparison is full: remove one of the wines";
+"notice_compare_failed" = "Could not add the wine to the comparison";
+"notice_compare_removed" = "Removed from comparison";
+"notice_compare_remove_failed" = "Couldn't remove from comparison";
+"reveal_mine" = "My photo";
+"reveal_both" = "Both";
+"reveal_reference" = "Reference";
+"reveal_hint" = "Drag the line or pinch to zoom in";
+"reveal_handle" = "Divider between the photo and the reference";
+"history_saved_pairings" = "Saved choices";
+"history_in_compare" = "In comparison";
+"history_menu" = "More";
+"history_toast_pairing_deleted" = "Choice deleted";
+"history_toast_pairing_delete_failed" = "Could not delete the choice";
+"history_toast_favorite_added" = "Saved to my wines";
+"history_toast_favorite_removed" = "Removed from my wines";
+"history_toast_favorite_failed" = "Could not update my wines";
+"history_remove_from_compare_hint" = "Tap again to remove it from the comparison";
+"compare_no_differences" = "All attributes match";
+"tab_compare" = "Compare";
+"compare_pick_history" = "Pick from history";
+"compare_scan" = "Scan";
+"compare_new_scan" = "New scan";
+"compare_add_wine" = "Add a wine";
+"compare_toast_added" = "Added to the comparison";
+"compare_toast_already" = "Already in the comparison";
+"compare_toast_full" = "The comparison already has three wines";
+"compare_toast_add_failed" = "Could not add to the comparison";
+"picker_title" = "Pick from history";
+"picker_empty" = "No recognized wines in the history";
+"assistant_title" = "Assistant";
+"assistant_menu" = "Assistant menu";
+"assistant_drawer_title" = "Wine Assistant";
+"assistant_drawer_close" = "Close menu";
+"assistant_drawer_current" = "Current conversation";
+"assistant_drawer_store_selected" = "Selected store";
+"assistant_drawer_conversations_empty" = "No conversations yet. Start a new one and it will appear here.";
+"assistant_drawer_wines_empty" = "Wines you save with the heart will appear here.";
+"assistant_drawer_stores_empty" = "No stores are available right now.";
+"assistant_new_conversation" = "New conversation";
+"assistant_conversations" = "Conversations";
+"assistant_saved_wines" = "My wines";
+"assistant_stores" = "Stores";
+"assistant_nearby_store_title" = "Store nearby";
+"assistant_nearby_store_body" = "Check the address before choosing it.";
+"assistant_nearby_store_choose" = "Choose this store";
+"assistant_starter_dinner" = "What to cook?";
+"assistant_starter_dinner_prompt" = "What could I cook with wine?";
+"assistant_empty_title" = "From bottle\nto dinner";
+"assistant_empty_body" = "Identify a wine from its label or find something to cook with it.";
+"assistant_add_photo" = "Add photo";
+"assistant_preparing_photos" = "Adding photos…";
+"assistant_view_photo" = "Open photo";
+"assistant_photo" = "Photo";
+"assistant_previous_photo" = "Previous photo";
+"assistant_next_photo" = "Next photo";
+"assistant_remove_photo" = "Remove photo";
+"assistant_draft_hint" = "Ask about wine…";
+"assistant_send" = "Send";
+"assistant_speech_start" = "Dictate message";
+"assistant_speech_stop" = "Stop dictation";
+"assistant_speech_cancel" = "Cancel";
+"assistant_speech_authorizing" = "Checking dictation access…";
+"assistant_speech_recording" = "Listening on this device…";
+"assistant_speech_finishing" = "Finishing dictation…";
+"assistant_speech_permission_denied" = "Speech recognition is off. Allow it in Settings to dictate.";
+"assistant_microphone_permission_denied" = "Microphone access is off. Allow it in Settings to dictate.";
+"assistant_speech_on_device_unavailable" = "On-device dictation is unavailable for this language. Type your message instead.";
+"assistant_speech_unavailable" = "Dictation is unavailable right now. Type your message instead.";
+"assistant_speech_recording_failed" = "Could not start the microphone. Try again.";
+"assistant_speech_recognition_failed" = "Could not transcribe the recording. Try again.";
+"assistant_selected_wine" = "Selected";
+"assistant_context_wine_a11y" = "Selected wine: %@";
+"assistant_wine_uncertain" = "Possible match · check the label";
+"assistant_wine_found" = "Found wine";
+"assistant_favorite" = "Save to my wines";
+"assistant_remove_favorite" = "Remove from my wines";
+"assistant_pairs_with" = "The catalogue pairs it with";
+"assistant_select_wine" = "Choose for dinner";
+"assistant_selected_for_dinner" = "Chosen for dinner";
+"assistant_open_catalogue" = "Open wine listing";
+"assistant_choose_dinner" = "Choose this dinner";
+"assistant_dinner_selected" = "Selected";
+"assistant_dinner_products" = "Included products";
+"assistant_recipe_quantity_format" = "For the recipe: %@";
+"assistant_packages_count_format" = "×%d packs";
+"assistant_minutes_format" = "%d min";
+"assistant_unit_price_format" = "Pack price: %@";
+"assistant_open_product" = "Product listing";
+"assistant_replace_product" = "Replace";
+"assistant_choose_replacement" = "Choose replacement";
+"assistant_replacement_candidates" = "Replacement options";
+"assistant_products_source_live" = "From the store";
+"assistant_products_source_session" = "From this conversation";
+"assistant_products_source_snapshot" = "From saved data";
+"assistant_products_checked_at" = "Checked %@";
+"assistant_products_total" = "Groceries total";
+"assistant_products_empty" = "Nothing found at this store yet.";
+"assistant_retry" = "Retry";
+"assistant_phase_recognizing" = "Finding the wine in your photo…";
+"assistant_phase_thinking" = "Preparing a reply…";
+"assistant_phase_searching" = "Finding groceries…";
+"assistant_phase_replacing" = "Finding a replacement…";
+"assistant_phase_selecting_dinner" = "Saving your dinner choice…";
+"assistant_use_location" = "Use my location";
+"assistant_enter_address" = "Enter address";
+"assistant_location_denied" = "Location access is off. Enter an address instead.";
+"assistant_location_failed" = "Could not find your address. Enter it instead.";
+"assistant_error_scan_failed" = "Could not recognize the photo. Try again.";
+"assistant_error_wine_unknown" = "No wine found in this photo. If this is wine, try a closer label photo.";
+"assistant_error_service_unavailable" = "The assistant is unavailable. Your message remains in the conversation.";
+"assistant_error_session_open_failed" = "Could not open the conversation. Try again.";
+"assistant_error_store_unavailable" = "Couldn’t load store data. Try again.";
+"assistant_error_retail_search_failed" = "Could not find the groceries. Try the search again.";
+"assistant_error_replacement_unavailable" = "Could not find a replacement. Try another product or search again.";
+"assistant_error_dinner_selection_unavailable" = "Could not select this dinner. Try again.";
+"assistant_error_dinner_selection_stale" = "These dinner choices expired. Ask for new suggestions.";
+"assistant_error_generic" = "Could not complete that action. Try again.";
+
+"assistant_account" = "Account";
+"assistant_legacy_history" = "Local history before sign-in. It is kept separately.";
+"assistant_guest_account" = "Guest account";
+"assistant_username" = "Username";
+"assistant_password" = "Password";
+"assistant_register" = "Create account";
+"assistant_login" = "Sign in";
+"assistant_continue_guest" = "Continue as guest";
+"assistant_logout" = "Sign out";
+"assistant_account_failed" = "Could not sign in. Check your details and connection.";
+"assistant_location_card" = "Where will you shop?";
+"assistant_locate_me" = "Use my location";
+"assistant_store_address" = "City, street or store";
+"assistant_find_store" = "Find store";
+"assistant_store_confirmed" = "Selected store";
+"assistant_choose_store" = "Confirm your store";
+"assistant_no_store" = "No matching stores. Try a city and address.";
+"assistant_store_distance" = "About %d m away";
+"assistant_confirm_store" = "Choose this store";
+"assistant_store_verified" = "Store catalog checked on this device";
+"assistant_store_not_checked" = "Selection saved. Catalog access has not been checked yet.";
+"assistant_change_store" = "Change store";
+"assistant_account_expired" = "Session expired. Sign in again. Guest access creates a separate new history.";
+"assistant_store_context_changed" = "The store in this conversation changed. Confirm it again and repeat your question.";
+"assistant_store_address_title" = "By entered address";
+"assistant_product_unknown_total" = "Purchase total is unknown";
+"assistant_product_unknown_quantity" = "Confirm the purchase quantity in the store";
+"assistant_product_purchase_lot" = "%d × %@ %@";
+"assistant_product_purchase_lot_single" = "%@ %@";
+"assistant_product_price_piece" = "%@ / item";
+"assistant_product_price_kg" = "%@ / kg";
+"assistant_product_price_unknown_basis" = "%@ · price unit unconfirmed";
+"assistant_error_retail_access" = "The store needs your attention. Open Perekrestok, complete its check manually, then repeat your request.";
+"assistant_retry_after_access" = "Retry after access check";
+
+"compare_description" = "Description";
+
+"compare_show_description" = "Read more";
+
+"compare_hide_description" = "Show less";
+
+"compare_plan_dinner" = "Plan dinner";
+
+"compare_plan_dinner_prompt" = "Compare these wines and suggest dinner for two.";
+
+"compare_for_dish" = "Compare for a dish";
+
+"compare_attr_alcohol" = "Alcohol";
+
+"assistant_availability_many" = "In catalogue";
+
+"assistant_availability_few" = "Limited";
+
+"assistant_availability_none" = "Not listed";
+
+"assistant_availability_unknown" = "Availability unknown";
+
+"assistant_v3_from_comparison" = "From comparison";
+
+"assistant_v3_wine_details" = "About this wine";
+
+"assistant_ios_select_dinner" = "Select dinner";
+"assistant_ios_wine_dinner" = "Use for dinner";
+"assistant_ios_compare" = "Compare";
+"assistant_ios_tab_title" = "Assistant";
+"retail_device_title" = "Perekrestok";
+"retail_device_enabled" = "Connect to store";
+"retail_device_open" = "Open Perekrestok";
+"retail_device_privacy" = "Prices and stock update while the app is open. Your store sign-in stays on this iPhone only.";
+"retail_device_simulator" = "Store connection is disabled in Simulator. The assistant keeps its current data mode.";
+"retail_device_disabled" = "Store disconnected";
+"retail_device_connect" = "Connect";
+"retail_device_retry" = "Reload store website";
+"retail_device_not_opened" = "Open the website to connect the store.";
+"retail_device_loading" = "Loading store…";
+"retail_device_ready" = "Session ready. Return to chat and retry your request.";
+"retail_device_attention" = "Check the store page. Complete sign-in or CAPTCHA here if requested. Then return to chat and tap Retry.";
+
+"pairing_wines_title" = "Your wines";
+
+"pairing_intro" = "See pairings for these wines from the catalogue";
+
+"pairing_no_wines" = "Add a wine to choose a dish for it";
+
+"assistant_start_wine" = "Identify a wine";
+
+"assistant_start_wine_detail" = "Add a label photo";
+
+"assistant_start_dinner" = "Plan dinner";
+
+"assistant_start_dinner_detail" = "With your wine and preferences";
+
+"pairing_other" = "Another dish";
+
+"pairing_other_hint" = "Tell us what you want to cook";
+
+"pairing_other_placeholder" = "For example, mushroom pasta";
+
+"pairing_other_continue" = "Ask the assistant";
+
+"pairing_other_draft_hint" = "Your wines and a draft question will open in a new conversation.";
+
+"pairing_other_prompt" = "Compare these wines for this dish: %@. Explain the choice.";
+
+"onboarding_story_scan_title" = "Meet your wine";
+
+"onboarding_story_scan_body" = "Take a label photo or choose one. Check the name, producer and year against the reference in the Svoe Vino catalogue.";
+
+"onboarding_story_scan_hint" = "Label photo → wine details";
+
+"onboarding_story_compare_title" = "Compare before choosing";
+
+"onboarding_story_compare_body" = "Add up to three wines. Compare their details and food pairings. Missing information stays unknown.";
+
+"onboarding_story_dinner_title" = "From wine to dinner";
+
+"onboarding_story_dinner_body" = "Say what you want to cook. The assistant suggests dinner, then products and swaps after you choose a store.";
+
+"onboarding_story_example" = "Example";
+
+"onboarding_story_first_wine" = "First wine";
+
+"onboarding_story_second_wine" = "Second wine";
+
+"onboarding_story_first_details" = "Colour · grapes · region";
+
+"onboarding_story_second_details" = "Serving · food pairings";
+
+"onboarding_story_compare_hint" = "Your wines side by side. See the difference.";
+
+"onboarding_story_dinner_question" = "Mushroom pasta for two, please";
+
+"onboarding_story_dinner_option" = "Dinner ideas for your wine";
+
+"onboarding_story_dinner_time" = "With your time and budget in mind";
+
+"onboarding_story_dinner_products" = "Products and swaps at your chosen store";
+
+"onboarding_progress" = "%d of %d";
+
+"onboarding_open_assistant" = "Open the assistant";
+
+"wine_title" = "Wine";
+"wine_compare_with_photo" = "Compare with my photo";
+
+/* Gastronomy facts */
+"gastro_color_red" = "Red";
+"gastro_color_white" = "White";
+"gastro_color_rose" = "Rosé";
+"gastro_color_orange" = "Orange";
+"gastro_sparkling" = "Sparkling";
+"gastro_color_with_sparkling" = "%@, sparkling";
+"gastro_sugar_dry" = "Dry";
+"gastro_sugar_semi_dry" = "Semi-dry";
+"gastro_sugar_semi_sweet" = "Semi-sweet";
+"gastro_sugar_sweet" = "Sweet";
+"gastro_sugar_brut" = "Brut";
+"gastro_sugar_extra_brut" = "Extra brut";
+"gastro_sugar_brut_nature" = "Brut nature";
+"gastro_temperature_range" = "%1$d–%2$d\U00A0°C";
+"gastro_temperature_single" = "%d\U00A0°C";
+"gastro_none_listed" = "The card lists no pairings";
+"gastro_loading" = "Loading the card data";
+"pairing_loading_dishes" = "Loading pairings…";
+
+/* iOS connected onboarding illustration */
+"intro_scan_title" = "Get to know your wine";
+"intro_scan_body" = "Photograph the label. Check the match against its catalogue photo and details.";
+"intro_compare_title" = "Two wines. Clear differences.";
+"intro_compare_body" = "Compare grapes, tasting notes and food pairings side by side.";
+"intro_dinner_title" = "Dinner for your wine";
+"intro_dinner_body" = "Your wine stays in the conversation. The assistant asks what matters and suggests a dish.";
+"intro_demo" = "How it works · example";
+"intro_scanning" = "Reading the label";
+"intro_found" = "Catalogue match";
+"intro_sauvignon" = "Sauvignon Blanc";
+"intro_malbec" = "Malbec";
+"intro_region" = "Gunko Winery · Kuban";
+"intro_white" = "White";
+"intro_red" = "Red";
+"intro_colour" = "Colour";
+"intro_notes" = "Tasting notes";
+"intro_citrus" = "Citrus";
+"intro_cherry" = "Cherry";
+"intro_dinner_question" = "Mushroom pasta for two, please";
+"intro_dinner_time_question" = "How much time do you have?";
+"intro_dinner_time_answer" = "20 minutes";
+"intro_dish_meta" = "For two · 20 min";
+"intro_find_ingredients" = "Ingredients";
+"intro_selected" = "Wine for dinner";
+"intro_access_scan" = "Example: a Gunko Winery Sauvignon Blanc photo becomes a catalogue card.";
+"intro_access_compare" = "Comparison example: Sauvignon Blanc is white with citrus notes. Malbec is red with cherry notes. Both are Gunko Winery, Kuban.";
+"intro_access_dinner" = "Example: Sauvignon Blanc stays in the conversation. The user asks for mushroom pasta for two. The assistant asks how much time there is; the answer is 20 minutes. An illustrative dish preview appears with the next step: find ingredients.";
+"intro_pasta" = "Mushroom pasta";
+
+"assistant_wine_dinner_prompt" = "Help me plan dinner with this wine. Suggest a suitable direction and ask only for the missing details.";
+"assistant_compare_source_unavailable" = "Wine card is unavailable. Open the result again.";
+"assistant_photo_limit" = "You can attach up to 10 photos. The remaining photos were not added.";
+
+"gastro_unavailable" = "Not loaded";
+"gastro_load_failed" = "Wine details could not load";
+"wine_description" = "Description";
+
+"wine_check_photo_short" = "Check photo";
+
+"wine_add_compare_short" = "Compare";
+
+"wine_remove_compare_short" = "Remove";
+
+"pairing_other_continue_short" = "Continue";
+
+// Scanner backend — APP-04
+"settings_scanner_backend" = "Recognition";
+"scanner_backend_server" = "On server";
+"scanner_backend_local" = "On device";
+"scanner_backend_local_note" = "The scanner processes the photo on your device.";
+"scanner_backend_server_note" = "The scanner sends the photo to the server for recognition.";
+
+// In-flight local detection previews.
+"scan_preview_bottle" = "Bottle";
+"scan_preview_label" = "Label";
+"scan_preview_region" = "Region %1$d";
+"scan_preview_photo" = "Photo with bottle and label boxes";
+"scan_preview_finding_label" = "Finding the label…";
+"scan_preview_checking" = "Checking detected regions…";
+"scan_preview_recognizing" = "Identifying the wine…";
+"scan_preview_searching" = "Searching…";
+"scan_preview_loading" = "Loading…";
+
+"local_model_preparing" = "Preparing download";
+"local_model_downloading" = "Downloading models";
+"local_model_verifying" = "Checking package";
+"local_model_installing" = "Installing models";
+"local_model_cancel" = "Cancel download";
+"local_model_download" = "Download local models";
+"local_model_ready" = "Local models installed";
+"local_model_no_space" = "Not enough storage. Free some space and try again.";
+"local_model_download_error" = "Could not download the package. Check your connection and try again.";
+"local_model_required" = "Local models have not been downloaded";
+"local_model_required_note" = "Download the models to recognize on this device. Your mode selection is saved.";

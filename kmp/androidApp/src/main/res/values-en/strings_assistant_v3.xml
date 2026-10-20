@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="assistant_v3_welcome_title">Where shall we start?</string>
+    <string name="assistant_v3_welcome_body">Send a photo of a bottle or write what you are looking for.</string>
+    <string name="assistant_v3_find_wine">Identify from a photo</string>
+    <string name="assistant_v3_plan_dinner">Plan dinner</string>
+    <string name="assistant_v3_plan_dinner_prompt">Help me plan a dinner and choose a wine for it.</string>
+    <string name="assistant_v3_store_choose">Choose store</string>
+    <string name="assistant_v3_ask_about_wine">Discuss</string>
+    <string name="assistant_v3_uncertain_all">These matches are uncertain. Check them against the label.</string>
+    <string name="assistant_v3_previous_store">Previously selected store</string>
+    <string name="assistant_v3_from_comparison">From comparison</string>
+    <string name="assistant_v3_about_wine">About wine</string>
+    <string name="assistant_v3_pairs_with">Pairs with: %1$s</string>
+    <string name="assistant_v3_show_cards">Show wine cards</string>
+    <string name="assistant_v3_hide_cards">Hide wine cards</string>
+</resources>

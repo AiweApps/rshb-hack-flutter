@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="product_intro_title">From a bottle\nto dinner</string>
+  <string name="product_intro_body">Identify a wine from a photo. Compare your options and plan dinner with products from your store.</string>
+  <string name="product_intro_wine_title">Get to know your wine</string>
+  <string name="product_intro_wine_body">The label, description and food pairings in one conversation.</string>
+  <string name="product_intro_dinner_title">Decide what to cook</string>
+  <string name="product_intro_dinner_body">Tell us about your plans, time and budget. Your assistant will suggest some options.</string>
+  <string name="product_intro_start">Open assistant</string>
+  <string name="compare_plan_dinner">Plan dinner</string>
+  <string name="compare_for_dish">Compare for a dish</string>
+  <string name="compare_plan_dinner_prompt">Compare these wines and suggest dinner for two.</string>
+  <string name="compare_characteristics">Characteristics</string>
+  <string name="compare_description">Description</string>
+  <string name="compare_show_description">Read more</string>
+  <string name="compare_hide_description">Show less</string>
+  <string name="compare_attr_alcohol">Alcohol</string>
+    <string name="assistant_compare_source_unavailable">Wine card is unavailable. Open the result again.</string>
+  <string name="gastro_unavailable">Not loaded</string>
+  <string name="gastro_load_failed">Wine details could not load</string>
+  <string name="wine_description">Description</string>
+</resources>

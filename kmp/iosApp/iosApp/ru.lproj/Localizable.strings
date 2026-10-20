@@ -1,0 +1,618 @@
+/* App */
+"app_name" = "Вино в фокусе";
+"splash_title" = "Вино в фокусе";
+
+/* Tabs */
+"tab_scan" = "Сканер";
+"tab_history" = "История";
+"tab_settings" = "Настройки";
+
+/* Common */
+"disclaimer" = "Сканер может ошибаться — сверяйте название и год на карточке.";
+"common_cancel" = "Отмена";
+"common_got_it" = "Понятно";
+"common_close" = "Закрыть";
+"common_back" = "Назад";
+"common_retry" = "Повторить";
+
+/* Onboarding */
+"onboarding_next" = "Далее";
+"onboarding_skip" = "Пропустить";
+
+/* Scan tab */
+"scan_pick_photo" = "Выбрать фото";
+"scan_recent_title" = "Недавние сканы";
+"scan_recent_all" = "Все";
+"scan_hint" = "Наведите на этикетку";
+"scan_shutter" = "Снять";
+"scan_flash" = "Вспышка";
+"scan_no_camera_title" = "Нет доступа к камере";
+"scan_no_camera_body" = "Разрешите камеру в Настройках, чтобы снимать этикетки. А пока можно выбрать готовое фото.";
+"scan_no_camera_ask_body" = "Разрешите доступ к камере, чтобы снимать этикетки. А пока можно выбрать готовое фото.";
+"scan_open_settings" = "Открыть Настройки";
+"scan_camera_unavailable_title" = "На этом устройстве нет камеры";
+"scan_camera_unavailable_body" = "Выберите фото этикетки из галереи — найдём вино в каталоге так же, как по снимку.";
+"scan_status_checking" = "Подключаемся к сервису…";
+"scan_status_busy" = "Сервис занят";
+"scan_status_busy_queue" = "Сервис занят · перед вами %d";
+"scan_status_blocked" = "Распознавание недоступно";
+"scan_status_offline" = "Нет связи с сервисом";
+"scan_status_queued" = "Снимок в очереди";
+"scan_status_queued_ahead" = "Снимок в очереди · перед вами %d";
+
+/* Service status */
+"status_checking" = "проверяем…";
+"status_ready" = "готов";
+"status_busy" = "занят";
+"status_busy_queue" = "занят · в очереди %d";
+"status_down" = "не отвечает";
+"status_unavailable" = "недоступен";
+"status_no_access" = "нет доступа";
+"status_rate_limited" = "подождите";
+"status_offline" = "нет связи";
+"status_dev" = "разработка";
+"status_ready_detail" = "Сервис распознавания подключён и свободен — можно загружать фото.";
+"status_busy_detail" = "Сервис сейчас распознаёт другое фото. Новое фото подождёт своей очереди.";
+"status_down_detail" = "Сервис распознавания сейчас не отвечает. Попробуйте позже.";
+"status_unavailable_detail" = "Сервис распознавания временно недоступен. Попробуйте позже.";
+"status_no_access_detail" = "Не удалось открыть сессию. Проверьте интернет и попробуйте позже.";
+"status_rate_limited_detail" = "Подождите несколько секунд и обновите статус.";
+"status_offline_detail" = "Нет связи со сканером. Проверьте интернет.";
+"status_dev_detail" = "Режим разработки интерфейса: распознавание не подключено.";
+"status_auto_refresh" = "Статус обновляется сам.";
+
+/* Result: loading */
+"loading_reading" = "Читаем этикетку…";
+"loading_roi" = "Распознаём выбранную бутылку…";
+"loading_note" = "Обычно несколько секунд.";
+"loading_busy" = "Сервис занят";
+"loading_too_many" = "Слишком много запросов";
+"loading_retry_in" = "Повторим автоматически через %1$d с (попытка %2$d из %3$d).";
+
+/* Result */
+"result_title" = "Результат";
+"result_answer_title" = "Ответ сканера";
+"result_bottle_n" = "Бутылка %d";
+"result_bottle_near_center_tag" = "Бутылка %d · у центра";
+"result_tab_all" = "Все";
+"result_best_match" = "лучшее совпадение";
+"result_alternatives" = "Похожие варианты";
+"result_no_match_for_bottle" = "Для этой бутылки совпадение не найдено.";
+"result_bottle_no_match" = "Бутылка %d: совпадение не найдено";
+"result_no_bottle_advice_auto" = "Снимите этикетку крупнее и ровнее.";
+"result_no_bottle_advice_roi" = "Вернитесь ко всем бутылкам или снимите этикетку крупнее.";
+"result_no_bottle_auto" = "Бутылка с этикеткой не найдена. Снимите этикетку крупнее и ровнее.";
+"result_no_bottle_roi" = "Бутылка с этикеткой не найдена. Вернитесь ко всем бутылкам или снимите этикетку крупнее.";
+"result_open_on_site" = "Открыть на «Своём вине»";
+"result_no_site_url" = "Адрес страницы на «Своём вине» в каталоге не указан";
+"result_reference_missing" = "эталон не показан";
+"result_photo_missing" = "фото не показано";
+"result_your_photo" = "Ваше фото";
+"result_reference" = "Эталон из каталога";
+"result_compare_title" = "Сравните с эталоном";
+"result_your_photo_bottle" = "Ваше фото · бутылка %d";
+"result_reference_of" = "Эталон: %@";
+"result_more" = "Ещё";
+"result_new_scan" = "Новый скан";
+"result_share_json" = "Поделиться полным ответом JSON";
+"result_share_bottle_json" = "Поделиться JSON бутылки %d";
+"result_share_frame_json" = "Поделиться JSON рамки";
+"result_rescan_bottle" = "Распознать только бутылку %d";
+"result_choose_frame" = "Выбрать рамку";
+"result_no_bottle_framed" = "В этой рамке бутылка не найдена. Выберите рамку заново через «Ещё».";
+"frame_hint" = "Обведите бутылку";
+"frame_scan" = "Сканировать";
+"result_tech_details" = "Технические детали";
+"notice_roi_found" = "Распознано по выбранной рамке. Ниже — ответ для этой области.";
+"notice_roi_empty" = "Распознано по выбранной рамке. В рамке не найдена бутылка с этикеткой.";
+"notice_many_bottles" = "Найдено больше одной бутылки — %d. У каждой свой ответ: выберите нужную рамкой на фото или вкладкой ниже.";
+"decision_unknown" = "Не удалось выбрать совпадение";
+"decision_insufficient" = "Недостаточно признаков для ответа";
+"decision_ambiguous" = "На фото несколько бутылок — выберите нужную";
+"decision_no_target" = "Бутылка с этикеткой не найдена";
+
+/* Frame sheet */
+
+/* Scan errors */
+"scan_error_title_default" = "Не получилось";
+"scan_error_retry" = "Повторить";
+"scan_error_no_access" = "Нет доступа";
+"scan_error_too_large" = "Слишком большое изображение";
+"scan_error_format" = "Формат не поддерживается";
+"scan_error_unprocessed" = "Изображение не обработано";
+"scan_error_too_many" = "Слишком много запросов";
+"scan_error_service" = "Ошибка сервиса";
+"scan_error_busy" = "Сервис занят или недоступен";
+"scan_error_timeout" = "Время ожидания истекло";
+"scan_error_no_response" = "Нет ответа";
+"scan_error_photo_open" = "Не удалось открыть фото";
+"scan_error_text_no_access" = "Не удалось открыть сессию. Проверьте интернет и повторите.";
+"scan_error_text_too_large" = "Файл больше 20 МБ или 24 Мп. Снимите фото заново.";
+"scan_error_text_format" = "Нужен JPEG, PNG или WebP.";
+"scan_error_text_unprocessed" = "Сервис не смог обработать изображение. Попробуйте другое фото.";
+"scan_error_text_bad_roi" = "Рамка не попала в изображение. Обведите бутылку заново.";
+"scan_error_text_too_many" = "Подождите несколько секунд и повторите.";
+"scan_error_text_service" = "Сервис распознавания ответил ошибкой. Повторите позже.";
+"scan_error_text_busy" = "Сервис занят другими фото, повторите чуть позже.";
+"scan_error_text_timeout" = "Время ожидания истекло. Повторите запрос.";
+"scan_error_text_offline" = "Нет связи с сервисом. Проверьте интернет и повторите.";
+"scan_error_text_default" = "Повторите попытку.";
+"scan_error_text_photo_open" = "Выберите другое фото.";
+
+/* Tech details */
+"tech_decision" = "решение";
+"tech_primary_basis" = "основание цели";
+"tech_mode" = "режим";
+"tech_raw_slug" = "raw.slug";
+"tech_best_candidate" = "best_candidate";
+"tech_card_slug" = "slug карточки";
+"tech_page_url" = "адрес страницы";
+"tech_page_source" = "источник адреса";
+"tech_snapshot" = "снимок сайта";
+"tech_snapshot_yes" = "есть в снимках сайта 17–21.09";
+"tech_snapshot_no" = "не было в снимках сайта 17–21.09";
+"tech_roi" = "рамка запроса";
+"tech_bottles" = "бутылок";
+"tech_frame" = "кадр (EXIF)";
+"tech_file" = "файл";
+"tech_file_value" = "%1$@ · %2$lld байт";
+"tech_probability" = "вероятность";
+"tech_probability_value" = "не рассчитывается (без калибровки)";
+"tech_backend_time" = "время сервиса";
+"tech_seconds" = "%@ с";
+"tech_profile" = "профиль ответа";
+"tech_reasons" = "причины";
+"tech_none" = "—";
+
+/* History */
+"history_title" = "История";
+"history_empty_title" = "Пока ничего не отсканировано";
+"history_empty_body" = "Сфотографируйте этикетку — результат появится здесь.";
+"history_empty_action" = "Сканировать";
+"history_clear" = "Очистить историю";
+"history_clear_confirm_title" = "Очистить историю?";
+"history_clear_confirm_body" = "Все сканы и их фото будут удалены с этого телефона.";
+"history_clear_confirm" = "Очистить";
+"history_delete" = "Удалить";
+"history_deleted" = "Скан удалён";
+"history_cleared" = "История очищена";
+"history_delete_failed" = "Не удалось удалить скан";
+"history_clear_failed" = "Не удалось очистить историю";
+"history_no_match" = "Совпадение не найдено";
+"history_today" = "Сегодня";
+"history_yesterday" = "Вчера";
+
+/* Settings */
+"settings_title" = "Настройки";
+"settings_appearance" = "Оформление";
+"settings_theme" = "Тема";
+"theme_system" = "Как в системе";
+"theme_light" = "Светлая";
+"theme_dark" = "Тёмная";
+"settings_language" = "Язык";
+"language_russian" = "Русский";
+"language_english" = "English";
+"settings_help" = "Помощь";
+"settings_show_onboarding" = "Показать вводный экран";
+"settings_about" = "О сканере";
+"settings_about_body" = "Сканер ищет вино в каталоге «Своё вино» по фотографии этикетки. Уверенность не рассчитывается: сверяйте название и год на карточке. Фото отправляются в сервис распознавания и хранятся только на этом телефоне.";
+"settings_open_site" = "Открыть «Своё вино»";
+"settings_data" = "Данные";
+"settings_service" = "Сервис распознавания";
+"settings_version" = "Версия %1$@ (%2$@)";
+"settings_alcohol_warning" = "Чрезмерное употребление алкоголя вредит вашему здоровью";
+"settings_age_limit" = "18+";
+
+/* Errors */
+"error_network" = "Нет соединения с интернетом";
+"error_timeout" = "Время ожидания истекло";
+"error_unauthorized" = "Не удалось открыть сессию";
+"error_server" = "Сервис недоступен, попробуйте позже";
+"error_unknown" = "Что-то пошло не так";
+"action_retry" = "Повторить";
+
+/* Compare, pairing, reveal */
+"common_no_data" = "Нет данных";
+"common_open_catalogue" = "Открыть на «Своё Вино»";
+"compare_title" = "Сравнение";
+"compare_segment_diff" = "Различия";
+"compare_segment_all" = "Всё";
+"compare_attr_color" = "Цвет";
+"compare_attr_sugar" = "Сахар";
+"compare_attr_grapes" = "Сорта";
+"compare_attr_region" = "Регион";
+"compare_attr_pairings" = "Гастросочетания";
+"compare_attr_temperature" = "Подача";
+"compare_remove" = "Убрать из сравнения";
+"compare_empty_title" = "Пока нечего сравнивать";
+"compare_empty_body" = "Нажмите «+», чтобы добавить до трёх вин из истории или нового скана.";
+"compare_need_second" = "Добавьте второе вино через «+», чтобы сравнить.";
+"compare_footer" = "Данные — из карточек «Своё Вино». Без гастросочетаний в карточке показываем «Нет данных».";
+"compare_remove_failed" = "Не удалось убрать вино из сравнения";
+"pairing_title" = "Подбор к блюду";
+"pairing_heading" = "Выберите блюдо";
+"pairing_caption" = "Сочетания из каталога «Своё Вино»";
+"pairing_change_dish" = "Изменить блюдо";
+"pairing_not_listed" = "Сочетание не указано";
+"pairing_listed_header" = "Сочетание указано";
+"pairing_no_dishes_title" = "В каталоге пока нет гастросочетаний для этих вин. Укажите своё блюдо ниже — помощник сравнит вина под него.";
+"pairing_add_wine" = "Добавить ещё вино";
+"pairing_count_of" = "%1$d из %2$d";
+"pairing_explanation" = "Указано сочетание «%@»";
+"pairing_no_data_header" = "Нет данных";
+"pairing_no_data_row" = "Гастросочетания не указаны";
+"pairing_no_matches_body" = "В каталоге это сочетание не указано. Это не означает, что вино не подходит.";
+"pairing_save" = "Сохранить сочетание";
+"pairing_saved" = "Выбор сохранён";
+"pairing_toast_saved" = "Выбор сохранён";
+"pairing_toast_save_failed" = "Не удалось сохранить выбор";
+"result_add_to_compare" = "Добавить к сравнению";
+"result_remove_from_compare" = "Убрать из сравнения";
+"result_pair_dish" = "Подобрать к блюду";
+"result_about" = "О вине";
+"result_gastronomy" = "Гастросочетания";
+"result_by_card" = "По карточке «Своё Вино»";
+"result_compare_wines" = "Сравнить вина";
+"result_expand_compare" = "Сравнить с эталоном";
+"loading_recognizing" = "Распознаём этикетку…";
+"notice_compare_added" = "Вино добавлено к сравнению";
+"notice_compare_already" = "Это вино уже в сравнении";
+"notice_compare_full" = "В сравнении нет места: уберите одно из вин";
+"notice_compare_failed" = "Не удалось добавить вино к сравнению";
+"notice_compare_removed" = "Убрано из сравнения";
+"notice_compare_remove_failed" = "Не удалось убрать из сравнения";
+"reveal_mine" = "Моё фото";
+"reveal_both" = "Обе";
+"reveal_reference" = "Эталон";
+"reveal_hint" = "Тяните линию или сведите пальцы, чтобы приблизить";
+"reveal_handle" = "Граница между фото и эталоном";
+"history_saved_pairings" = "Сохранённые выборы";
+"history_in_compare" = "В сравнении";
+"history_menu" = "Ещё";
+"history_toast_pairing_deleted" = "Выбор удалён";
+"history_toast_pairing_delete_failed" = "Не удалось удалить выбор";
+"history_toast_favorite_added" = "Сохранено в мои вина";
+"history_toast_favorite_removed" = "Убрано из моих вин";
+"history_toast_favorite_failed" = "Не удалось обновить мои вина";
+"history_remove_from_compare_hint" = "Нажмите ещё раз, чтобы убрать из сравнения";
+"compare_no_differences" = "Все характеристики совпадают";
+"tab_compare" = "Сравнение";
+"compare_pick_history" = "Выбрать из истории";
+"compare_scan" = "Сканировать";
+"compare_new_scan" = "Новый скан";
+"compare_add_wine" = "Добавить вино";
+"compare_toast_added" = "Добавлено к сравнению";
+"compare_toast_already" = "Уже в сравнении";
+"compare_toast_full" = "В сравнении уже три вина";
+"compare_toast_add_failed" = "Не удалось добавить к сравнению";
+"picker_title" = "Выбрать из истории";
+"picker_empty" = "В истории нет распознанных вин";
+"assistant_title" = "Помощник";
+"assistant_menu" = "Меню помощника";
+"assistant_drawer_title" = "Винный помощник";
+"assistant_drawer_close" = "Закрыть меню";
+"assistant_drawer_current" = "Текущий разговор";
+"assistant_drawer_store_selected" = "Выбранный магазин";
+"assistant_drawer_conversations_empty" = "Разговоров пока нет. Начните новый — он появится здесь.";
+"assistant_drawer_wines_empty" = "Вина, сохранённые нажатием на сердце, появятся здесь.";
+"assistant_drawer_stores_empty" = "Сейчас нет доступных магазинов.";
+"assistant_new_conversation" = "Новый разговор";
+"assistant_conversations" = "Разговоры";
+"assistant_saved_wines" = "Мои вина";
+"assistant_stores" = "Магазины";
+"assistant_nearby_store_title" = "Магазин поблизости";
+"assistant_nearby_store_body" = "Проверьте адрес и подтвердите выбор.";
+"assistant_nearby_store_choose" = "Выбрать магазин";
+"assistant_starter_dinner" = "Что приготовить?";
+"assistant_starter_dinner_prompt" = "Что приготовить к вину?";
+"assistant_empty_title" = "От бутылки\nк ужину";
+"assistant_empty_body" = "Узнайте вино по фото или придумайте, что приготовить к нему.";
+"assistant_add_photo" = "Добавить фото";
+"assistant_preparing_photos" = "Добавляем фото…";
+"assistant_view_photo" = "Открыть фото";
+"assistant_photo" = "Фото";
+"assistant_previous_photo" = "Предыдущее фото";
+"assistant_next_photo" = "Следующее фото";
+"assistant_remove_photo" = "Убрать фото";
+"assistant_draft_hint" = "Спросите о вине…";
+"assistant_send" = "Отправить";
+"assistant_speech_start" = "Продиктовать сообщение";
+"assistant_speech_stop" = "Остановить диктовку";
+"assistant_speech_cancel" = "Отмена";
+"assistant_speech_authorizing" = "Проверяем доступ к диктовке…";
+"assistant_speech_recording" = "Слушаем только на устройстве…";
+"assistant_speech_finishing" = "Завершаем диктовку…";
+"assistant_speech_permission_denied" = "Распознавание речи выключено. Разрешите его в настройках.";
+"assistant_microphone_permission_denied" = "Доступ к микрофону выключен. Разрешите его в настройках.";
+"assistant_speech_on_device_unavailable" = "Диктовка на устройстве недоступна для этого языка. Напишите сообщение.";
+"assistant_speech_unavailable" = "Диктовка сейчас недоступна. Напишите сообщение.";
+"assistant_speech_recording_failed" = "Не удалось включить микрофон. Повторите попытку.";
+"assistant_speech_recognition_failed" = "Не удалось распознать речь. Повторите попытку.";
+"assistant_selected_wine" = "Выбрано";
+"assistant_context_wine_a11y" = "Выбранное вино: %@";
+"assistant_wine_uncertain" = "Похоже на это вино · проверьте этикетку";
+"assistant_wine_found" = "Найденное вино";
+"assistant_favorite" = "Сохранить в мои вина";
+"assistant_remove_favorite" = "Убрать из моих вин";
+"assistant_pairs_with" = "По карточке подходит к";
+"assistant_select_wine" = "Выбрать для ужина";
+"assistant_selected_for_dinner" = "Выбрано для ужина";
+"assistant_open_catalogue" = "Открыть карточку вина";
+"assistant_choose_dinner" = "Выбрать этот ужин";
+"assistant_dinner_selected" = "Выбрано";
+"assistant_dinner_products" = "Что входит";
+"assistant_recipe_quantity_format" = "Для рецепта: %@";
+"assistant_packages_count_format" = "×%d уп";
+"assistant_minutes_format" = "%d мин";
+"assistant_unit_price_format" = "Цена упаковки: %@";
+"assistant_open_product" = "Карточка товара";
+"assistant_replace_product" = "Заменить";
+"assistant_choose_replacement" = "Выбрать замену";
+"assistant_replacement_candidates" = "Варианты замены";
+"assistant_products_source_live" = "По данным магазина";
+"assistant_products_source_session" = "Из текущего разговора";
+"assistant_products_source_snapshot" = "По сохранённым данным";
+"assistant_products_checked_at" = "Проверено %@";
+"assistant_products_total" = "Итого за продукты";
+"assistant_products_empty" = "Пока ничего не найдено в этом магазине.";
+"assistant_retry" = "Повторить";
+"assistant_phase_recognizing" = "Ищем вино по фото…";
+"assistant_phase_thinking" = "Готовим ответ…";
+"assistant_phase_searching" = "Ищем продукты…";
+"assistant_phase_replacing" = "Ищем замену…";
+"assistant_phase_selecting_dinner" = "Сохраняем выбранный ужин…";
+"assistant_use_location" = "Определить местоположение";
+"assistant_enter_address" = "Ввести адрес";
+"assistant_location_denied" = "Доступ к местоположению закрыт. Введите адрес вручную.";
+"assistant_location_failed" = "Не удалось определить адрес. Введите его вручную.";
+"assistant_error_scan_failed" = "Не удалось распознать фото. Повторите попытку.";
+"assistant_error_wine_unknown" = "Вино на фото не найдено. Если это вино, снимите этикетку крупнее.";
+"assistant_error_service_unavailable" = "Помощник сейчас недоступен. Сообщение осталось в разговоре.";
+"assistant_error_session_open_failed" = "Не удалось открыть разговор. Попробуйте ещё раз.";
+"assistant_error_store_unavailable" = "Не удалось получить данные магазина. Попробуйте ещё раз.";
+"assistant_error_retail_search_failed" = "Не удалось найти продукты. Повторите поиск.";
+"assistant_error_replacement_unavailable" = "Не удалось подобрать замену. Попробуйте другой продукт или повторите поиск.";
+"assistant_error_dinner_selection_unavailable" = "Не удалось выбрать ужин. Попробуйте ещё раз.";
+"assistant_error_dinner_selection_stale" = "Варианты ужина устарели. Попросите подобрать новые.";
+"assistant_error_generic" = "Не удалось выполнить действие. Попробуйте ещё раз.";
+
+"assistant_account" = "Аккаунт";
+"assistant_legacy_history" = "Локальная история до входа. Она сохранена отдельно.";
+"assistant_guest_account" = "Гостевой аккаунт";
+"assistant_username" = "Имя пользователя";
+"assistant_password" = "Пароль";
+"assistant_register" = "Создать аккаунт";
+"assistant_login" = "Войти";
+"assistant_continue_guest" = "Продолжить как гость";
+"assistant_logout" = "Выйти";
+"assistant_account_failed" = "Не удалось войти. Проверьте данные и подключение.";
+"assistant_location_card" = "Где будем покупать?";
+"assistant_locate_me" = "Определить моё место";
+"assistant_store_address" = "Город, улица или магазин";
+"assistant_find_store" = "Найти магазин";
+"assistant_store_confirmed" = "Выбранный магазин";
+"assistant_choose_store" = "Подтвердите магазин";
+"assistant_no_store" = "Подходящих магазинов нет. Уточните город и адрес.";
+"assistant_store_distance" = "Примерно %d м от вас";
+"assistant_confirm_store" = "Выбрать этот магазин";
+"assistant_store_verified" = "Каталог магазина проверен на устройстве";
+"assistant_store_not_checked" = "Выбор сохранён. Доступ к каталогу ещё не проверен.";
+"assistant_change_store" = "Выбрать другой";
+"assistant_account_expired" = "Сессия истекла. Войдите снова. Гостевой вход создаст отдельную новую историю.";
+"assistant_store_context_changed" = "Магазин в диалоге изменился. Выберите его снова и повторите вопрос.";
+"assistant_store_address_title" = "По введённому адресу";
+"assistant_product_unknown_total" = "Сумма покупки не определена";
+"assistant_product_unknown_quantity" = "Количество покупки нужно уточнить в магазине";
+"assistant_product_purchase_lot" = "%d × %@ %@";
+"assistant_product_purchase_lot_single" = "%@ %@";
+"assistant_product_price_piece" = "%@ / шт";
+"assistant_product_price_kg" = "%@ / кг";
+"assistant_product_price_unknown_basis" = "%@ · единица цены не подтверждена";
+"assistant_error_retail_access" = "Магазин просит подтвердить доступ. Откройте Перекрёсток, пройдите проверку вручную, затем повторите запрос.";
+"assistant_retry_after_access" = "Повторить после проверки";
+
+"compare_description" = "Описание";
+
+"compare_show_description" = "Подробнее";
+
+"compare_hide_description" = "Свернуть";
+
+"compare_plan_dinner" = "Подобрать ужин";
+
+"compare_plan_dinner_prompt" = "Сравни эти вина и подбери ужин на двоих.";
+
+"compare_for_dish" = "Сравнить к блюду";
+
+"compare_attr_alcohol" = "Крепость";
+
+"assistant_availability_many" = "В каталоге";
+
+"assistant_availability_few" = "Мало";
+
+"assistant_availability_none" = "Нет в каталоге";
+
+"assistant_availability_unknown" = "Наличие неизвестно";
+
+"assistant_v3_from_comparison" = "Из сравнения";
+
+"assistant_v3_wine_details" = "О вине";
+
+"assistant_ios_select_dinner" = "Выбрать";
+"assistant_ios_wine_dinner" = "К ужину";
+"assistant_ios_compare" = "Сравнить";
+"assistant_ios_tab_title" = "Помощник";
+"retail_device_title" = "Перекрёсток";
+"retail_device_enabled" = "Подключение магазина";
+"retail_device_open" = "Открыть Перекрёсток";
+"retail_device_privacy" = "Цены и наличие обновляются, пока приложение открыто. Вход в магазин хранится только на этом iPhone.";
+"retail_device_simulator" = "На симуляторе подключение к магазину выключено. Текущий режим данных помощника не меняется.";
+"retail_device_disabled" = "Магазин отключён";
+"retail_device_connect" = "Подключить";
+"retail_device_retry" = "Повторить загрузку сайта";
+"retail_device_not_opened" = "Откройте сайт для подключения магазина.";
+"retail_device_loading" = "Загружаем магазин…";
+"retail_device_ready" = "Сессия готова. Вернитесь в чат и повторите запрос.";
+"retail_device_attention" = "Проверьте страницу магазина. Если нужна капча или вход, пройдите их здесь. Затем вернитесь в чат и нажмите «Повторить».";
+
+"pairing_wines_title" = "Ваши вина";
+
+"pairing_intro" = "Покажем сочетания для этих вин по данным каталога";
+
+"pairing_no_wines" = "Добавьте вино, чтобы выбрать к нему блюдо";
+
+"assistant_start_wine" = "Узнать вино";
+
+"assistant_start_wine_detail" = "Добавьте фото этикетки";
+
+"assistant_start_dinner" = "Придумать ужин";
+
+"assistant_start_dinner_detail" = "С учётом вина и ваших пожеланий";
+
+"pairing_other" = "Другое блюдо";
+
+"pairing_other_hint" = "Укажите, что хотите приготовить";
+
+"pairing_other_placeholder" = "Например, паста с грибами";
+
+"pairing_other_continue" = "Подобрать в помощнике";
+
+"pairing_other_draft_hint" = "Вина и черновик вопроса перейдут в новый разговор.";
+
+"pairing_other_prompt" = "Сравни эти вина к блюду: %@. Объясни выбор.";
+
+"onboarding_story_scan_title" = "Узнайте вино";
+
+"onboarding_story_scan_body" = "Снимите этикетку или выберите фото. Сверьте название, производителя и год с эталоном из каталога «Своё Вино».";
+
+"onboarding_story_scan_hint" = "Фото этикетки → карточка вина";
+
+"onboarding_story_compare_title" = "Сравните перед выбором";
+
+"onboarding_story_compare_body" = "Добавьте до трёх вин. Сравните характеристики и сочетания с блюдами — без догадок вместо отсутствующих данных.";
+
+"onboarding_story_dinner_title" = "От вина — к ужину";
+
+"onboarding_story_dinner_body" = "Напишите, что хотите приготовить. Помощник предложит ужин, а после выбора магазина — продукты и замены.";
+
+"onboarding_story_example" = "Пример";
+
+"onboarding_story_first_wine" = "Первое вино";
+
+"onboarding_story_second_wine" = "Второе вино";
+
+"onboarding_story_first_details" = "Цвет · сорт · регион";
+
+"onboarding_story_second_details" = "Подача · гастропары";
+
+"onboarding_story_compare_hint" = "Ваши вина рядом. Разница — на виду.";
+
+"onboarding_story_dinner_question" = "Хочу пасту с грибами на двоих";
+
+"onboarding_story_dinner_option" = "Варианты ужина к вашему вину";
+
+"onboarding_story_dinner_time" = "С учётом времени и бюджета";
+
+"onboarding_story_dinner_products" = "Продукты и замены в выбранном магазине";
+
+"onboarding_progress" = "%d из %d";
+
+"onboarding_open_assistant" = "Открыть помощника";
+
+"wine_title" = "Вино";
+"wine_compare_with_photo" = "Сравнить с моим фото";
+
+/* Gastronomy facts */
+"gastro_color_red" = "Красное";
+"gastro_color_white" = "Белое";
+"gastro_color_rose" = "Розовое";
+"gastro_color_orange" = "Оранжевое";
+"gastro_sparkling" = "Игристое";
+"gastro_color_with_sparkling" = "%@, игристое";
+"gastro_sugar_dry" = "Сухое";
+"gastro_sugar_semi_dry" = "Полусухое";
+"gastro_sugar_semi_sweet" = "Полусладкое";
+"gastro_sugar_sweet" = "Сладкое";
+"gastro_sugar_brut" = "Брют";
+"gastro_sugar_extra_brut" = "Экстра брют";
+"gastro_sugar_brut_nature" = "Брют натюр";
+"gastro_temperature_range" = "%1$d–%2$d\U00A0°C";
+"gastro_temperature_single" = "%d\U00A0°C";
+"gastro_none_listed" = "В карточке сочетаний нет";
+"gastro_loading" = "Загружаем данные карточки";
+"pairing_loading_dishes" = "Загружаем сочетания…";
+
+/* iOS connected onboarding illustration */
+"intro_scan_title" = "Узнайте своё вино";
+"intro_scan_body" = "Снимите этикетку. Сверьте найденное вино с фото и данными каталога.";
+"intro_compare_title" = "Два вина. Видна разница.";
+"intro_compare_body" = "Поставьте вина рядом и сравните сорт, вкус и сочетания с блюдами.";
+"intro_dinner_title" = "Ужин к вашему вину";
+"intro_dinner_body" = "Вино остаётся в разговоре. Помощник уточнит детали и предложит блюдо.";
+"intro_demo" = "Как это работает · пример";
+"intro_scanning" = "Читаем этикетку";
+"intro_found" = "Карточка из каталога";
+"intro_sauvignon" = "Совиньон Блан";
+"intro_malbec" = "Мальбек";
+"intro_region" = "Gunko Winery · Кубань";
+"intro_white" = "Белое";
+"intro_red" = "Красное";
+"intro_colour" = "Цвет";
+"intro_notes" = "Во вкусе";
+"intro_citrus" = "Цитрусовые";
+"intro_cherry" = "Вишня";
+"intro_dinner_question" = "Хочу пасту с грибами на двоих";
+"intro_dinner_time_question" = "Сколько у вас времени?";
+"intro_dinner_time_answer" = "20 минут";
+"intro_dish_meta" = "На двоих · 20 мин";
+"intro_find_ingredients" = "К продуктам";
+"intro_selected" = "Вино для ужина";
+"intro_access_scan" = "Пример: фото Совиньон Блан Gunko Winery переходит в карточку каталога.";
+"intro_access_compare" = "Пример сравнения: Совиньон Блан — белое, цитрусовые. Мальбек — красное, вишня. Оба вина Gunko Winery, Кубань.";
+"intro_access_dinner" = "Пример: Совиньон Блан остаётся в разговоре. Пользователь просит пасту с грибами на двоих. Помощник спрашивает, сколько есть времени, ответ — 20 минут. Появляется иллюстрация блюда и следующий шаг — найти продукты.";
+"intro_pasta" = "Паста с грибами";
+
+"assistant_wine_dinner_prompt" = "Подбери ужин к этому вину. Предложи подходящее направление и уточни только то, чего ещё не знаешь.";
+"assistant_compare_source_unavailable" = "Карточка вина недоступна. Откройте результат ещё раз.";
+"assistant_photo_limit" = "Можно прикрепить не больше 10 фото. Остальные фото не добавлены.";
+
+"gastro_unavailable" = "Не загружено";
+"gastro_load_failed" = "Данные вина не загрузились";
+"wine_description" = "Описание";
+
+"wine_check_photo_short" = "Сверить фото";
+
+"wine_add_compare_short" = "В сравнение";
+
+"wine_remove_compare_short" = "Убрать";
+
+"pairing_other_continue_short" = "Продолжить";
+
+// Scanner backend — APP-04
+"settings_scanner_backend" = "Распознавание";
+"scanner_backend_server" = "Через сервер";
+"scanner_backend_local" = "На устройстве";
+"scanner_backend_local_note" = "Сканер обрабатывает фото на устройстве.";
+"scanner_backend_server_note" = "Сканер отправляет фото на сервер для распознавания.";
+
+// In-flight local detection previews.
+"scan_preview_bottle" = "Бутылка";
+"scan_preview_label" = "Этикетка";
+"scan_preview_region" = "Область %1$d";
+"scan_preview_photo" = "Фото с рамками бутылок и этикеток";
+"scan_preview_finding_label" = "Ищем этикетку…";
+"scan_preview_checking" = "Проверяем найденные области…";
+"scan_preview_recognizing" = "Распознаём вино…";
+"scan_preview_searching" = "Ищем…";
+"scan_preview_loading" = "Загружаем…";
+
+"local_model_preparing" = "Готовим загрузку";
+"local_model_downloading" = "Загружаем модели";
+"local_model_verifying" = "Проверяем пакет";
+"local_model_installing" = "Устанавливаем модели";
+"local_model_cancel" = "Отменить загрузку";
+"local_model_download" = "Скачать локальные модели";
+"local_model_ready" = "Локальные модели установлены";
+"local_model_no_space" = "Недостаточно места. Освободите место и повторите загрузку.";
+"local_model_download_error" = "Не удалось загрузить пакет. Проверьте соединение и повторите.";
+"local_model_required" = "Локальные модели ещё не загружены";
+"local_model_required_note" = "Для распознавания на устройстве скачайте модели. Выбор режима сохраняется.";

@@ -1,0 +1,59 @@
+{
+  "figma_url": "https://www.figma.com/design/o89XJ8gwRpBwb3rmg3OTyZ?node-id=431-7699",
+  "selected_section": "Иконки v3",
+  "source_sha256": "322e71b4e4fda020e477e66313bbf6f8505e9f7253f4df63aae6b1599e1ecbf2",
+  "component_count": 38,
+  "grid": 24,
+  "layout": {
+    "columns": 19,
+    "origin": [
+      32,
+      32
+    ],
+    "step": [
+      48,
+      48
+    ]
+  },
+  "mapping": {
+    "home": "Home",
+    "history": "History",
+    "heart": "Favorite",
+    "profile": "Account",
+    "scan": "Camera",
+    "search": "Search",
+    "pin": "Location",
+    "flash": "Flash",
+    "filter": "Filter",
+    "back": "Back",
+    "close": "Close",
+    "arrow-out": "External",
+    "plus": "Add",
+    "minus": "Remove",
+    "star": "Star",
+    "glass": "Wine",
+    "grape": "Grape",
+    "bottle": "Bottle",
+    "assistant": "Chat",
+    "compare": "Compare",
+    "menu": "Menu",
+    "compose": "NewChat",
+    "mic": "Mic",
+    "send": "Send",
+    "check": "Check",
+    "chevron-right": "ChevronRight",
+    "chevron-down": "ChevronDown",
+    "chevron-up": "ChevronUp",
+    "photo": "Photos",
+    "flash-off": "FlashOff",
+    "fork-knife": "Dinner",
+    "bag": "Store",
+    "gear": "Settings",
+    "chevron-left": "ChevronLeft",
+    "arrow-up": "ArrowUp",
+    "expand": "Expand",
+    "more": "More",
+    "plus-circle": "PlusCircle"
+  },
+  "not_redrawn": true
+}

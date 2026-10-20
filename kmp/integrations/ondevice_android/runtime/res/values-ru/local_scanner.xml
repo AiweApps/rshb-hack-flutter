@@ -1,0 +1,8 @@
+<resources>
+    <string name="local_scanner_title">Распознавание вина</string>
+    <string name="local_scanner_server">На сервере</string>
+    <string name="local_scanner_device">На этом устройстве</string>
+    <string name="local_scanner_ready">Локальные модели готовы. Распознавание работает без сети.</string>
+    <string name="local_scanner_preparing">Подготовка локального распознавания…</string>
+    <string name="local_scanner_missing">Локальные модели пока не установлены.</string>
+</resources>

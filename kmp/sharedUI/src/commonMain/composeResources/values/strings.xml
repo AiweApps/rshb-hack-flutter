@@ -1,0 +1,8 @@
+<resources>
+    <string name="error_network">Нет соединения с интернетом</string>
+    <string name="error_timeout">Время ожидания истекло</string>
+    <string name="error_unauthorized">Не удалось открыть сессию</string>
+    <string name="error_server">Сервис недоступен, попробуйте позже</string>
+    <string name="error_unknown">Что-то пошло не так</string>
+    <string name="action_retry">Повторить</string>
+</resources>

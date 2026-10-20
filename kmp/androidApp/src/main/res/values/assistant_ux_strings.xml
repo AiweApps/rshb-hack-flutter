@@ -1,0 +1,19 @@
+<resources>
+    <string name="assistant_ux_welcome_title">Хорошее вино.\nОтличный вечер.</string>
+    <string name="assistant_ux_welcome_body">Покажите бутылку — найдём вино и подберём ужин к нему.</string>
+    <string name="assistant_ux_photo_title">Узнать вино по фото</string>
+    <string name="assistant_ux_photo_detail">Одна бутылка или несколько на полке</string>
+    <string name="assistant_ux_dinner_title">Придумать ужин</string>
+    <string name="assistant_ux_dinner_detail">Блюдо, продукты и ваш бюджет</string>
+    <string name="assistant_ux_store_title">Что есть рядом?</string>
+    <string name="assistant_ux_store_detail">Найти магазин и посмотреть продукты</string>
+    <string name="assistant_ux_show_products">Все товары · %1$d</string>
+    <string name="assistant_ux_less">Свернуть</string>
+    <string name="assistant_ux_product_details">Подробнее о покупке</string>
+    <string name="assistant_ux_show_wines">Ещё вина · %1$d</string>
+    <string name="assistant_ux_catalog_title">Товары из магазина</string>
+    <string name="assistant_ux_scan_title">Что за вино?</string>
+    <string name="assistant_ux_scan_eyebrow">ВАШ ВИННЫЙ ПОМОЩНИК</string>
+    <string name="assistant_ux_dinner_details">Почему подойдёт</string>
+    <string name="assistant_ux_ready">Выбрано</string>
+</resources>

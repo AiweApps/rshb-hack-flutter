@@ -1,0 +1,89 @@
+# detekt configuration for WineScan.
+#
+# Used with --build-upon-default-config, so this file only lists deviations from
+# detekt's defaults. Everything not mentioned here keeps its default behaviour.
+#
+# Run over the whole project:
+#   detekt --build-upon-default-config --config detekt.yml --input .
+#
+# The /kotlin-lint PostToolUse hook runs the same config on individual files.
+
+build:
+  maxIssues: 0
+
+complexity:
+  # Compose and SwiftUI-style declarative UI is legitimately long: a screen is one
+  # function describing a tree. Logic-carrying functions stay under the tighter default.
+  LongMethod:
+    threshold: 80
+    ignoreAnnotated: ['Composable']
+  LongParameterList:
+    functionThreshold: 8
+    constructorThreshold: 10
+    ignoreAnnotated: ['Composable']
+  TooManyFunctions:
+    thresholdInFiles: 20
+    thresholdInClasses: 20
+    # A key/value storage interface is a wide-but-flat API by nature.
+    thresholdInInterfaces: 20
+    ignoreAnnotated: ['Composable']
+  # Decompose components legitimately expose several small action methods.
+  CyclomaticComplexMethod:
+    ignoreAnnotated: ['Composable']
+
+naming:
+  # Composables are PascalCase by convention, and Kotlin/Native entry points exported to
+  # Swift (SettingsViewController) mirror Swift's type-like naming.
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
+    excludes: ['**/iosMain/**']
+  # `_state`, `_themeMode` — the project's convention for backing MutableValue/MutableStateFlow.
+  MemberNameEqualsClassName:
+    active: false
+  # KMP platform files are named Platform.android.kt / Platform.ios.kt by convention,
+  # which never matches the actual declaration inside.
+  MatchingDeclarationName:
+    excludes: ['**/androidMain/**', '**/iosMain/**']
+
+style:
+  # dp/sp values and layout weights inside Composables are not magic numbers.
+  MagicNumber:
+    ignoreAnnotated: ['Composable']
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreNamedArgument: true
+    # `200..299`, `400..499` — HTTP status ranges read better inline than as constants.
+    ignoreRanges: true
+    excludes: ['**/commonTest/**', '**/androidHostTest/**', '**/iosTest/**']
+  MaxLineLength:
+    maxLineLength: 120
+    excludes: ['**/test/**', '**/*Test.kt']
+  # expect/actual declarations and Koin modules read fine without explicit returns.
+  ReturnCount:
+    max: 3
+  UnusedPrivateMember:
+    active: true
+  ForbiddenComment:
+    # TODO markers are allowed while the project is a work in progress, but they must
+    # say what is missing — a bare TODO is not a plan.
+    comments:
+      - reason: 'Explain what is missing and who/what unblocks it.'
+        value: 'TODO:'
+    active: false
+
+exceptions:
+  # The storage, transport and interop layers deliberately catch broadly and degrade:
+  # safeApiCall turns any throwable into ApiResponse.Error, and the secure-storage
+  # backends must not crash the caller when a platform key is invalidated. Each such
+  # catch carries a comment explaining why.
+  TooGenericExceptionCaught:
+    excludes: ['**/storage/**', '**/data/**', '**/network/**']
+  SwallowedException:
+    excludes: ['**/storage/**', '**/network/**']
+
+# Generated and build output must never be analysed.
+comments:
+  UndocumentedPublicClass:
+    active: false
+  UndocumentedPublicFunction:
+    active: false

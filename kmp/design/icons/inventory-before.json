@@ -1,0 +1,400 @@
+{
+  "android_files": [
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/assistant/AssistantContent.kt",
+      "symbols": [
+        "Outlined.Menu",
+        "Outlined.PhotoLibrary",
+        "Outlined.Restaurant",
+        "Outlined.Place",
+        "Outlined.ArrowForward",
+        "Outlined.WineBar",
+        "Outlined.Add",
+        "Outlined.Mic",
+        "AutoMirrored.Filled.Send",
+        "Outlined.ChatBubbleOutline",
+        "Outlined.BookmarkBorder",
+        "Outlined.Storefront",
+        "Outlined.AccountCircle"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/settings/SettingsContent.kt",
+      "symbols": [
+        "Outlined.Palette",
+        "Outlined.Language",
+        "Outlined.Cloud",
+        "Outlined.School",
+        "Outlined.Info",
+        "AutoMirrored.Outlined.OpenInNew",
+        "Outlined.DeleteOutline"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/pairing/DishPairingContent.kt",
+      "symbols": [
+        "AutoMirrored.Filled.ArrowBack"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/retail/RetailCloseButton.kt",
+      "symbols": [
+        "Outlined.Close"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/components/ErrorState.kt",
+      "symbols": [
+        "Filled.ErrorOutline"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/components/ComparePill.kt",
+      "symbols": [
+        "Outlined.CompareArrows"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/main/MainContent.kt",
+      "symbols": [
+        "Filled.PhotoCamera",
+        "Outlined.PhotoCamera",
+        "Filled.History",
+        "Outlined.History",
+        "Filled.CompareArrows",
+        "Outlined.CompareArrows",
+        "Filled.Settings",
+        "Outlined.Settings",
+        "Filled.ChatBubble",
+        "Outlined.ChatBubbleOutline"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/onboarding/components/OnboardingPages.kt",
+      "symbols": [
+        "Filled.Check"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/compare/components/CompareBottomActions.kt",
+      "symbols": [
+        "Outlined.History",
+        "Outlined.Restaurant"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/compare/components/HistoryPickerSheet.kt",
+      "symbols": [
+        "Filled.Check"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/compare/components/CompareEntryCard.kt",
+      "symbols": [
+        "Filled.Close",
+        "AutoMirrored.Outlined.OpenInNew"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/compare/components/CompareEmptyCards.kt",
+      "symbols": [
+        "Outlined.History",
+        "Filled.PhotoCamera"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/history/components/HistoryEmpty.kt",
+      "symbols": [
+        "Outlined.History"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/history/components/HistoryMenu.kt",
+      "symbols": [
+        "Filled.MoreVert"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/history/components/SavedPairingCard.kt",
+      "symbols": [
+        "Outlined.Restaurant"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/history/components/HistoryTile.kt",
+      "symbols": [
+        "Filled.Check",
+        "Outlined.CompareArrows"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/history/components/DismissToDelete.kt",
+      "symbols": [
+        "Outlined.Delete"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/scan/result/ScanResultContent.kt",
+      "symbols": [
+        "AutoMirrored.Filled.ArrowBack",
+        "Filled.MoreVert"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/scan/result/components/RevealViewer.kt",
+      "symbols": [
+        "Filled.UnfoldMore"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/scan/result/components/MoreSheet.kt",
+      "symbols": [
+        "Outlined.Share",
+        "Outlined.Share",
+        "Outlined.Info"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/scan/result/components/ComparePanes.kt",
+      "symbols": [
+        "Outlined.OpenInFull"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/scan/result/components/BottleAnswer.kt",
+      "symbols": [
+        "Filled.Close"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/scan/result/components/CompareActions.kt",
+      "symbols": [
+        "Filled.Check",
+        "Filled.Add",
+        "Outlined.Restaurant",
+        "Filled.Check",
+        "Filled.Add"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/scan/result/components/ResultErrorPanel.kt",
+      "symbols": [
+        "Filled.ErrorOutline"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/scan/result/components/WineCardTile.kt",
+      "symbols": [
+        "AutoMirrored.Outlined.OpenInNew"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/scan/result/components/WineHeading.kt",
+      "symbols": [
+        "AutoMirrored.Outlined.OpenInNew"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/scan/home/components/CameraUnavailableView.kt",
+      "symbols": [
+        "Filled.PhotoLibrary"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/scan/home/components/CameraControls.kt",
+      "symbols": [
+        "Filled.PhotoLibrary",
+        "Filled.FlashAuto",
+        "Filled.FlashOff"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/pairing/components/PairingEmptyNotice.kt",
+      "symbols": [
+        "Outlined.Restaurant"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/pairing/components/PairingMatchRow.kt",
+      "symbols": [
+        "Filled.CheckCircle"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/pairing/components/DishChips.kt",
+      "symbols": [
+        "Filled.Check"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/assistant/components/AssistantStoreSheet.kt",
+      "symbols": [
+        "Outlined.LocationOn",
+        "Outlined.LocationOn",
+        "Outlined.Storefront"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/assistant/components/AssistantPhotoViewer.kt",
+      "symbols": [
+        "Outlined.Close"
+      ]
+    },
+    {
+      "path": "androidApp/src/main/kotlin/com/aiweapps/winescan/assistant/components/AssistantMessages.kt",
+      "symbols": [
+        "Outlined.Close",
+        "Outlined.ErrorOutline",
+        "Outlined.CheckCircleOutline",
+        "Outlined.Bookmark",
+        "Outlined.BookmarkBorder",
+        "AutoMirrored.Outlined.OpenInNew",
+        "Outlined.ExpandLess",
+        "Outlined.ExpandMore",
+        "AutoMirrored.Outlined.OpenInNew",
+        "Outlined.ExpandLess",
+        "Outlined.ExpandMore",
+        "Outlined.SwapHoriz",
+        "AutoMirrored.Outlined.OpenInNew"
+      ]
+    }
+  ],
+  "ios_reference_inventory": [
+    {
+      "path": "iosApp/iosApp/assistant/AssistantView.swift",
+      "symbols": [
+        "line.3.horizontal",
+        "square.and.pencil",
+        "exclamationmark.circle",
+        "wineglass",
+        "wineglass",
+        "plus",
+        "arrow.up"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/sharedComponents/WinePhotoView.swift",
+      "symbols": [
+        "photo"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/onboarding/components/OnboardingGetsPage.swift",
+      "symbols": [
+        "checkmark.circle.fill"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/compare/components/HistoryPickerSheetView.swift",
+      "symbols": [
+        "checkmark.circle.fill"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/compare/components/CompareEntryHeader.swift",
+      "symbols": [
+        "xmark"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/history/components/SavedPairingRowView.swift",
+      "symbols": [
+        "fork.knife",
+        "chevron.right"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/scan/result/components/WineCardView.swift",
+      "symbols": [
+        "wineglass",
+        "chevron.right",
+        "arrow.up.right"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/scan/result/components/BottleAnswerView.swift",
+      "symbols": [
+        "lightbulb.fill",
+        "xmark"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/scan/result/components/RevealDivider.swift",
+      "symbols": [
+        "arrow.left.and.right"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/scan/result/components/ResultErrorPanel.swift",
+      "symbols": [
+        "exclamationmark.triangle.fill"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/scan/result/components/ComparePanesView.swift",
+      "symbols": [
+        "arrow.up.left.and.arrow.down.right"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/scan/result/components/BottleFactsView.swift",
+      "symbols": [
+        "fork.knife",
+        "arrow.up.right"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/pairing/components/DishChipsRow.swift",
+      "symbols": [
+        "checkmark"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/pairing/components/PairingMatchRow.swift",
+      "symbols": [
+        "checkmark.circle.fill"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/settings/components/OptionPickerSheet.swift",
+      "symbols": [
+        "checkmark"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/assistant/components/AssistantMessageView.swift",
+      "symbols": [
+        "checkmark.circle",
+        "exclamationmark.circle"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/assistant/components/AssistantAttachmentView.swift",
+      "symbols": [
+        "xmark",
+        "xmark"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/assistant/components/AssistantDrawerView.swift",
+      "symbols": [
+        "xmark",
+        "bubble.left",
+        "checkmark",
+        "checkmark.circle.fill",
+        "wineglass",
+        "wineglass",
+        "basket",
+        "checkmark.circle.fill"
+      ]
+    },
+    {
+      "path": "iosApp/iosApp/assistant/components/AssistantWineCardView.swift",
+      "symbols": [
+        "arrow.up.right",
+        "wineglass"
+      ]
+    }
+  ],
+  "scope": "Replace app-authored functional Android glyphs; OS/browser UI and launcher logo are outside this family. SVG exports are available to iOS; its runtime is not migrated here."
+}

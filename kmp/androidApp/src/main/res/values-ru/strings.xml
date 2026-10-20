@@ -1,0 +1,157 @@
+<resources>
+    <!-- Auth -->
+    <string name="auth_title">С возвращением</string>
+    <string name="auth_subtitle">Войдите, чтобы продолжить</string>
+    <string name="auth_demo_credentials_hint">Это демонстрационный проект. Поля ниже уже заполнены рабочей демо-учётной записью (%1$s / %2$s), чтобы вы могли сразу войти.</string>
+    <string name="auth_username_label">Имя пользователя</string>
+    <string name="auth_password_label">Пароль</string>
+    <string name="auth_password_show">Показать пароль</string>
+    <string name="auth_password_hide">Скрыть пароль</string>
+    <string name="auth_login_button">Войти</string>
+
+    <!-- Common actions -->
+    <string name="action_back">Назад</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_remove">Удалить</string>
+    <string name="action_share">Поделиться</string>
+
+    <!-- Sharing (Android formats the payload; shared code passes data only) -->
+    <string name="share_chooser_title">Поделиться персонажем</string>
+    <string name="share_text_with_url">%1$s — %2$s</string>
+
+    <!-- Favourites -->
+    <string name="favourites_empty">Здесь будут персонажи, которых вы добавите в избранное.</string>
+    <string name="favourite_add">Добавить в избранное</string>
+    <string name="favourite_remove">Удалить из избранного</string>
+    <string name="favourite_remove_confirm_title">Удалить из избранного?</string>
+    <string name="favourite_remove_confirm_message">%1$s больше не будет в избранном.</string>
+
+    <!-- Character detail -->
+    <string name="detail_status">Статус</string>
+    <string name="detail_species">Вид</string>
+    <string name="detail_type">Тип</string>
+    <string name="detail_gender">Пол</string>
+    <string name="detail_origin">Происхождение</string>
+    <string name="detail_location">Локация</string>
+    <string name="detail_episodes">Эпизоды</string>
+    <string name="detail_created">Создан</string>
+
+    <!-- Gender -->
+    <string name="gender_male">Мужской</string>
+    <string name="gender_female">Женский</string>
+    <string name="gender_genderless">Без пола</string>
+    <string name="gender_unknown">Неизвестно</string>
+
+    <!-- Character status -->
+    <string name="status_alive">Жив</string>
+    <string name="status_dead">Мёртв</string>
+    <string name="status_unknown">Неизвестно</string>
+
+    <!-- Tabs -->
+    <string name="tab_home">Главная</string>
+    <string name="tab_favourites">Избранное</string>
+    <string name="tab_settings">Настройки</string>
+    <!-- Wine assistant -->
+    <string name="tab_assistant">Помощник</string>
+    <string name="assistant_title">Винный помощник</string>
+    <string name="assistant_menu">Открыть разговоры</string>
+    <string name="assistant_new_chat">Новый разговор</string>
+    <string name="assistant_conversations">Разговоры</string>
+    <string name="assistant_no_conversations">Разговоров пока нет</string>
+    <string name="assistant_saved_wines">Сохранённые вина</string>
+    <string name="assistant_no_saved_wines">Сохранённых вин пока нет</string>
+    <string name="assistant_welcome_title">От этикетки до ужина</string>
+    <string name="assistant_welcome_body">Покажите бутылку или расскажите, что хочется приготовить. Помощник свяжет вино, блюдо и товары.</string>
+    <string name="assistant_suggestion_dinner">Что приготовить к этому вину?</string>
+    <string name="assistant_action_photo">Добавить фото вина</string>
+    <string name="assistant_action_products">Найти продукты рядом</string>
+    <string name="assistant_input_hint">Вино или ужин?</string>
+    <string name="assistant_add_photos">Добавить фото</string>
+    <string name="assistant_send">Отправить</string>
+    <string name="assistant_remove_photo">Убрать фото</string>
+    <string name="assistant_photo_failed">Не удалось открыть фото</string>
+    <string name="assistant_preparing_photos">Добавляем фото…</string>
+    <string name="assistant_recognizing">Распознаём этикетки…</string>
+    <string name="assistant_thinking">Помощник отвечает…</string>
+    <string name="assistant_store_searching">Проверяем товары…</string>
+    <string name="assistant_replacing">Подбираем замену…</string>
+    <string name="assistant_selecting_dinner">Сохраняем выбранный ужин…</string>
+    <string name="assistant_wine_uncertain">Проверьте совпадение</string>
+    <string name="assistant_wine_selected">Выбрано для разговора</string>
+    <string name="assistant_select_wine">Выбрать вино</string>
+    <string name="assistant_save_wine">Сохранить вино</string>
+    <string name="assistant_unsave_wine">Убрать из сохранённого</string>
+    <string name="assistant_open_card">Открыть карточку</string>
+    <string name="assistant_reference">Эталон</string>
+    <string name="assistant_my_photo">Моё фото</string>
+    <string name="assistant_pairings">К чему подходит</string>
+    <string name="assistant_store_title">Место и магазин</string>
+    <string name="assistant_store_reason">Выберите магазин по адресу или найдите ближайший. Цены и наличие проверяются для выбранного магазина.</string>
+    <string name="assistant_location_action">Определить место</string>
+    <string name="assistant_location_manual">Или введите адрес</string>
+    <string name="assistant_location_save">Сохранить адрес</string>
+    <string name="assistant_location_unavailable">Не удалось определить место. Введите адрес вручную.</string>
+    <string name="assistant_location_gps">По геопозиции</string>
+    <string name="assistant_location_entered">Указано вручную</string>
+    <string name="assistant_store_snapshot">Магазин выбран. Наличие и цены ещё не проверены.</string>
+    <string name="assistant_store_choose">Выберите магазин. Наличие и цены ещё не проверены.</string>
+    <string name="assistant_store_mode">Каталог магазина · наличие для посещения</string>
+    <string name="assistant_store_checked">Проверено: %1$s</string>
+    <string name="assistant_store_suggested">Рядом по геопозиции</string>
+    <string name="assistant_store_nearby_title">Рядом с указанным местом</string>
+    <string name="assistant_store_nearby_choose">Выбрать этот магазин</string>
+    <string name="assistant_store_search_hint">Что найти в магазине</string>
+    <string name="assistant_store_search">Найти товары</string>
+    <string name="assistant_source_live">Товары проверены в магазине</string>
+    <string name="assistant_source_session">Товар из текущей сессии магазина</string>
+    <string name="assistant_source_snapshot">Сохранённый список · цены могли измениться</string>
+    <string name="assistant_snapshot_checked_at">Проверено %1$s</string>
+    <string name="assistant_store_selected">Выбранный магазин</string>
+    <string name="assistant_open_store">Открыть Перекрёсток</string>
+    <string name="assistant_store_session_ready">Сессия магазина готова</string>
+    <string name="assistant_store_session_needed">Откройте магазин для проверки товаров</string>
+    <string name="assistant_store_no_delivery">Покупка и доставка здесь недоступны</string>
+    <string name="assistant_dinner_choose">Выбрать ужин</string>
+    <string name="assistant_dinner_selected">Выбрано</string>
+    <string name="assistant_dinner_minutes">%1$d мин</string>
+    <string name="assistant_product_replace">Заменить</string>
+    <string name="assistant_product_choose_replacement">Выбрать замену</string>
+    <string name="assistant_product_open">Открыть товар</string>
+    <string name="assistant_product_unknown_price">Цена не указана</string>
+    <string name="assistant_no_products">По этому запросу товары не найдены.</string>
+    <string name="assistant_product_quantity">%1$d × %2$s</string>
+    <string name="assistant_product_recipe_quantity">Для рецепта: %1$s</string>
+    <string name="assistant_voice_input">Диктовать сообщение</string>
+    <string name="assistant_voice_prompt">Продиктуйте сообщение</string>
+    <string name="assistant_voice_unavailable">Голосовой ввод недоступен на этом устройстве</string>
+    <string name="assistant_close_photo">Закрыть фото</string>
+    <string name="assistant_photo_position">%1$d из %2$d</string>
+    <string name="assistant_availability_many">В каталоге</string>
+    <string name="assistant_availability_few">Мало</string>
+    <string name="assistant_availability_none">Нет в каталоге</string>
+    <string name="assistant_availability_unknown">Наличие неизвестно</string>
+    <string name="assistant_total">Итого: %1$s</string>
+    <string name="assistant_retry">Повторить</string>
+    <string name="assistant_scan_disclaimer">Сверяйте название и год вина с этикеткой.</string>
+    <string name="assistant_error_scan">Не удалось распознать фото. Его можно отправить ещё раз.</string>
+    <string name="assistant_error_unknown">Вино на фото не найдено. Если это вино, снимите этикетку крупнее.</string>
+    <string name="assistant_error_service">Помощник сейчас недоступен. Сообщение осталось в разговоре.</string>
+    <string name="assistant_error_conversation">Не удалось открыть разговор. Попробуйте ещё раз.</string>
+    <string name="assistant_error_store">Магазин сейчас недоступен. Откройте его и попробуйте снова.</string>
+    <string name="assistant_error_search">Не удалось проверить товары магазина.</string>
+    <string name="assistant_error_replacement">Не удалось подобрать замену. Попробуйте другой продукт или повторите поиск.</string>
+    <string name="assistant_error_dinner_selection">Не удалось выбрать ужин. Попробуйте ещё раз.</string>
+    <string name="assistant_error_dinner_stale">Варианты ужина устарели. Попросите подобрать новые.</string>
+    <string name="assistant_store_address_title">По введённому адресу</string>
+    <string name="assistant_store_address_suggested">Найден по введённому адресу</string>
+    <string name="assistant_product_unknown_total">Сумма покупки не определена</string>
+    <string name="assistant_product_unknown_quantity">Количество покупки нужно уточнить в магазине</string>
+    <string name="assistant_product_purchase_lot">%1$d × %2$s %3$s</string>
+    <string name="assistant_product_price_piece">%1$s / шт</string>
+    <string name="assistant_product_price_kg">%1$s / кг</string>
+    <string name="assistant_product_price_unknown_basis">%1$s · единица цены не подтверждена</string>
+    <string name="assistant_error_retail_access">Магазин просит подтвердить доступ. Откройте Перекрёсток, пройдите проверку вручную, затем повторите запрос.</string>
+    <string name="assistant_retry_after_access">Повторить после проверки</string>
+    <string name="assistant_wine_dinner_prompt">Подбери ужин к этому вину. Предложи подходящее направление и уточни только то, чего ещё не знаешь.</string>
+    <string name="assistant_wine_dinner_action">К ужину</string>
+</resources>

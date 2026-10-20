@@ -1,0 +1,19 @@
+<resources>
+    <string name="assistant_ux_welcome_title">Good wine.\nA great evening.</string>
+    <string name="assistant_ux_welcome_body">Show a bottle. Find your wine and a dinner to go with it.</string>
+    <string name="assistant_ux_photo_title">Identify a wine</string>
+    <string name="assistant_ux_photo_detail">One bottle or several on a shelf</string>
+    <string name="assistant_ux_dinner_title">Plan a dinner</string>
+    <string name="assistant_ux_dinner_detail">A meal, groceries and your budget</string>
+    <string name="assistant_ux_store_title">What is nearby?</string>
+    <string name="assistant_ux_store_detail">Find a store and check its products</string>
+    <string name="assistant_ux_show_products">All products · %1$d</string>
+    <string name="assistant_ux_less">Show less</string>
+    <string name="assistant_ux_product_details">Purchase details</string>
+    <string name="assistant_ux_show_wines">More wines · %1$d</string>
+    <string name="assistant_ux_catalog_title">Products from the store</string>
+    <string name="assistant_ux_scan_title">Which wine is this?</string>
+    <string name="assistant_ux_scan_eyebrow">YOUR WINE ASSISTANT</string>
+    <string name="assistant_ux_dinner_details">Why it works</string>
+    <string name="assistant_ux_ready">Selected</string>
+</resources>

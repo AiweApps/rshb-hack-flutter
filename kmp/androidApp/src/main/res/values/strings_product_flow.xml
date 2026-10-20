@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="product_intro_title">От бутылки\nк ужину</string>
+  <string name="product_intro_body">Узнайте вино по фото. Сравните варианты и соберите ужин с продуктами из вашего магазина.</string>
+  <string name="product_intro_wine_title">Разберитесь в вине</string>
+  <string name="product_intro_wine_body">Этикетка, описание и сочетания с блюдами — в одном разговоре.</string>
+  <string name="product_intro_dinner_title">Решите, что приготовить</string>
+  <string name="product_intro_dinner_body">Расскажите о планах, времени и бюджете. Помощник предложит варианты.</string>
+  <string name="product_intro_start">Открыть помощника</string>
+  <string name="compare_plan_dinner">Подобрать ужин</string>
+  <string name="compare_for_dish">Сравнить к блюду</string>
+  <string name="compare_plan_dinner_prompt">Сравни эти вина и подбери ужин на двоих.</string>
+  <string name="compare_characteristics">Характеристики</string>
+  <string name="compare_description">Описание</string>
+  <string name="compare_show_description">Подробнее</string>
+  <string name="compare_hide_description">Свернуть</string>
+  <string name="compare_attr_alcohol">Крепость</string>
+    <string name="assistant_compare_source_unavailable">Карточка вина недоступна. Откройте результат ещё раз.</string>
+  <string name="gastro_unavailable">Не загружено</string>
+  <string name="gastro_load_failed">Данные вина не загрузились</string>
+  <string name="wine_description">Описание</string>
+</resources>

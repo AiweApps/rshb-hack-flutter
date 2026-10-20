@@ -1,0 +1,8 @@
+<resources>
+    <string name="local_scanner_title">Wine recognition</string>
+    <string name="local_scanner_server">On the server</string>
+    <string name="local_scanner_device">On this device</string>
+    <string name="local_scanner_ready">Local models are ready. Recognition works offline.</string>
+    <string name="local_scanner_preparing">Preparing local recognition…</string>
+    <string name="local_scanner_missing">Local models are not installed.</string>
+</resources>

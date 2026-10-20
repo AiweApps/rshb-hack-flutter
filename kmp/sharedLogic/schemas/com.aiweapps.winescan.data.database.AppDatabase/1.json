@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "e03cfa91193c3c2c2d58ff945b2cc166",
+    "entities": [
+      {
+        "tableName": "scan_history",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` INTEGER NOT NULL, `photoName` TEXT NOT NULL, `viewJson` TEXT NOT NULL, `bestTitle` TEXT, `bestProducer` TEXT, `bestSlug` TEXT, `bestReference` TEXT, `bottleCount` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "photoName",
+            "columnName": "photoName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "viewJson",
+            "columnName": "viewJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bestTitle",
+            "columnName": "bestTitle",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "bestProducer",
+            "columnName": "bestProducer",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "bestSlug",
+            "columnName": "bestSlug",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "bestReference",
+            "columnName": "bestReference",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "bottleCount",
+            "columnName": "bottleCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e03cfa91193c3c2c2d58ff945b2cc166')"
+    ]
+  }
+}

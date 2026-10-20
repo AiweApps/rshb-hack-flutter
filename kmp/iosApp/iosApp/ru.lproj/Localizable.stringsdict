@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>history_bottles_count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@bottles@</string>
+		<key>bottles</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d бутылка</string>
+			<key>few</key>
+			<string>%d бутылки</string>
+			<key>many</key>
+			<string>%d бутылок</string>
+			<key>other</key>
+			<string>%d бутылки</string>
+		</dict>
+	</dict>
+	<key>settings_catalog_size</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@cards@</string>
+		<key>cards</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d карточка в каталоге</string>
+			<key>few</key>
+			<string>%d карточки в каталоге</string>
+			<key>many</key>
+			<string>%d карточек в каталоге</string>
+			<key>other</key>
+			<string>%d карточки в каталоге</string>
+		</dict>
+	</dict>
+	<key>pairing_among_wines</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@wines@</string>
+		<key>wines</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Среди %d вина из вашего сравнения</string>
+			<key>few</key>
+			<string>Среди %d вин из вашего сравнения</string>
+			<key>many</key>
+			<string>Среди %d вин из вашего сравнения</string>
+			<key>other</key>
+			<string>Среди %d вин из вашего сравнения</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

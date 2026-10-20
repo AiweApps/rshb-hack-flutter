@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "gunko-winery-sovinon-blan-gunko-winery-beloe-suhoe-135",
+    "source_asset": "data/extracted/prod-svoe-vino-strapi/prod-svoe-vino/strapi/uploads/gunko_winery_sovinon_blan_gunko_winery_beloe_suhoe_135_018fec8f4b.webp",
+    "source_sha256": "1052fee4ed6c43fba067c4939f763880ffa41eb70855c72ae60fd4bccab5fc16",
+    "bundled_asset": "iosApp/iosApp/Assets.xcassets/intro_sauvignon.imageset/intro_sauvignon.png",
+    "bundled_sha256": "4d7ee9dd3ee79a950d85528be46a0347ab4b5b320546f24617de0feca906e68b",
+    "fields": {
+      "Название вина": "Совиньон Блан Gunko Winery",
+      "Категория": "Белое",
+      "Цвет": "Соломенно-желтый с тонкими зеленоватыми бликами",
+      "Регион": "Кубань",
+      "Сорт винограда": "Совиньон Блан",
+      "Описание": "Вкус: Яркий, сбалансированный с фруктово-цитрусовыми акцентами, ощутимой кислинкой и соблазнительным послевкусием. С оттенками белой смородины, крыжовника, яблока, минералов и весенних цветов формируют освежающий, гармоничный аромат.",
+      "Винодельня": "Gunko Winery",
+      "Slug": "gunko-winery-sovinon-blan-gunko-winery-beloe-suhoe-135",
+      "Название фото": "gunko-winery-sovinon-blan-gunko-winery-beloe-suhoe-135.webp"
+    },
+    "binding": "catalogue reference, reviewed; not an onboarding inference request",
+    "transform": "RGBA alpha bounds crop; downsample only"
+  },
+  {
+    "slug": "gunko-winery-malbek-krasnoe-suhoe-14",
+    "source_asset": "data/extracted/prod-svoe-vino-strapi/prod-svoe-vino/strapi/uploads/gunko_winery_malbek_krasnoe_suhoe_14_1944604a52.webp",
+    "source_sha256": "73a4a254fe1ccc779bd358a255d0c3d959518d301c0eb2e453dcc3af5eb916a5",
+    "bundled_asset": "iosApp/iosApp/Assets.xcassets/intro_malbec.imageset/intro_malbec.png",
+    "bundled_sha256": "0869fac2ec8ed961e9671732f0500de6368c2d0cba40f0deae377c35d7a2e850",
+    "fields": {
+      "Название вина": "Мальбек",
+      "Категория": "Красное",
+      "Цвет": "Вино красивого рубинового цвета с фиолетовым отблеском.",
+      "Регион": "Кубань",
+      "Сорт винограда": "Мальбек",
+      "Описание": "Комплексный аромат с нотами сливы, ежевики, лакрицы и какао. Вкус сочный, напористый, продолжает заявленную стилистику. Податливое тело, пластичная кислотность и сговорчивые танины. В послевкусии сочные вишневые ноты.",
+      "Винодельня": "Gunko Winery",
+      "Slug": "gunko-winery-malbek-krasnoe-suhoe-14",
+      "Название фото": "gunko-winery-malbek-krasnoe-suhoe-14.webp"
+    },
+    "binding": "catalogue reference, reviewed; not an onboarding inference request",
+    "transform": "RGBA alpha bounds crop; downsample only"
+  }
+]

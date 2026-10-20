@@ -1,0 +1,31 @@
+{
+  "kind": "wine-ondevice-ios-candidate-profile-v1",
+  "assets": "external/ios/candidate-assets-v3",
+  "assets_sha256": "5db12023083b1343d4d0b6d96e2e104ab2d97aa0416f16ec32aec324928fb9c3",
+  "scanner_builds": [
+    "server_with_manual_local",
+    "local_only"
+  ],
+  "production_activated": false,
+  "server_policy_parity": "pending",
+  "ocr": "Apple Vision revision3 ru-RU/en-US accurate, language correction false",
+  "download": {
+    "archive_bytes": 827930575,
+    "archive_format": "manifest-indexed-ustar-gzip-v1",
+    "archive_path": "/api/local-scanner/package-6c7ae6f8469060944864b410277f25da04f6e2398a137dc36c5b162d3d93af21.tar.gz",
+    "archive_sha256": "6c7ae6f8469060944864b410277f25da04f6e2398a137dc36c5b162d3d93af21",
+    "assets_manifest_sha256": "5db12023083b1343d4d0b6d96e2e104ab2d97aa0416f16ec32aec324928fb9c3",
+    "files": 2252,
+    "kind": "wine-ondevice-download-v1",
+    "unpacked_bytes": 894244655,
+    "manifest_path": "/api/local-scanner/manifests/5db12023083b1343d4d0b6d96e2e104ab2d97aa0416f16ec32aec324928fb9c3.json"
+  },
+  "policy": {
+    "path": "external/ios/policy",
+    "sha256": "35dedbd1d4f880503c024a3eeb25cbcb2ad627c2d88334a372d66b4fb7349808"
+  },
+  "python_runtime": {
+    "iphonesimulator": "external/ios/app-runtime-simulator-v1",
+    "iphoneos": "external/ios/app-runtime-device-v1"
+  }
+}

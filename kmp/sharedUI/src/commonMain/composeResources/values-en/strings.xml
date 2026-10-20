@@ -1,0 +1,8 @@
+<resources>
+    <string name="error_network">No internet connection</string>
+    <string name="error_timeout">Timed out</string>
+    <string name="error_unauthorized">Could not open a session</string>
+    <string name="error_server">Service unavailable, please try again later</string>
+    <string name="error_unknown">Something went wrong</string>
+    <string name="action_retry">Retry</string>
+</resources>

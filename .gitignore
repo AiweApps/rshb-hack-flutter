@@ -65,3 +65,27 @@ android/fastlane/*.json
 
 # Flutter generated (contains absolute local paths)
 **/Flutter/ephemeral/
+
+# KMP local runtimes, signing and generated native output.
+/kmp/external/
+/kmp/.venv/
+/kmp/**/.cxx/
+/kmp/**/.externalNativeBuild/
+/kmp/**/build/
+/kmp/**/local.properties
+/kmp/**/xcuserdata/
+/kmp/**/*.xcuserstate
+/kmp/**/*.xcuserdatad/
+/kmp/androidApp/google-services.json
+/kmp/iosApp/iosApp/GoogleService-Info.plist
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.onnx
+*.safetensors
+*.mlmodel
+*.mlmodelc/
+*.mlpackage/
+*.pkl
+*.npz
+*.npy

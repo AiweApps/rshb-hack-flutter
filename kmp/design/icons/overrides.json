@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "Camera": {
+    "kind": "scan-frame-with-bottle",
+    "frame_concept": "Camera",
+    "frame_subpaths": 4,
+    "bottle_concept": "Bottle",
+    "bottle_scale": "0.7",
+    "center": "12",
+    "approval": "Owner request 20 October 2026: smaller bottle in the centre of the scanner."
+  }
+}

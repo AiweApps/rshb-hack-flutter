@@ -1,0 +1,1 @@
+"""Local WineScan assistant service."""
