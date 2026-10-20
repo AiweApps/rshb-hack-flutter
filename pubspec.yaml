@@ -87,6 +87,7 @@ flutter:
   generate: true
   assets:
     - assets/images/
+    - assets/data/gastronomy_catalog_v1.json
     - path: assets/flavors/dev.json
       flavors:
         - dev

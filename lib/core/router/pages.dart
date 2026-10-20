@@ -4,6 +4,7 @@ class Pages {
   static const String _scan = 'scan';
   static const String _scanResult = 'result';
   static const String _history = 'history';
+  static const String _compare = 'compare';
   static const String _settings = 'settings';
 
   static PageInfo root = const PageInfo(path: '/', name: 'root');
@@ -43,6 +44,12 @@ class Pages {
     navigationParent: root,
   );
 
+  static PageInfo compare = PageInfo(
+    path: _compare,
+    name: _compare,
+    navigationParent: root,
+  );
+
   /// Tab 3.
   static PageInfo settings = PageInfo(
     path: _settings,
@@ -58,6 +65,7 @@ class Pages {
     scan,
     scanResult,
     history,
+    compare,
     settings,
   ];
 

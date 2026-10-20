@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../compare/application/comparison_bloc.dart';
 import '../../application/result/bloc/scan_result_bloc.dart';
 import '../../application/result/bloc/scan_result_state.dart';
 import 'components/result_answer_list.dart';
@@ -27,6 +28,8 @@ class ScanResultContent extends StatelessWidget {
             onRescanHintDismissed: () => bloc.add(const RescanHintDismissed()),
             onCompare: (id, card) =>
                 bloc.add(CompareTapped(instanceId: id, card: card)),
+            onAddWine: (card) =>
+                context.read<ComparisonBloc>().add(AddComparisonWine(card)),
             onLinkTap: (url) => bloc.add(CardLinkPressed(url: url)),
             onRetry: () => bloc.add(const RetryPressed()),
             onNewScan: () => bloc.add(const NewScanPressed()),

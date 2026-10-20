@@ -24,6 +24,7 @@ class BottleAnswer extends StatelessWidget {
   final VoidCallback onRescan;
   final VoidCallback onRescanHintDismissed;
   final ValueChanged<WineCard> onCompare;
+  final ValueChanged<WineCard> onAddWine;
   final ValueChanged<String> onLinkTap;
 
   const BottleAnswer({
@@ -36,6 +37,7 @@ class BottleAnswer extends StatelessWidget {
     required this.onRescan,
     required this.onRescanHintDismissed,
     required this.onCompare,
+    required this.onAddWine,
     required this.onLinkTap,
   });
 
@@ -132,6 +134,17 @@ class BottleAnswer extends StatelessWidget {
                   onLinkTap: onLinkTap,
                 ),
         ),
+        if (best != null && best.inCatalog) ...[
+          const SizedBox(height: AppSpaces.s8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+            child: OutlinedButton.icon(
+              onPressed: () => onAddWine(best),
+              icon: const Icon(Icons.add),
+              label: Text(l10n.compareAddAction),
+            ),
+          ),
+        ],
         if (bottle.alternatives.isNotEmpty) ...[
           const SizedBox(height: AppSpaces.s20),
           Padding(

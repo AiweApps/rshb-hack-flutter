@@ -680,4 +680,110 @@ class AppLocalizationsEn extends AppLocalizations {
   String settingsVersion(String version, String build) {
     return 'Version $version ($build)';
   }
+
+  @override
+  String get compareTitle => 'Compare wines';
+
+  @override
+  String compareCount(int count) {
+    return 'Comparing: $count of 3';
+  }
+
+  @override
+  String get compareAdded => 'Wine added to comparison';
+
+  @override
+  String get compareAlreadyAdded => 'This wine is already in the comparison';
+
+  @override
+  String get compareFull =>
+      'Compare up to three wines. Remove one to add another.';
+
+  @override
+  String get compareSaved => 'Choice saved in history';
+
+  @override
+  String get compareSaveFailed => 'Could not save. Try again.';
+
+  @override
+  String get compareEmpty => 'Add a wine from a scan result or history.';
+
+  @override
+  String get compareNeedSecond =>
+      'Add a second bottle to compare wines and choose a dish.';
+
+  @override
+  String get compareAddWine => 'Scan another wine';
+
+  @override
+  String get compareAddFromHistory => 'Choose from history';
+
+  @override
+  String get compareChooseDish => 'Choose a dish';
+
+  @override
+  String get compareDish => 'Dish';
+
+  @override
+  String get compareDataError => 'Dish data could not load. Restart the app.';
+
+  @override
+  String get compareNoData => 'No data';
+
+  @override
+  String get compareNoPhoto => 'No photo';
+
+  @override
+  String get compareRetryPhotos => 'Retry photos';
+
+  @override
+  String get compareType => 'Color / type';
+
+  @override
+  String get compareSourceCategory => 'Source category';
+
+  @override
+  String get compareGrapes => 'Grapes';
+
+  @override
+  String get compareRegion => 'Region';
+
+  @override
+  String get compareTemperature => 'Serve, °C';
+
+  @override
+  String get comparePairings => 'Pairs with';
+
+  @override
+  String get compareRemoveWine => 'Remove from comparison';
+
+  @override
+  String get compareNoMatches =>
+      'The catalogue lists no pairing with this dish for these wines. Choose another dish or add a wine.';
+
+  @override
+  String get compareUnknownPairings =>
+      'Pairings are unknown for some wines. This does not mean they are unsuitable.';
+
+  @override
+  String compareReason(String dish) {
+    return 'The Svoe Vino catalogue recommends this wine with “$dish”.';
+  }
+
+  @override
+  String get compareSaveChoice => 'Save choice';
+
+  @override
+  String get compareAddAction => 'Add to comparison';
+
+  @override
+  String compareOpenAction(int count) {
+    return 'Compare · $count';
+  }
+
+  @override
+  String get compareSavedChoices => 'Saved choices';
+
+  @override
+  String get compareDeleteChoice => 'Delete saved choice';
 }

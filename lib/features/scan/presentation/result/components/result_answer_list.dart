@@ -22,6 +22,7 @@ class ResultAnswerList extends StatelessWidget {
   final ValueChanged<String> onRescan;
   final VoidCallback onRescanHintDismissed;
   final void Function(String instanceId, WineCard card) onCompare;
+  final ValueChanged<WineCard> onAddWine;
   final ValueChanged<String> onLinkTap;
   final VoidCallback onRetry;
   final VoidCallback onNewScan;
@@ -33,6 +34,7 @@ class ResultAnswerList extends StatelessWidget {
     required this.onRescan,
     required this.onRescanHintDismissed,
     required this.onCompare,
+    required this.onAddWine,
     required this.onLinkTap,
     required this.onRetry,
     required this.onNewScan,
@@ -63,6 +65,7 @@ class ResultAnswerList extends StatelessWidget {
               onRescan: onRescan,
               onRescanHintDismissed: onRescanHintDismissed,
               onCompare: onCompare,
+              onAddWine: onAddWine,
               onLinkTap: onLinkTap,
             ),
           },
@@ -89,6 +92,7 @@ class _Answer extends StatelessWidget {
   final ValueChanged<String> onRescan;
   final VoidCallback onRescanHintDismissed;
   final void Function(String instanceId, WineCard card) onCompare;
+  final ValueChanged<WineCard> onAddWine;
   final ValueChanged<String> onLinkTap;
 
   const _Answer({
@@ -98,6 +102,7 @@ class _Answer extends StatelessWidget {
     required this.onRescan,
     required this.onRescanHintDismissed,
     required this.onCompare,
+    required this.onAddWine,
     required this.onLinkTap,
   });
 
@@ -137,6 +142,7 @@ class _Answer extends StatelessWidget {
             referenceAccess: state.referenceAccess,
             onBottleTap: onBottleSelected,
             onLinkTap: onLinkTap,
+            onAddWine: onAddWine,
           )
         else
           BottleAnswer(
@@ -148,6 +154,7 @@ class _Answer extends StatelessWidget {
             onRescan: () => onRescan(selected.instanceId),
             onRescanHintDismissed: onRescanHintDismissed,
             onCompare: (card) => onCompare(selected.instanceId, card),
+            onAddWine: onAddWine,
             onLinkTap: onLinkTap,
           ),
       ],

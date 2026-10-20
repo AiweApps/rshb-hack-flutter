@@ -1279,6 +1279,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version {version} ({build})'**
   String settingsVersion(String version, String build);
+
+  /// No description provided for @compareTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare wines'**
+  String get compareTitle;
+
+  /// No description provided for @compareCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Comparing: {count} of 3'**
+  String compareCount(int count);
+
+  /// No description provided for @compareAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Wine added to comparison'**
+  String get compareAdded;
+
+  /// No description provided for @compareAlreadyAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'This wine is already in the comparison'**
+  String get compareAlreadyAdded;
+
+  /// No description provided for @compareFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare up to three wines. Remove one to add another.'**
+  String get compareFull;
+
+  /// No description provided for @compareSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Choice saved in history'**
+  String get compareSaved;
+
+  /// No description provided for @compareSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save. Try again.'**
+  String get compareSaveFailed;
+
+  /// No description provided for @compareEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a wine from a scan result or history.'**
+  String get compareEmpty;
+
+  /// No description provided for @compareNeedSecond.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a second bottle to compare wines and choose a dish.'**
+  String get compareNeedSecond;
+
+  /// No description provided for @compareAddWine.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan another wine'**
+  String get compareAddWine;
+
+  /// No description provided for @compareAddFromHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from history'**
+  String get compareAddFromHistory;
+
+  /// No description provided for @compareChooseDish.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a dish'**
+  String get compareChooseDish;
+
+  /// No description provided for @compareDish.
+  ///
+  /// In en, this message translates to:
+  /// **'Dish'**
+  String get compareDish;
+
+  /// No description provided for @compareDataError.
+  ///
+  /// In en, this message translates to:
+  /// **'Dish data could not load. Restart the app.'**
+  String get compareDataError;
+
+  /// No description provided for @compareNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No data'**
+  String get compareNoData;
+
+  /// No description provided for @compareNoPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'No photo'**
+  String get compareNoPhoto;
+
+  /// No description provided for @compareRetryPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry photos'**
+  String get compareRetryPhotos;
+
+  /// No description provided for @compareType.
+  ///
+  /// In en, this message translates to:
+  /// **'Color / type'**
+  String get compareType;
+
+  /// No description provided for @compareSourceCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Source category'**
+  String get compareSourceCategory;
+
+  /// No description provided for @compareGrapes.
+  ///
+  /// In en, this message translates to:
+  /// **'Grapes'**
+  String get compareGrapes;
+
+  /// No description provided for @compareRegion.
+  ///
+  /// In en, this message translates to:
+  /// **'Region'**
+  String get compareRegion;
+
+  /// No description provided for @compareTemperature.
+  ///
+  /// In en, this message translates to:
+  /// **'Serve, °C'**
+  String get compareTemperature;
+
+  /// No description provided for @comparePairings.
+  ///
+  /// In en, this message translates to:
+  /// **'Pairs with'**
+  String get comparePairings;
+
+  /// No description provided for @compareRemoveWine.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from comparison'**
+  String get compareRemoveWine;
+
+  /// No description provided for @compareNoMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'The catalogue lists no pairing with this dish for these wines. Choose another dish or add a wine.'**
+  String get compareNoMatches;
+
+  /// No description provided for @compareUnknownPairings.
+  ///
+  /// In en, this message translates to:
+  /// **'Pairings are unknown for some wines. This does not mean they are unsuitable.'**
+  String get compareUnknownPairings;
+
+  /// No description provided for @compareReason.
+  ///
+  /// In en, this message translates to:
+  /// **'The Svoe Vino catalogue recommends this wine with “{dish}”.'**
+  String compareReason(String dish);
+
+  /// No description provided for @compareSaveChoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Save choice'**
+  String get compareSaveChoice;
+
+  /// No description provided for @compareAddAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to comparison'**
+  String get compareAddAction;
+
+  /// No description provided for @compareOpenAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare · {count}'**
+  String compareOpenAction(int count);
+
+  /// No description provided for @compareSavedChoices.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved choices'**
+  String get compareSavedChoices;
+
+  /// No description provided for @compareDeleteChoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete saved choice'**
+  String get compareDeleteChoice;
 }
 
 class _AppLocalizationsDelegate

@@ -11,6 +11,9 @@ import '../core/services/auth/guest_session_service.dart';
 import '../core/services/camera_service.dart';
 import '../core/services/flavors.dart';
 import '../core/services/photo_picker_service.dart';
+import '../features/compare/application/comparison_bloc.dart';
+import '../features/compare/domain/comparison_repository.dart';
+import '../features/compare/domain/gastronomy_catalog.dart';
 import '../features/history/application/bloc/history_bloc.dart';
 import '../features/history/domain/dao/scan_history_dao.dart';
 import '../features/history/domain/scan_history_repository.dart';
@@ -36,6 +39,7 @@ Future<void> _registerCore(GetIt sl) async {
   if (!sl.isRegistered<AppPreferences>()) {
     final prefs = await SharedPreferences.getInstance();
     sl.registerSingleton<AppPreferences>(AppPreferences(prefs));
+    sl.registerSingleton<ComparisonRepository>(ComparisonRepository(prefs));
   }
   if (!sl.isRegistered<AppFlavorService>()) {
     final flavorService = await AssetsAppFlavorService.fromAssets();
@@ -86,6 +90,9 @@ void _registerServices(GetIt sl) {
 }
 
 void _registerRepositories(GetIt sl) {
+  if (!sl.isRegistered<GastronomyCatalog>()) {
+    sl.registerLazySingleton<GastronomyCatalog>(() => GastronomyCatalog());
+  }
   if (!sl.isRegistered<ScanApiRepository>()) {
     sl.registerLazySingleton<ScanApiRepository>(
       () => ScanApiRepository(
@@ -103,6 +110,15 @@ void _registerRepositories(GetIt sl) {
 }
 
 void _registerBlocs(GetIt sl) {
+  if (!sl.isRegistered<ComparisonBloc>()) {
+    sl.registerLazySingleton<ComparisonBloc>(
+      () => ComparisonBloc(
+        sl<ComparisonRepository>(),
+        sl<GastronomyCatalog>(),
+        sl<ScanApiRepository>(),
+      ),
+    );
+  }
   if (!sl.isRegistered<SplashBloc>()) {
     sl.registerFactory<SplashBloc>(() => SplashBloc());
   }

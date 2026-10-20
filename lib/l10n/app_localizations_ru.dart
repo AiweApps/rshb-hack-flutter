@@ -684,4 +684,112 @@ class AppLocalizationsRu extends AppLocalizations {
   String settingsVersion(String version, String build) {
     return 'Версия $version ($build)';
   }
+
+  @override
+  String get compareTitle => 'Сравнить вина';
+
+  @override
+  String compareCount(int count) {
+    return 'В сравнении: $count из 3';
+  }
+
+  @override
+  String get compareAdded => 'Вино добавлено к сравнению';
+
+  @override
+  String get compareAlreadyAdded => 'Это вино уже в сравнении';
+
+  @override
+  String get compareFull =>
+      'Можно сравнить не более трёх вин. Удалите одно, чтобы добавить другое.';
+
+  @override
+  String get compareSaved => 'Выбор сохранён в истории';
+
+  @override
+  String get compareSaveFailed => 'Не удалось сохранить. Попробуйте ещё раз.';
+
+  @override
+  String get compareEmpty =>
+      'Добавьте вино из результата сканирования или истории.';
+
+  @override
+  String get compareNeedSecond =>
+      'Добавьте вторую бутылку, чтобы сравнить вина и подобрать блюдо.';
+
+  @override
+  String get compareAddWine => 'Сканировать ещё вино';
+
+  @override
+  String get compareAddFromHistory => 'Выбрать из истории';
+
+  @override
+  String get compareChooseDish => 'Подобрать к блюду';
+
+  @override
+  String get compareDish => 'Блюдо';
+
+  @override
+  String get compareDataError =>
+      'Данные блюд не загрузились. Перезапустите приложение.';
+
+  @override
+  String get compareNoData => 'Нет данных';
+
+  @override
+  String get compareNoPhoto => 'Нет фото';
+
+  @override
+  String get compareRetryPhotos => 'Повторить загрузку фото';
+
+  @override
+  String get compareType => 'Цвет / тип';
+
+  @override
+  String get compareSourceCategory => 'Категория источника';
+
+  @override
+  String get compareGrapes => 'Сорта';
+
+  @override
+  String get compareRegion => 'Регион';
+
+  @override
+  String get compareTemperature => 'Подача, °C';
+
+  @override
+  String get comparePairings => 'К блюдам';
+
+  @override
+  String get compareRemoveWine => 'Убрать из сравнения';
+
+  @override
+  String get compareNoMatches =>
+      'В каталоге нет указанных сочетаний с этим блюдом для выбранных вин. Выберите другое блюдо или добавьте вино.';
+
+  @override
+  String get compareUnknownPairings =>
+      'Для части вин сочетания неизвестны. Это не означает, что они не подходят.';
+
+  @override
+  String compareReason(String dish) {
+    return 'В каталоге «Своё вино» это вино рекомендовано к блюду «$dish».';
+  }
+
+  @override
+  String get compareSaveChoice => 'Сохранить выбор';
+
+  @override
+  String get compareAddAction => 'Добавить к сравнению';
+
+  @override
+  String compareOpenAction(int count) {
+    return 'Сравнить · $count';
+  }
+
+  @override
+  String get compareSavedChoices => 'Сохранённые выборы';
+
+  @override
+  String get compareDeleteChoice => 'Удалить сохранённый выбор';
 }

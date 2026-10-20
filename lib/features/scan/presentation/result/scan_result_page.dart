@@ -13,6 +13,7 @@ import '../../../../core/presentation/app_icons.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/services/language_service.dart';
 import '../../../../shared/helpers/service_locator.dart';
+import '../../../compare/application/comparison_bloc.dart';
 import '../../application/result/bloc/scan_result_bloc.dart';
 import '../../application/result/bloc/scan_result_state.dart';
 import '../../application/result/bloc/scan_result_uieffect.dart';
@@ -49,6 +50,12 @@ class ScanResultPage extends StatelessWidget {
           appBar: AppBar(
             title: Text(l10n.resultTitle),
             actions: [
+              BlocBuilder<ComparisonBloc, ComparisonState>(
+                builder: (context, comparison) => TextButton(
+                  onPressed: () => sl<AppRouter>().navigateToComparison(),
+                  child: Text(l10n.compareOpenAction(comparison.wines.length)),
+                ),
+              ),
               // «Ещё» is about the answer: nothing to offer before one.
               BlocSelector<ScanResultBloc, ScanResultState, bool>(
                 selector: (state) => state.hasAnswer,

@@ -8,6 +8,7 @@ import '../../../core/router/app_router.dart';
 import '../../../core/services/language_service.dart';
 import '../../../core/widgets/dialog/confirmation_dialog.dart';
 import '../../../shared/helpers/service_locator.dart';
+import '../../compare/application/comparison_bloc.dart';
 import '../../scan/domain/models/scan_result_args.dart';
 import '../application/bloc/history_bloc.dart';
 import '../application/bloc/history_state.dart';
@@ -24,7 +25,7 @@ class HistoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(context.localization.historyTitle),
-        actions: const [_ClearAction()],
+        actions: const [_CompareAction(), _ClearAction()],
       ),
       body: SafeArea(
         child: BaseBlocPresentationListener<HistoryBloc>(
@@ -68,6 +69,20 @@ class HistoryPage extends StatelessWidget {
   }
 }
 
+class _CompareAction extends StatelessWidget {
+  const _CompareAction();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ComparisonBloc, ComparisonState>(
+      builder: (context, state) => TextButton(
+        onPressed: () => sl<AppRouter>().navigateToComparison(),
+        child: Text(context.localization.compareOpenAction(state.wines.length)),
+      ),
+    );
+  }
+}
+
 /// "Clear history" in the app bar; hidden while there is nothing to clear.
 class _ClearAction extends StatelessWidget {
   const _ClearAction();
@@ -78,10 +93,17 @@ class _ClearAction extends StatelessWidget {
       selector: (state) => state.canClear,
       builder: (context, canClear) {
         if (!canClear) return const SizedBox.shrink();
-        return TextButton(
-          onPressed: () =>
+        return PopupMenuButton<String>(
+          tooltip: MaterialLocalizations.of(context).moreButtonTooltip,
+          icon: const Icon(Icons.more_horiz),
+          onSelected: (_) =>
               context.read<HistoryBloc>().add(const ClearHistoryPressed()),
-          child: Text(context.localization.historyClear),
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              value: 'clear',
+              child: Text(context.localization.historyClear),
+            ),
+          ],
         );
       },
     );

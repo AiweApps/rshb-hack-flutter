@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/compare/presentation/comparison_page.dart';
 import '../../features/history/application/bloc/history_bloc.dart';
 import '../../features/history/presentation/history_page.dart';
 import '../../features/onboarding/application/bloc/onboarding_bloc.dart';
@@ -67,6 +68,11 @@ class AppRouter {
           path: '/${Pages.onboarding.path}',
           name: Pages.onboarding.name,
           builder: _onboardingPageRouteBuilder,
+        ),
+        GoRoute(
+          path: '/${Pages.compare.path}',
+          name: Pages.compare.name,
+          builder: (context, state) => const ComparisonPage(),
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) =>
@@ -201,6 +207,8 @@ extension AppRouterExtension on AppRouter {
   void navigateToScan() => _go(Pages.scan.navigationPath);
 
   void navigateToHistory() => _go(Pages.history.navigationPath);
+
+  void navigateToComparison() => _push(Pages.compare.navigationPath);
 
   void navigateToScanResult(ScanResultArgs args) =>
       _push(Pages.scanResult.navigationPath, extra: args);
